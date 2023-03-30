@@ -19,7 +19,7 @@ export default function NavBarBottom (){
 
 const styles = StyleSheet.create({
   container: {
-    backgroundcolor: 'white',
+    backgroundColor: 'white',
     width: '100%',
     height: 50,
     position: 'fixed',
