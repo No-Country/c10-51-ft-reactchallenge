@@ -23,7 +23,7 @@ const CardPromocion = () => {
 const styles = StyleSheet.create({
     container: {
         height: 150,
-        width: 350,
+        width: '90%',
         textAlign: 'start',
         borderRadius: 20,
         margin:10,
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         marginLeft:20,
     },
     secondaryText: {
-        fontStyle: 'normal',
+        fontFamily: 'Poppins-Light',
         color: 'white',
         fontWeight: 400,
         fontSize:12,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         padding:1
     },
     primaryText: {
-        fontStyle: 'normal',
+        fontFamily: 'Poppins-SemiBold',
         color: '#fff',
         fontWeight: 700,
         fontSize:16,
