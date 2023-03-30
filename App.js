@@ -1,14 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
-import reactDom from 'react-dom';
-import { StyleSheet, Text, View } from 'react-native';
-import CardPromocion from './components/cardPromocion';
-import { BtnPrimaryIconDef, BtnPrimaryIconHome, BtnSecondaryIconDef } from './components/buttons/BtnsIcon'
+import { StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import { useEffect, useCallback } from 'react';
 import * as SplashScreen from 'expo-splash-screen'
-import { BtnPrimaryLarge, BtnPrimaryColLarge, BtnPrimary, BtnPrimaryCol, BtnAddCart, BtnFiltroComp } from './components/buttons/Btns';
-import Index from './app';
-import SearchFood from './components/SearchFood';
+import NavBarBottom from './src/components/Navigation/NavBarBottom'
+import NavBar from './src/components/Navigation/NavBar'
 
 
 export default function App() {
@@ -38,13 +33,16 @@ export default function App() {
   }, [fontsLoaded])
 
   if (!fontsLoaded) return null;
-
+  
   return (
     <View style={styles.container} onLayout={onLayout}>
-      
+      <NavBar/>
+      <NavBarBottom/>
     </View>
-  );
+
+);
 }
+//se debe colocar un layout para que ambas navbar se meustren en todas las paginas menos las que no corresponde
 
 const styles = StyleSheet.create({
   container: {
@@ -53,6 +51,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#d9d9d9',
     fontFamily:'Poppins-Regular'
+
   },
   
 });
