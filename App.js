@@ -8,6 +8,8 @@ import { useEffect, useCallback } from 'react';
 import * as SplashScreen from 'expo-splash-screen'
 import { BtnPrimaryLarge, BtnPrimaryColLarge, BtnPrimary, BtnPrimaryCol, BtnAddCart, BtnFiltroComp } from './components/buttons/Btns';
 import Index from './app';
+import SearchFood from './components/SearchFood';
+
 
 export default function App() {
   //importacion de fuentes, video explicativo: https://www.youtube.com/watch?v=2noGlR1DXsM&t=38s&ab_channel=BetoMoedano
@@ -39,18 +41,7 @@ export default function App() {
 
   return (
     <View style={styles.container} onLayout={onLayout}>
-      <CardPromocion />
-      <BtnPrimaryIconDef text="Icon Button" />
-      <BtnPrimaryIconHome />
-      <BtnSecondaryIconDef />
-      <BtnPrimaryLarge text="Button Primary" onPress={()=> alert('ejemplo')} />
-      <BtnPrimaryColLarge text="Button Primary Color " onPress={()=> alert('ejemplo')} />
-      <BtnPrimary text="Button label" onPress={()=> alert('ejemplo')} />
-      <BtnPrimaryCol text="Button label " onPress={()=> alert('ejemplo')} />  
-      <BtnAddCart text="agregar al carrito"/>    
-      <BtnFiltroComp/>
-      <StatusBar style="auto" />
-      <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 30 }}> PRUEBA FUENTE</Text>
+      
     </View>
   );
 }

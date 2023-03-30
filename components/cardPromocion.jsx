@@ -12,7 +12,7 @@ const CardPromocion = () => {
 
             <LinearGradient colors={['black', 'transparent']} style={styles.background}/>
             <View style={styles.textContainer}>
-            <Text style={styles.primaryText}>Hasta un 20% off en combo chedar..</Text>
+            <Text style={styles.primaryText}>Hasta un 20% off en combo chedar!</Text>
             <Text style={styles.secondaryText}>20% con tarjeta de débito en todos los bancos</Text>
             </View>
             </ImageBackground>
