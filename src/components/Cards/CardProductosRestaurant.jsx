@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     padding: 10,
-    paddingHorizontal: 15,
+    paddingHorizontal: 20,
     justifyContent: "space-evenly",
     alignItems: "center",
     flexDirection: "row",
