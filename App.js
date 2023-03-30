@@ -4,7 +4,6 @@ import { useEffect, useCallback } from 'react';
 import * as SplashScreen from 'expo-splash-screen'
 import NavBarBottom from './src/components/Navigation/NavBarBottom'
 import NavBar from './src/components/Navigation/NavBar'
-import CardProductosRestaurant from './src/components/Cards/CardProductosRestaurant';
 
 
 
@@ -42,7 +41,6 @@ export default function App() {
     <View style={styles.container} onLayout={onLayout}>
       <NavBar/>
       <NavBarBottom/>
-      <CardProductosRestaurant/>
     </View>
 
 );
