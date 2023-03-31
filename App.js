@@ -7,8 +7,6 @@ import NavBar from './src/components/Navigation/NavBar'
 
 
 
-
-
 export default function App() {
   //importacion de fuentes, video explicativo: https://www.youtube.com/watch?v=2noGlR1DXsM&t=38s&ab_channel=BetoMoedano
   const [fontsLoaded] = useFonts({
