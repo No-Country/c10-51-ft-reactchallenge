@@ -1,13 +1,18 @@
-import { StyleSheet, View } from 'react-native';
-import { useFonts } from 'expo-font';
+import react from 'react';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import reactDom from 'react-dom';
 import { useEffect, useCallback } from 'react';
 import * as SplashScreen from 'expo-splash-screen'
-import NavBarBottom from './src/components/Navigation/NavBarBottom'
+import { useFonts } from 'expo-font';
+import { StatusBar } from 'expo-status-bar';
+//componentes
 import NavBar from './src/components/Navigation/NavBar'
+import CardPromocion from './src/components/Cards/CardPromocion'
 
-
-
-
+import NavBarBottom from './src/components/Navigation/NavBarBottom'
+import AddCardButton from './src/components/Buttons/AddCardButton';
+import { BtnPrimary, BtnPrimaryCol, BtnPrimaryLarge, BtnPrimaryColLarge, BtnAddCart, BtnFiltroComp } from './src/components/Buttons/Btns'
+import { BtnPrimaryIconDef, BtnPrimaryIconHome } from './src/components/Buttons/BtnsIcon';
 
 export default function App() {
   //importacion de fuentes, video explicativo: https://www.youtube.com/watch?v=2noGlR1DXsM&t=38s&ab_channel=BetoMoedano
@@ -36,27 +41,41 @@ export default function App() {
   }, [fontsLoaded])
 
   if (!fontsLoaded) return null;
-  
-  return (
-    <View style={styles.container} onLayout={onLayout}>
-      <NavBar/>
-      <NavBarBottom/>
-    </View>
 
-);
+  return (
+      <ScrollView >
+    <View style={styles.container} onLayout={onLayout}>
+
+      <NavBar />
+      <CardPromocion />
+      <AddCardButton />
+      <BtnPrimary text="Boton 1" onPress={()=> alert('ejemlo')}/>
+      <BtnPrimary text="Boton 122" onPress={()=> alert('ejemlo')}/>
+
+      <BtnPrimaryCol text="Boton 2" onPress={()=> alert('ejemlo')}/>
+      <BtnPrimaryLarge text="Boton largo 1" onPress={()=> alert('ejemlo')}/>
+      <BtnPrimaryColLarge text="Boton largo 2" onPress={()=> alert('ejemlo')}/>
+      <BtnPrimaryIconDef text="Boton Icon"/>
+      <BtnPrimaryIconHome />
+      <BtnAddCart text={'Anadir al Carrito'}/>
+      <BtnFiltroComp text={"filtro"} color={"red"} />
+      <NavBarBottom/>
+
+      <StatusBar />
+    </View>
+      </ScrollView>
+  );
 }
-//se debe colocar un layout para que ambas navbar se meustren en todas las paginas menos las que no corresponde
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'start',
     backgroundColor: '#d9d9d9',
-    fontFamily:'Poppins-Regular'
 
   },
-  
+
 });
 // blanco = #f1f1f1
 // negro = #0a0a0a

@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
 		borderColor: "black",
 		borderWidth: 0.5,
 		borderRadius: 12,
+		
 	},
 	textContainer: {
 		width: "60%",

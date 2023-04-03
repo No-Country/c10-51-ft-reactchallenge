@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, StyleSheet, View, Text } from "react-native";
+import { TouchableOpacity, StyleSheet, View, Text,StatusBar } from "react-native";
 import MenuSvg from "../svgs/MenuSvg";
 import LupaSvg from "../svgs/LupaSvg";
 import CartSvg from "../svgs/CartSvg";
