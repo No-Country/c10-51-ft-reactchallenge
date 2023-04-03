@@ -1,8 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
-import PesosSvg from "../svgs/PesosSvg";
-import RelojSvg from "../svgs/RelojSvg";
-import EstrellaSvg from "../svgs/EstrellaSvg";
+import {RelojSvg,EstrellaSvg,PesosSvg} from "../svgs/Svgs";
 import { LinearGradient } from "expo-linear-gradient";
 
 const CardMenu = () => {

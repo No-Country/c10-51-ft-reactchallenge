@@ -65,7 +65,6 @@ export default function App() {
       </Stack.Navigator>
       <NavBarBottom />
     </NavigationContainer>
-
   );
 }
 

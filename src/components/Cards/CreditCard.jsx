@@ -1,8 +1,7 @@
 import React, { Fragment } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import VisaSvg from "../svgs/VisaSvg";
-import ChipSvg from "../svgs/ChipSvg";
+import {VisaSvg,ChipSvg} from "../svgs/Svgs";
 
 export default function CreditCard({ perspective }) {
 	return (
