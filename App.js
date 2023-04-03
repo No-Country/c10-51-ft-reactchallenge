@@ -13,6 +13,7 @@ import Profile from './src/pages/profile';
 import { StatusBar } from 'expo-status-bar';
 
 
+
 export default function App() {
   //importacion de fuentes, video explicativo: https://www.youtube.com/watch?v=2noGlR1DXsM&t=38s&ab_channel=BetoMoedano
 
