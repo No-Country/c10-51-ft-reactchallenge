@@ -8,7 +8,7 @@ import {
 } 
 from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import CartSvg from "../svgs/CartSvg";
+import {CartSvg} from "../svgs/Svgs";
 
 
 
@@ -33,7 +33,7 @@ export default function CardShop (){
 						Triple medallón de carne vacuna + triple bacon + triple cheddar
 					</Text> 
 				</View>
-				<TouchableOpacity style={styles.svg}>
+				<TouchableOpacity style={styles.buttonCart}>
           <CartSvg width={'12'} height={'12'}/>
 				</TouchableOpacity>
 			</ImageBackground>
@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
 		width: 156,
 		textAlign: "start",
 		borderRadius: 12,
-		zIndex: 10,
 		overflow: "hidden"
 	},
 	textContainer: {
@@ -88,10 +87,10 @@ const styles = StyleSheet.create({
 		resizeMode: "cover",
 		borderRadius: 20,
 	},
-  svg: {
+  buttonCart: {
     width: 28,
     height: 28,
-    borderRadius: '100%',
+    borderRadius: 12,
     backgroundColor: 'white',
     color: 'white',
     display: 'flex',

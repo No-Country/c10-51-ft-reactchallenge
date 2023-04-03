@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         marginVertical: 10, 
-        
     },
     textBtn:{
         fontFamily:'Poppins-SemiBold'

@@ -28,8 +28,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         margin:10,
         zIndex:10,
-        overflow:"hidden"
-
+        overflow:"hidden",
 
     },
     textContainer:{
