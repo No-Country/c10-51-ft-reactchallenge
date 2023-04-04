@@ -1,22 +1,24 @@
-import react from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import reactDom from 'react-dom';
-import { useEffect, useCallback } from 'react';
-import * as SplashScreen from 'expo-splash-screen'
-import { useFonts } from 'expo-font';
-import { StatusBar } from 'expo-status-bar';
-//componentes
-import NavBar from './src/components/Navigation/NavBar'
-import CardPromocion from './src/components/Cards/CardPromocion'
 
-import NavBarBottom from './src/components/Navigation/NavBarBottom'
-import AddCardButton from './src/components/Buttons/AddCardButton';
-import { BtnPrimary, BtnPrimaryCol, BtnPrimaryLarge, BtnPrimaryColLarge, BtnAddCart, BtnFiltroComp } from './src/components/Buttons/Btns'
-import { BtnPrimaryIconDef, BtnPrimaryIconHome } from './src/components/Buttons/BtnsIcon';
+import { StyleSheet, View, Text } from 'react-native';
+import { useFonts } from 'expo-font';
+import { useEffect, useCallback } from 'react';
+import * as SplashScreen from 'expo-splash-screen';
+import NavBar from './src/components/navigation/NavBar';
+import NavBarBottom from './src/components/navigation/NavBarBottom';
+import { DarkTheme, NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './src';
+import Order from './src/pages/order';
+import Pay from './src/pages/pay';
+import Profile from './src/pages/profile';
+import { StatusBar } from 'expo-status-bar';
+
+
 
 export default function App() {
   //importacion de fuentes, video explicativo: https://www.youtube.com/watch?v=2noGlR1DXsM&t=38s&ab_channel=BetoMoedano
-  const [fontsLoaded] = useFonts({
+
+  /* const [fontsLoaded] = useFonts({
     'Poppins-Regular': require('./assets/fonts/Poppins-Regular.ttf'),
     'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),
     'Poppins-Italic': require('./assets/fonts/Poppins-Italic.ttf'),
@@ -27,12 +29,14 @@ export default function App() {
 
   });
 
+  
   useEffect(() => {
     async function prepare() {
       await SplashScreen.preventAutoHideAsync();
     }
     prepare();
   }, []);
+
 
   const onLayout = useCallback(async () => {
     if (fontsLoaded) {
@@ -41,33 +45,34 @@ export default function App() {
   }, [fontsLoaded])
 
   if (!fontsLoaded) return null;
+ */
+
+
+
+  const Stack = createStackNavigator();
 
   return (
-      <ScrollView >
-    <View style={styles.container} onLayout={onLayout}>
-
+    <NavigationContainer>
       <NavBar />
-      <CardPromocion />
-      <AddCardButton />
-      <BtnPrimary text="Boton 1" onPress={()=> alert('ejemlo')}/>
-      <BtnPrimary text="Boton 122" onPress={()=> alert('ejemlo')}/>
+      <Stack.Navigator screenOptions={{
+        headerShown: false,
 
-      <BtnPrimaryCol text="Boton 2" onPress={()=> alert('ejemlo')}/>
-      <BtnPrimaryLarge text="Boton largo 1" onPress={()=> alert('ejemlo')}/>
-      <BtnPrimaryColLarge text="Boton largo 2" onPress={()=> alert('ejemlo')}/>
-      <BtnPrimaryIconDef text="Boton Icon"/>
-      <BtnPrimaryIconHome />
-      <BtnAddCart text={'Anadir al Carrito'}/>
-      <BtnFiltroComp text={"filtro"} color={"red"} />
-      <NavBarBottom/>
-
-      <StatusBar />
-    </View>
-      </ScrollView>
+      }}
+      >
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Order" component={Order} />
+        <Stack.Screen name="Pay" component={Pay} />
+        <Stack.Screen name="Profile" component={Profile} />
+      </Stack.Navigator>
+      <NavBarBottom />
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
+
+//se debe colocar un layout para que ambas navbar se meustren en todas las paginas menos las que no corresponde
+
+/* const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
@@ -76,6 +81,6 @@ const styles = StyleSheet.create({
 
   },
 
-});
+}); */
 // blanco = #f1f1f1
 // negro = #0a0a0a
