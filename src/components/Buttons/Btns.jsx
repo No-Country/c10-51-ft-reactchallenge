@@ -14,7 +14,7 @@ export function BtnPrimaryLarge (props) {
 export function BtnPrimaryColLarge (props) {
     const {text, onPress} = props;
     return (
-        <TouchableOpacity onPress={onPress} style={{ ...styles.btnsPrimaryLarge, backgroundColor:'#7d7d7d',
+        <TouchableOpacity onPress={onPress} style={{ ...styles.btnsPrimaryLarge, backgroundColor:'#FE793D',
     }}>
             <Text style={{...styles.textBtn, color:'#f1f1f1'}}>{text}</Text>
         </TouchableOpacity >
@@ -34,7 +34,7 @@ export function BtnPrimary (props) {
 export function BtnPrimaryCol (props) {
     const {text, onPress} = props;
     return (
-        <TouchableOpacity onPress={onPress} style={{ ...styles.btnsPrimary, backgroundColor:'#a6a6a6',
+        <TouchableOpacity onPress={onPress} style={{ ...styles.btnsPrimary, backgroundColor:'#FE793D',
     }}>
             <Text style={{...styles.textBtn, color:'#f1f1f1'}}>{text}</Text>
         </TouchableOpacity >
@@ -51,9 +51,9 @@ export function BtnAddCart (props) {
 };
 
 export function BtnFiltroComp (props) {
-    const {text, onPress} = props;
+    const {text, onPress, color} = props;
     return (
-        <TouchableOpacity onPress={()=>alert('ejemplo')} style={{...styles.btnAddCart, backgroundColor:'#9d9d9d', width:'auto', paddingHorizontal:12, paddingVertical:10}}>
+        <TouchableOpacity onPress={()=>alert('ejemplo')} style={{...styles.btnAddCart,border:1, width:'auto', paddingHorizontal:12, paddingVertical:10}}>
             <Text style={styles.textBtn}>Filtro</Text>
         </TouchableOpacity >
     );
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
         width:"50%",
         paddingVertical:11,
         borderRadius:15,
-        backgroundColor:'#f1f1f1',
+        backgroundColor:'#FE793D',
         alignItems:'center',
         justifyContent:'center',
         marginVertical: 10, 

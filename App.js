@@ -1,3 +1,4 @@
+
 import { StyleSheet, View, Text } from 'react-native';
 import { useFonts } from 'expo-font';
 import { useEffect, useCallback } from 'react';
@@ -75,9 +76,8 @@ export default function App() {
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'start',
     backgroundColor: '#d9d9d9',
-    fontFamily:'Poppins-Regular'
 
   },
 
