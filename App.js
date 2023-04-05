@@ -3,14 +3,14 @@ import { StyleSheet, View, Text } from 'react-native';
 import { useFonts } from 'expo-font';
 import { useEffect, useCallback } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
-import NavBar from './src/components/navigation/NavBar';
-import NavBarBottom from './src/components/navigation/NavBarBottom';
+import NavBar from './src/components/Navigation/NavBar';
+import NavBarBottom from './src/components/Navigation/NavBarBottom';
 import { DarkTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './src';
-import Order from './src/pages/order';
-import Pay from './src/pages/pay';
-import Profile from './src/pages/profile';
+import HomeScreen from './src/pages';
+import Order from './src/pages/app/order';
+import Pay from './src/pages/app/pay';
+import Profile from './src/pages/app/profile';
 import { StatusBar } from 'expo-status-bar';
 
 
@@ -18,7 +18,7 @@ import { StatusBar } from 'expo-status-bar';
 export default function App() {
   //importacion de fuentes, video explicativo: https://www.youtube.com/watch?v=2noGlR1DXsM&t=38s&ab_channel=BetoMoedano
 
-  /* const [fontsLoaded] = useFonts({
+  /*  const [fontsLoaded] = useFonts({
     'Poppins-Regular': require('./assets/fonts/Poppins-Regular.ttf'),
     'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),
     'Poppins-Italic': require('./assets/fonts/Poppins-Italic.ttf'),
@@ -45,8 +45,8 @@ export default function App() {
   }, [fontsLoaded])
 
   if (!fontsLoaded) return null;
+ 
  */
-
 
 
   const Stack = createStackNavigator();
