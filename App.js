@@ -1,62 +1,56 @@
 
 import { StyleSheet, View, Text } from 'react-native';
 import { useFonts } from 'expo-font';
-import { useEffect, useCallback } from 'react';
-import * as SplashScreen from 'expo-splash-screen';
-import NavBar from './src/components/Navigation/NavBar';
-import NavBarBottom from './src/components/Navigation/NavBarBottom';
-import { DarkTheme, NavigationContainer } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
+//navigate
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './src/pages';
+
+import { SplashScreen } from './src/pages/SplashScreen';
+
+//access
+import Login from './src/pages/access/Login';
+import Register from './src/pages/access/Register';
+//app
+import NavBarBottom from './src/components/Navigation/NavBarBottom';
+import NavBar from './src/components/Navigation/NavBar';
+import HomeScreen from './src/pages/app/index';
 import Order from './src/pages/app/order';
 import Pay from './src/pages/app/pay';
 import Profile from './src/pages/app/profile';
-import { StatusBar } from 'expo-status-bar';
 
-
-
-export default function App() {
-  //importacion de fuentes, video explicativo: https://www.youtube.com/watch?v=2noGlR1DXsM&t=38s&ab_channel=BetoMoedano
-
-  /*  const [fontsLoaded] = useFonts({
-    'Poppins-Regular': require('./assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),
-    'Poppins-Italic': require('./assets/fonts/Poppins-Italic.ttf'),
-    'Poppins-SemiBold': require('./assets/fonts/Poppins-SemiBold.ttf'),
-    'Poppins-Light': require('./assets/fonts/Poppins-Light.ttf'),
-    'Poppins-ExtraBold': require('./assets/fonts/Poppins-ExtraBold.ttf'),
-    'Poppins-ExtraLight': require('./assets/fonts/Poppins-ExtraLight.ttf'),
-
-  });
-
-  
-  useEffect(() => {
-    async function prepare() {
-      await SplashScreen.preventAutoHideAsync();
-    }
-    prepare();
-  }, []);
-
-
-  const onLayout = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded])
-
-  if (!fontsLoaded) return null;
- 
- */
-
-
-  const Stack = createStackNavigator();
-
+//navigate para el inicio
+const StackIni = createStackNavigator();
+function StackNavIni() {
   return (
-    <NavigationContainer>
+    <StackIni.Navigator initialRouteName="Splash">
+      <StackIni.Screen name='Splash' component={SplashScreen}
+        options={{
+          headerShown: false
+        }}/>
+        <StackIni.Screen name='Register' component={Register}
+        options={{headerShown:false
+      }}/><StackIni.Screen name='Login' component={Login}
+        options={{
+          headerShown: false
+        }}/>
+        
+
+    </StackIni.Navigator>
+  )
+};
+
+
+
+// navigation app
+const Stack = createStackNavigator();
+function StackNavApp() {
+  return (
+    <>
       <NavBar />
       <Stack.Navigator screenOptions={{
         headerShown: false,
-
+        
       }}
       >
         <Stack.Screen name="Home" component={HomeScreen} />
@@ -65,22 +59,43 @@ export default function App() {
         <Stack.Screen name="Profile" component={Profile} />
       </Stack.Navigator>
       <NavBarBottom />
-    </NavigationContainer>
+    </>
   );
 }
 
+export default function App() {
+  //importacion de fuentes, video explicativo: https://www.youtube.com/watch?v=2noGlR1DXsM&t=38s&ab_channel=BetoMoedano
+  const [fontsLoaded] = useFonts({
+    'Poppins-Regular': require('./assets/fonts/Poppins-Regular.ttf'),
+    'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),
+    'Poppins-Italic': require('./assets/fonts/Poppins-Italic.ttf'),
+    'Poppins-SemiBold': require('./assets/fonts/Poppins-SemiBold.ttf'),
+    'Poppins-Light': require('./assets/fonts/Poppins-Light.ttf'),
+    'Poppins-ExtraBold': require('./assets/fonts/Poppins-ExtraBold.ttf'),
+    'Poppins-ExtraLight': require('./assets/fonts/Poppins-ExtraLight.ttf'),
+  }); 
 
-//se debe colocar un layout para que ambas navbar se meustren en todas las paginas menos las que no corresponde
+  const [appIsReady, setAppIsReady] = useState(false);
+  useEffect(() => {
+    async function inicia() {
+      try {
+        await new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve();
+          }, 7000);
+        });
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setAppIsReady(false);// <====== false muestra inicio de sesion, true muestra la app
+      }
+    }
+    inicia();
+  }, []);
 
-/* const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'start',
-    backgroundColor: '#d9d9d9',
-
-  },
-
-}); */
-// blanco = #f1f1f1
-// negro = #0a0a0a
+  return (
+    <NavigationContainer>
+      {appIsReady ? <StackNavApp /> : <StackNavIni />}
+    </NavigationContainer>
+  );
+}

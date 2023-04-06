@@ -333,3 +333,65 @@ export function hombreMotoSvg() {
     </defs>
   </svg>;
 }
+
+
+
+export function SvgFACE(props) {
+  return (
+    <Svg
+      width={16}
+      height={19}
+      viewBox="0 0 16 19"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <Path
+        d="M13.05 17.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C-1.21 12.25-.49 4.59 5.05 4.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM8.03 4.25C7.88 2.02 9.69.18 11.77 0c.29 2.58-2.34 4.5-3.74 4.25z"
+        fill="#00869F"
+      />
+    </Svg>
+  )
+}
+
+export function SvgGOOGLE(props) {
+  return (
+    <Svg
+      width={24}
+      height={24}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <Path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M12 5.5a6.5 6.5 0 106.326 8H13a1.5 1.5 0 110-3h7a1.5 1.5 0 011.5 1.5 9.5 9.5 0 11-2.801-6.736 1.498 1.498 0 01-.48 2.448 1.5 1.5 0 01-1.636-.321A6.475 6.475 0 0012 5.5z"
+        fill="#00869F"
+      />
+    </Svg>
+  )
+}
+
+
+export function SvgAPPLE(props) {
+  return (
+    <Svg
+      width={11}
+      height={20}
+      viewBox="0 0 11 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <Path
+        d="M7 11.5h2.5l1-4H7v-2c0-1.03 0-2 2-2h1.5V.14C10.174.097 8.943 0 7.643 0 4.928 0 3 1.657 3 4.7v2.8H0v4h3V20h4v-8.5z"
+        fill="#00869F"
+      />
+    </Svg>
+  )
+}
+
+
+ 
