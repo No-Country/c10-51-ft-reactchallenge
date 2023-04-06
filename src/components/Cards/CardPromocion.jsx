@@ -23,13 +23,11 @@ const CardPromocion = () => {
 const styles = StyleSheet.create({
     container: {
         height: 150,
-        width: '90%',
+        width: '92%',
         textAlign: 'start',
         borderRadius: 20,
-        margin:10,
-        zIndex:10,
         overflow:"hidden",
-
+        
     },
     textContainer:{
         marginTop: 20,

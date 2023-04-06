@@ -35,13 +35,20 @@ const CardMenu = () => {
 const styles = StyleSheet.create({
   container: {
     height: 152,
-    width: "55%",
+    width: 242,
     textAlign: "start",
     borderRadius: 20,
-    margin: 10,
-    zIndex: 10,
     overflow: "hidden",
     backgroundColor: "white",
+    shadowColor: '#000',
+    marginLeft: 16,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3,
+    elevation: 5,
   },
   image: {
     width: "100%",

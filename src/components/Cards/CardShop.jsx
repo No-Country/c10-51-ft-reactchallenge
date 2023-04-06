@@ -8,11 +8,11 @@ import {
 } 
 from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import {CartSvg} from "../svgs/Svgs";
+import {CartSvg, HeartSvg} from "../svgs/Svgs";
 
 
 
-export default function CardShop (){
+export default function CardShop ({title,description,type}){
 	const image = {
 		uri: "https://www.infobae.com/new-resizer/SR25lb-2pJMh1EVqh4ZzqbWYzKE=/768x512/filters:format(webp):quality(85)/arc-anglerfish-arc2-prod-infobae.s3.amazonaws.com/public/4E7AO7Q6I5BULNYYH3SSO4WP2Y.jpeg",
 	};
@@ -27,14 +27,14 @@ export default function CardShop (){
 				/>
 				<View style={styles.textContainer}>
 					<Text style={styles.title}>
-						Ultra Bacon Triple
+						{title}
 					</Text>
 					 <Text style={styles.description}>
-						Triple medallón de carne vacuna + triple bacon + triple cheddar
+            {description}
 					</Text> 
 				</View>
 				<TouchableOpacity style={styles.buttonCart}>
-          <CartSvg width={'12'} height={'12'}/>
+          {type === 'food' ? <CartSvg width={12} height={12}/> : <HeartSvg width={12} height={12}/>}
 				</TouchableOpacity>
 			</ImageBackground>
 		</View>
@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
 		width: 156,
 		textAlign: "start",
 		borderRadius: 12,
-		overflow: "hidden"
+		overflow: "hidden",
+    marginLeft: 16,
 	},
 	textContainer: {
     paddingTop: 8
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
   buttonCart: {
     width: 28,
     height: 28,
-    borderRadius: 12,
+    borderRadius: 100,
     backgroundColor: 'white',
     color: 'white',
     display: 'flex',
