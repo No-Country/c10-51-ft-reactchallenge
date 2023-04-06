@@ -1,7 +1,8 @@
 import React from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 
-export function BtnPrimaryLarge(props) {
+
+export function BtnPrimaryPep(props) {
 	const { text, onPress } = props;
 	return (
 		<TouchableOpacity
@@ -16,7 +17,66 @@ export function BtnPrimaryLarge(props) {
 	);
 }
 
-export function BtnPrimaryColLarge(props) {
+export function BtnPrimaryLarge (props) {
+    const {text, onPress} = props;
+    return (
+        <TouchableOpacity onPress={onPress} style={{ ...styles.btnsPrimaryLarge, backgroundColor:'#f1f1f1',
+    }}>
+            <Text style={styles.textBtn}>{text}</Text>
+        </TouchableOpacity >
+    );
+};
+
+export function BtnPrimaryColLarge (props) {
+    const {text, onPress} = props;
+    return (
+        <TouchableOpacity onPress={onPress} style={{ ...styles.btnsPrimaryLarge, backgroundColor:'#FE793D',
+    }}>
+            <Text style={{...styles.textBtn, color:'#f1f1f1'}}>{text}</Text>
+        </TouchableOpacity >
+    );
+};
+
+export function BtnPrimary (props) {
+    const {text, onPress} = props;
+    return (
+        <TouchableOpacity onPress={onPress} style={{ ...styles.btnsPrimary, backgroundColor:'#f1f1f1',
+    }}>
+            <Text style={styles.textBtn}>{text}</Text>
+        </TouchableOpacity >
+    );
+};
+
+export function BtnPrimaryColo (props) {
+    const {text, onPress} = props;
+    return (
+        <TouchableOpacity onPress={onPress} style={{ ...styles.btnsPrimary, backgroundColor:'#FE793D',
+    }}>
+            <Text style={{...styles.textBtn, color:'#f1f1f1'}}>{text}</Text>
+        </TouchableOpacity >
+    );
+};
+
+export function BtnAddCart (props) {
+    const {text, onPress} = props;
+    return (
+        <TouchableOpacity onPress={()=>alert('ejemplo')} style={styles.btnAddCart}>
+            <Text style={styles.textBtn}>{text}</Text>
+        </TouchableOpacity >
+    );
+};
+
+export function BtnFiltro (props) {
+    const {text, onPress, color} = props;
+    return (
+        <TouchableOpacity onPress={()=>alert('ejemplo')} style={{...styles.btnAddCart,border:1, width:'auto', paddingHorizontal:12, paddingVertical:10}}>
+            <Text style={styles.textBtn}>Filtro</Text>
+        </TouchableOpacity >
+    );
+};
+
+
+export function BtnPrimaryColLargee(props) {
 	const { text, onPress } = props;
 	return (
 		<TouchableOpacity
@@ -33,7 +93,7 @@ export function BtnPrimaryColLarge(props) {
 	);
 }
 
-export function BtnPrimary(props) {
+export function BtnPrimaryy(props) {
 	const { text, onPress } = props;
 	return (
 		<TouchableOpacity
@@ -59,7 +119,7 @@ export function BtnPrimaryCol(props) {
 	);
 }
 
-export function BtnAddCart(props) {
+export function BtnAddCartt(props) {
 	const { text, onPress } = props;
 	return (
 		<TouchableOpacity

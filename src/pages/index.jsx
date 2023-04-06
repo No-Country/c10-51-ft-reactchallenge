@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import CardsSwiper from "../components/swipers/CardsSwiper";
 import InputSearchFood from "../components/cards/InputSearchFood";
-import { BtnFiltroComp } from "../components/buttons/Btns";
+import { BtnFiltroComp } from "../components/buttons/Buttons";
 
 function Home() {
 	const tags = [
@@ -59,3 +59,4 @@ function Home() {
 	);
 }
 export default Home;
+

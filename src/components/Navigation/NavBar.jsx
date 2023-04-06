@@ -11,7 +11,7 @@ import {MenuSvg,
   BookSvg,
   ClockSvg} from "../svgs/Svgs";
 import InputSearchFood from "../cards/InputSearchFood";
-import { BtnFiltroComp } from "../buttons/Btns";
+import { BtnFiltro } from "../buttons/Buttons";
 
 
 export default function NavBar() {
@@ -145,7 +145,7 @@ const interpolatedTransparence = transparence.interpolate({
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{marginTop:20}}>
 					{tags.map((tag) => (
             <View key={tag} >
-							<BtnFiltroComp text={tag}/>
+							<BtnFiltro text={tag}/>
 						</View>
 						
             ))}

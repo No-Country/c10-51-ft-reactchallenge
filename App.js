@@ -1,3 +1,4 @@
+
 import { StyleSheet, View, Text } from 'react-native';
 import { useFonts } from 'expo-font';
 import { useEffect, useCallback, useState } from 'react';
@@ -7,9 +8,9 @@ import NavBarBottom from './src/components/navigation/NavBarBottom';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/pages';
-import Order from './src/pages/order';
-import Pay from './src/pages/pay';
-import Profile from './src/pages/profile';
+import Order from './src/pages/app/order';
+import Pay from './src/pages/app/pay';
+import Profile from './src/pages/app/profile/';
 import { StatusBar } from 'expo-status-bar';
 
 
@@ -18,7 +19,7 @@ import { StatusBar } from 'expo-status-bar';
 export default function App() {
   //importacion de fuentes, video explicativo: https://www.youtube.com/watch?v=2noGlR1DXsM&t=38s&ab_channel=BetoMoedano
 
-  const [fontsLoaded] = useFonts({
+  /*  const [fontsLoaded] = useFonts({
     'Poppins-Regular': require('./assets/fonts/Poppins-Regular.ttf'),
     'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),
     'Poppins-Italic': require('./assets/fonts/Poppins-Italic.ttf'),
@@ -43,6 +44,7 @@ export default function App() {
       await SplashScreen.hideAsync();
     }
   }, [fontsLoaded])
+
 
    if (!fontsLoaded) return null;  */
 
@@ -72,11 +74,7 @@ export default function App() {
 
 //se debe colocar un layout para que ambas navbar se meustren en todas las paginas menos las que no corresponde
 
-const styles = StyleSheet.create({
-  container: {
-    
-  }
-});
+
 
 // blanco = #f1f1f1
 // negro = #0a0a0a
