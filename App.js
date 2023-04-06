@@ -1,8 +1,7 @@
 
 import { StyleSheet, View, Text } from 'react-native';
 import { useFonts } from 'expo-font';
-import { useEffect, useState } from 'react';
-//navigate
+import { useEffect, useCallback, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -17,7 +16,9 @@ import NavBar from './src/components/Navigation/NavBar';
 import HomeScreen from './src/pages/app/index';
 import Order from './src/pages/app/order';
 import Pay from './src/pages/app/pay';
-import Profile from './src/pages/app/profile';
+import Profile from './src/pages/app/profile/';
+import { StatusBar } from 'expo-status-bar';
+
 
 //navigate para el inicio
 const StackIni = createStackNavigator();
@@ -62,6 +63,7 @@ function StackNavApp() {
     </>
   );
 }
+
 
 export default function App() {
   //importacion de fuentes, video explicativo: https://www.youtube.com/watch?v=2noGlR1DXsM&t=38s&ab_channel=BetoMoedano
