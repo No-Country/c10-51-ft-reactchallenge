@@ -1,19 +1,22 @@
 import React from "react";
-import { ScrollView } from "react-native";
+import { ScrollView,Text } from "react-native";
 import { View } from "react-native";
 import CardPromocion from "../cards/CardPromocion";
 import CardShop from "../cards/CardShop";
+import CardMenu from "../cards/CardMenu";
+import { BtnPrimaryIconDef } from "../buttons/BtnsIcon";
 const Swiper = require('react-native-swiper').default;
 
 
 
-function CardsSwiper({swiperType}) {
+function CardsSwiper({swiperType,title}) {
   
 
 
 	return (
     <>
     {swiperType === 'promo' ? (
+      
     <Swiper autoplay={true} autoplayTimeout={6} height={200}>
       <View style={{justifyContent: 'center' , alignItems: 'center'}}>
         <CardPromocion />
@@ -24,37 +27,57 @@ function CardsSwiper({swiperType}) {
       <View style={{justifyContent: 'center' , alignItems: 'center'}}>
         <CardPromocion />
       </View>
-      </Swiper>) : swiperType === 'food' ? (
-      <ScrollView horizontal={true} >
-      <View style={{ flexDirection: 'row' , gap: 15}}>
-        <CardShop />
-        <CardShop />
-        <CardShop />
-        <CardShop />
+      </Swiper>
+      
+      ) : swiperType === 'food' ? (
+        <View>
+          
+      <Text
+      style={{
+        width: "100%",
+        fontSize:17,
+        fontWeight: 700,
+        padding: 16
+      }}
+      >
+      {title}
+    </Text>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{width: '100%'}}>
+      <View style={{ flexDirection: 'row',paddingBottom:10}}>
+        <CardShop title='Mc donnalds' description='La casa de hamburguesas que te espera con una sonrisa' type='rest'/>
+        <CardShop title='Mc donnalds' description='La casa de hamburguesas que te espera con una sonrisa' type='rest'/>
+        <CardShop title='Mc donnalds' description='La casa de hamburguesas que te espera con una sonrisa' type='rest'/>
+        <CardShop title='Mc donnalds' description='La casa de hamburguesas que te espera con una sonrisa' type='rest'/>
+        <CardShop title='Mc donnalds' description='La casa de hamburguesas que te espera con una sonrisa' type='rest'/>
       </View>
     </ScrollView>
+    <View style={{alignItems: 'flex-end',width:'100%'}}><BtnPrimaryIconDef text='Ver todo'/></View>
+    </View>
 
-) : swiperType === 'fav' ? (<Swiper autoplay={true} autoplayTimeout={6} >
-        <View style={{justifyContent: 'center' , alignItems: 'center'}}>
-          <CardPromocion />
-        </View>
-        <View style={{justifyContent: 'center' , alignItems: 'center'}}>
-          <CardPromocion />
-        </View>
-        <View style={{justifyContent: 'center' , alignItems: 'center'}}>
-          <CardPromocion />
-        </View>
-        </Swiper>) : (<Swiper autoplay={true} autoplayTimeout={6} >
-        <View style={{justifyContent: 'center' , alignItems: 'center'}}>
-          <CardPromocion />
-        </View>
-        <View style={{justifyContent: 'center' , alignItems: 'center'}}>
-          <CardPromocion />
-        </View>
-        <View style={{justifyContent: 'center' , alignItems: 'center'}}>
-          <CardPromocion />
-        </View>
-        </Swiper>)}
+) : swiperType === 'fav' ? (
+  <View>
+
+      <Text
+      style={{
+        width: "100%",
+        fontSize:17,
+        fontWeight: 700,
+        padding: 16
+      }}
+      >
+      {title}
+    </Text>
+<ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+      <View style={{ flexDirection: 'row' ,paddingBottom:10}}>
+        <CardMenu/>
+        <CardMenu/>
+        <CardMenu/>
+        <CardMenu/>
+        <CardMenu/>
+      </View>
+      
+    </ScrollView>
+    <View style={{alignItems: 'flex-end',width:'100%',paddingBottom1:25}}><BtnPrimaryIconDef text='Ver todo'/></View></View>) : (<></>)}
 		
     </>
 	);
