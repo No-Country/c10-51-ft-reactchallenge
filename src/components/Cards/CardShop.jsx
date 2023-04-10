@@ -12,15 +12,12 @@ import {CartSvg, HeartSvg} from "../svgs/Svgs";
 
 
 
-export default function CardShop ({title,description,type}){
-	const image = {
-		uri: "https://www.infobae.com/new-resizer/SR25lb-2pJMh1EVqh4ZzqbWYzKE=/768x512/filters:format(webp):quality(85)/arc-anglerfish-arc2-prod-infobae.s3.amazonaws.com/public/4E7AO7Q6I5BULNYYH3SSO4WP2Y.jpeg",
-	};
-  
+export default function CardShop ({title,description,type,image}){
+	
 
 	return (
 		<View style={styles.container}>
-			<ImageBackground source={image} style={styles.backgroundImg}>
+			<ImageBackground source={{uri: image}} style={styles.backgroundImg}>
 				<LinearGradient
 					colors={["black", "transparent"]}
 					style={styles.background}

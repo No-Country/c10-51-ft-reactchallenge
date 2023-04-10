@@ -4,27 +4,25 @@ import {RelojSvg,EstrellaSvg} from "../svgs/Svgs";
 
 import { LinearGradient } from "expo-linear-gradient";
 
-const CardEnvio = () => {
-  const image = {
-    uri: "https://www.clarin.com/img/2022/05/27/la-hamburguesa-mucho-mas-que___0HXb0UR0v_1256x620__2.jpg#1653659778281",
-  };
+const CardEnvio = ({title,address,image,deliverTime,score}) => {
+  
   return (
     <View style={styles.container}>
-      <Image source={image} style={styles.image} />
+      <Image source={{uri:image}} style={styles.image} />
       <LinearGradient colors={['rgba(0,0,0,0.5)', 'transparent']} style={styles.linear}/>
       <View style={styles.content}>
         <View>
-          <Text style={styles.title}>Titulo</Text>
-          <Text style={styles.text}>Precio</Text>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.text}>{address}</Text>
         </View>
         <View style={styles.titles}>
           <View style={styles.contentTitles}>
-            <EstrellaSvg width={15} height={15} />
-            <Text style={styles.text}>Puntaje</Text>
+            <EstrellaSvg width={18} height={18} />
+            <Text style={styles.text}>{score}</Text>
           </View>
           <View style={styles.contentTitles}>
             <RelojSvg width={15} height={15} />
-            <Text style={styles.text}>Entrega</Text>
+            <Text style={styles.text}>{`${deliverTime} min.`}</Text>
           </View>
         </View>
       </View>
@@ -35,13 +33,20 @@ const CardEnvio = () => {
 const styles = StyleSheet.create({
   container: {
     height: 152,
-    width: "55%",
+    width: "100%",
     textAlign: "start",
     borderRadius: 20,
-    margin: 10,
     zIndex: 10,
     overflow: "hidden",
     backgroundColor: "white",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3,
+    elevation: 5,
+    marginBottom:16
   },
   image: {
     width: "100%",
@@ -50,16 +55,15 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 10,
-    paddingHorizontal: 20,
     flexDirection : "row",
     justifyContent: "space-between",
   },
   titles: {
-    flexDirection: "col",
     justifyContent: "space-between",
   },
   contentTitles: {
     flexDirection: "row",
+    gap: 5,
   },
   title: {
     fontWeight: "bold",

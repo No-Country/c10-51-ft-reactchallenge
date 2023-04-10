@@ -1,7 +1,7 @@
 
 import { StyleSheet, View, Text } from 'react-native';
 import { useFonts } from 'expo-font';
-import { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import NavBar from './src/components/navigation/NavBar';
 import NavBarBottom from './src/components/navigation/NavBarBottom';
@@ -10,7 +10,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/pages';
 import Order from './src/pages/app/order';
 import Pay from './src/pages/app/pay';
-import Profile from './src/pages/app/profile/';
+import Profile from './src/pages/app/profile';
+import Search from './src/pages/app/search';
 import { StatusBar } from 'expo-status-bar';
 
 
@@ -49,25 +50,56 @@ export default function App() {
    if (!fontsLoaded) return null;  */
 
 
+   
 
 
   const Stack = createStackNavigator();
 
   return (
     <NavigationContainer>
-      <StatusBar/>
-      <NavBar />
+  <StatusBar/>
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen
+      name="Home"
+      component={HomeScreen}
+      options={{ 
+        headerShown: true,
+        header: () => <NavBar />
+      }}
+    />
+    <Stack.Screen
+      name="Order"
+      component={Order}
+      options={{ 
+        headerShown: true,
+        header: () => <NavBar />
+      }}
+    />
+    <Stack.Screen
+      name="Pay"
+      component={Pay}
+      options={{ 
+        headerShown: true,
+        header: () => <NavBar />
+      }}
+    />
+    <Stack.Screen
+      name="Profile"
+      component={Profile}
+      options={{ 
+        headerShown: true,
+        header: () => <NavBar />
+      }}
+    />
+    <Stack.Screen
+      name="Search"
+      component={Search}
+    />
+  </Stack.Navigator>
+  <NavBarBottom />
+</NavigationContainer>
 
-      <Stack.Navigator screenOptions={{ headerShown: false }} >
-        <Stack.Screen name="Home" component={HomeScreen}/>
-        <Stack.Screen name="Order" component={Order} />
-        <Stack.Screen name="Pay" component={Pay} />
-        <Stack.Screen name="Profile" component={Profile} />
-      </Stack.Navigator>
 
-      <NavBarBottom />
-      
-    </NavigationContainer>
   );
 };
 

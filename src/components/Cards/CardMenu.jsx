@@ -3,28 +3,26 @@ import { View, StyleSheet, Image, Text } from "react-native";
 import {RelojSvg,EstrellaSvg,PesosSvg} from "../svgs/Svgs";
 import { LinearGradient } from "expo-linear-gradient";
 
-const CardMenu = () => {
-  const image = {
-    uri: "https://www.clarin.com/img/2022/05/27/la-hamburguesa-mucho-mas-que___0HXb0UR0v_1256x620__2.jpg#1653659778281",
-  };
+const CardMenu = ({title,price,score,deliverTime,image}) => {
+  
   return (
     <View style={styles.container}>
-      <Image source={image} style={styles.image} />
+      <Image source={{uri:image}} style={styles.image} />
       <LinearGradient colors={['rgba(0,0,0,0.5)', 'transparent']} style={styles.linear}/>
       <View style={styles.content}>
-        <Text style={styles.title}>Titulo</Text>
+        <Text style={styles.title}>{title}</Text>
         <View style={styles.titles}>
           <View style={styles.contentTitles}>
             <PesosSvg width={15} height={15} />
-            <Text style={styles.text}>Precio</Text>
+            <Text style={styles.text}>{price}</Text>
           </View>
           <View style={styles.contentTitles}>
             <RelojSvg width={15} height={15} />
-            <Text style={styles.text}>Tiempo</Text>
+            <Text style={styles.text}>{`${deliverTime} min.`}</Text>
           </View>
           <View style={styles.contentTitles}>
-            <EstrellaSvg width={15} height={15} />
-            <Text style={styles.text}>Puntaje</Text>
+            <EstrellaSvg width={18} height={18} />
+            <Text style={styles.text}>{score}</Text>
           </View>
         </View>
       </View>
@@ -35,13 +33,12 @@ const CardMenu = () => {
 const styles = StyleSheet.create({
   container: {
     height: 152,
-    width: 242,
+    width: '100%',
     textAlign: "start",
     borderRadius: 20,
     overflow: "hidden",
     backgroundColor: "white",
     shadowColor: '#000',
-    marginLeft: 16,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -64,6 +61,7 @@ const styles = StyleSheet.create({
   },
   contentTitles: {
     flexDirection: "row",
+    gap: 5,
   },
   title: {
     fontWeight: "bold",

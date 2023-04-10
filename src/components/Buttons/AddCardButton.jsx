@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingLeft:18,
     paddingRight:8,
-    
+    margin:10
   },
 });
 
