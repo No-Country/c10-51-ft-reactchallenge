@@ -3,7 +3,7 @@ import { View, TextInput ,Animated} from "react-native";
 import { FilterSvg, LupaSvg } from "../svgs/Svgs";
 
 
-const InputSearchFood = ({ filterIcon,isOpen , finalWidth}) => {
+const InputSearchFood = ({ filterIcon,isOpen , finalWidth,color}) => {
 	const width = React.useRef(new Animated.Value(0)).current;
   const position = React.useRef(new Animated.Value(0)).current;
 
@@ -47,7 +47,7 @@ const InputSearchFood = ({ filterIcon,isOpen , finalWidth}) => {
 			}}
 		>
 			<Animated.View style={{ position: "absolute", left: interpolatedPosition }}>
-				<LupaSvg width={21} height={21} />
+				<LupaSvg width={21} height={21} fill={color}/>
 			</Animated.View>
 			<TextInput
 				style={{ marginLeft: 45, minWidth: "80%" }}
@@ -60,7 +60,7 @@ const InputSearchFood = ({ filterIcon,isOpen , finalWidth}) => {
 					display: filterIcon ? "flex" : "none",
 				}}
 			>
-				<FilterSvg width={21} height={21} />
+				<FilterSvg width={21} height={21}  fill={color}/>
 			</View>
 		</Animated.View>
 	);

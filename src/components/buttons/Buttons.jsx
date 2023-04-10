@@ -132,11 +132,11 @@ export function BtnAddCartt(props) {
 }
 
 export function BtnFiltroComp(props) {
-	const { text, onPress } = props;
+	const { text, onPress,background } = props;
 	return (
-		<TouchableOpacity style={{...styles.btnAddCart , marginLeft:16}}>
+		<View style={{...styles.btnAddCart , marginLeft:16,backgroundColor:background,overflow:'hidden'}}>
 			<Text style={styles.textBtn}>{text}</Text>
-		</TouchableOpacity>
+		</View>
 	);
 }
 
@@ -160,7 +160,6 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 12,
 		borderWidth: 0.5,
 		borderRadius: 15,
-		backgroundColor: "white",
 		alignItems: "center",
 		justifyContent: "center",
 	},

@@ -3,20 +3,20 @@ import {Text, View, StyleSheet, ImageBackground} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 
-const CardPromocion = () => {
-    const image = { uri: "https://www.clarin.com/img/2022/05/27/la-hamburguesa-mucho-mas-que___0HXb0UR0v_1256x620__2.jpg#1653659778281" };
+const CardPromocion = ({title,description,image}) => {
+     
 
     return (
-        <View style={styles.container}>
-            <ImageBackground source={image} style={styles.backgroundImg}>
+      <View style={styles.container}>
+      <ImageBackground source={{uri:image}} style={styles.backgroundImg}>
 
-            <LinearGradient colors={['black', 'transparent']} style={styles.background}/>
-            <View style={styles.textContainer}>
-            <Text style={styles.primaryText}>Hasta un 20% off en combo chedar!</Text>
-            <Text style={styles.secondaryText}>20% con tarjeta de débito en todos los bancos</Text>
-            </View>
-            </ImageBackground>
-        </View>
+      <LinearGradient colors={['black', 'transparent']} style={styles.background}/>
+      <View style={styles.textContainer}>
+      <Text style={styles.primaryText}>{title}</Text>
+      <Text style={styles.secondaryText}>{description}</Text>
+      </View>
+      </ImageBackground>
+  </View>
     );
 }
 
