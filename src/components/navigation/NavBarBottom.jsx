@@ -18,25 +18,25 @@ export default function NavBarBottom() {
         setPressed(1)
         navigation.navigate('Home')
         }}>
-				<HomeSvg isPressed={pressed === 1}/>
+				<HomeSvg fill='#00869F' isPressed={pressed === 1}/>
 			</TouchableOpacity>
 			<TouchableOpacity onPress={() => {
         setPressed(2)
         navigation.navigate('Order')
         }}>
-				<BagSvg isPressed={pressed === 2}/>
+				<BagSvg fill='#00869F' isPressed={pressed === 2}/>
 			</TouchableOpacity>
 			<TouchableOpacity onPress={() => {
         setPressed(3)
         navigation.navigate('addCreditCard')
         }}>
-				<CreditCardSvg fill='#000000' width='20' height='20' isPressed={pressed === 3}/>
+				<CreditCardSvg fill='#00869F' width='20' height='20' isPressed={pressed === 3}/>
 			</TouchableOpacity>
 			<TouchableOpacity onPress={() => {
         setPressed(4)
         navigation.navigate('Profile')
         }}>
-				<UserProfileSvg isPressed={pressed === 4}/>
+				<UserProfileSvg fill='#00869F' isPressed={pressed === 4}/>
 			</TouchableOpacity>
 		</View>
 	);
@@ -52,6 +52,6 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "space-around",
-		borderTopWidth: 1,
+		borderTopWidth: 0.5,
 	},
 });

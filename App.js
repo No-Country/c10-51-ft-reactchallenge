@@ -1,7 +1,7 @@
 
 import { StyleSheet, View, Text } from 'react-native';
 import { useFonts } from 'expo-font';
-import { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import NavBar from './src/components/navigation/NavBar';
 import NavBarBottom from './src/components/navigation/NavBarBottom';
@@ -10,8 +10,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/pages';
 import Order from './src/pages/app/order';
 import addCreditCard from './src/pages/app/addCreditCard';
-import Profile from './src/pages/app/profile/';
 import creditCardData from './src/pages/app/creditCardData';
+import Profile from './src/pages/app/profile/';
 import { StatusBar } from 'expo-status-bar';
 
 
@@ -50,6 +50,7 @@ export default function App() {
    if (!fontsLoaded) return null;  */
 
 
+   
 
 
   const Stack = createStackNavigator();
@@ -65,9 +66,6 @@ export default function App() {
         <Stack.Screen name="addCreditCard" component={addCreditCard} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="creditCardData" component={creditCardData} />
-        {/* <Stack.Screen name="payActualizado" component={payActualizado} /> */}
-
-
 
       </Stack.Navigator>
 
