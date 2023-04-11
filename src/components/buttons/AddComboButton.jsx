@@ -38,7 +38,6 @@ export default AddComboButton;
 
 const styles = StyleSheet.create({
 	container: {
-    backgroundColor: 'white',
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "space-between",

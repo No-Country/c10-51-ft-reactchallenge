@@ -12,14 +12,14 @@ import {CartSvg, HeartSvg} from "../svgs/Svgs";
 
 
 
-export default function CardShop ({title,description,type}){
+export default function CardShop ({title,description,type,to}){
 	const image = {
 		uri: "https://www.infobae.com/new-resizer/SR25lb-2pJMh1EVqh4ZzqbWYzKE=/768x512/filters:format(webp):quality(85)/arc-anglerfish-arc2-prod-infobae.s3.amazonaws.com/public/4E7AO7Q6I5BULNYYH3SSO4WP2Y.jpeg",
 	};
-  
+	
 
 	return (
-		<View style={styles.container}>
+		<TouchableOpacity style={styles.container} onPress={to}>
 			<ImageBackground source={image} style={styles.backgroundImg}>
 				<LinearGradient
 					colors={["black", "transparent"]}
@@ -33,11 +33,11 @@ export default function CardShop ({title,description,type}){
             {description}
 					</Text> 
 				</View>
-				<TouchableOpacity style={styles.buttonCart}>
+				<TouchableOpacity onPress={to} style={styles.buttonCart} >
           {type === 'food' ? <CartSvg width={12} height={12}/> : <HeartSvg width={12} height={12}/>}
 				</TouchableOpacity>
 			</ImageBackground>
-		</View>
+		</TouchableOpacity>
 	);
 };
 

@@ -7,15 +7,14 @@ import {
   BtnPrimaryLargeIconApple,
   BtnPrimaryLargeIconFace,
   BtnPrimaryLargeIconGoogle,
-} from "../components/Buttons/Btns";
-import { BtnPrimaryIconDef } from "../components/Buttons/BtnsIcon";
+} from "../components/buttons/Buttons";
 import Ilustracion from "../components/svgs/Ilustracion";
 import Desing from "../components/svgs/Desing";
 //navigate
 import { useNavigation } from "@react-navigation/native";
 
-export const SplashScreen = () => {
-  const navigation = useNavigation();
+const SplashScreen = () => {
+    const navigation = useNavigation();
   const toRegister = () => {
     navigation.navigate("Register");
   };
@@ -39,7 +38,7 @@ export const SplashScreen = () => {
           style={{
             fontFamily: "Poppins-Regular",
             color: "white",
-            marginVertical: 30,
+            marginTop:14, marginBottom:30
           }}
         >
           Ya tengo cuenta.{" "}
@@ -52,6 +51,8 @@ export const SplashScreen = () => {
     </View>
   );
 };
+export default SplashScreen; // Asegurarse de exportar el componente correctamente
+
 
 const styles = StyleSheet.create({
   viewContainer: {
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
   },
   primaryText: {
     fontFamily: "Poppins-Bold",
-    color: "#00869F",
+    color: "white",
     fontSize: 30,
     lineHeight: 37,
     marginBottom: 15,

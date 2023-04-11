@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, StyleSheet,Text, Alert, TouchableOpacity,} from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export function BtnPrimaryIconDef(props){
     const {text} = props

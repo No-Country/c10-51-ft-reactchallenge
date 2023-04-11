@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import CardsSwiper from "../components/swipers/CardsSwiper";
-import InputSearchFood from "../components/cards/InputSearchFood";
-import { BtnFiltroComp } from "../components/buttons/Buttons";
+import CardsSwiper from "../../components/swipers/CardsSwiper";
+import InputSearchFood from "../../components/cards/InputSearchFood";
+import { BtnFiltroComp } from "../../components/buttons/Buttons";
 
 function Home() {
 	const tags = [

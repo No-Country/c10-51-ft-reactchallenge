@@ -2,8 +2,12 @@ import { faBorderAll } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { useState } from "react";
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
-import { BtnPrimaryColLarge } from "../../components/Buttons/Btns";
+import { BtnPrimaryColLarge } from "../../components/buttons/Buttons";
 import { Ionicons } from '@expo/vector-icons';
+import DesingRegister from "../../components/svgs/Desing2";
+
+
+
 
 
 const Login = () => {
@@ -24,13 +28,15 @@ const Login = () => {
           paddingTop: 24,
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "#FE793D",
+        
           width: "100%",
         }}
       >
+                <DesingRegister style={{position:'absolute'}}/>
+
         <Text style={styles.primaryText}>Nombre de la APP</Text>
       </View>
-      <View style={{ paddingHorizontal: 16 }}>
+      <View style={{ paddingHorizontal: 16, marginTop:20 }}>
         <Text style={{fontFamily:'Poppins-Regular', marginVertical:16,fontSize:12}}>Iniciar Sesion</Text>
       </View>
       <View style={styles.containerInputs}>
@@ -87,7 +93,7 @@ const styles = StyleSheet.create({
   },
   primaryText: {
     fontFamily: "Poppins-Bold",
-    color: "#00869F",
+    color: "white",
     fontSize: 30,
     lineHeight: 37,
     marginBottom: 15,

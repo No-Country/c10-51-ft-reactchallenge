@@ -5,13 +5,15 @@ import CardPromocion from "../cards/CardPromocion";
 import CardShop from "../cards/CardShop";
 import CardMenu from "../cards/CardMenu";
 import { BtnPrimaryIconDef } from "../buttons/BtnsIcon";
+import { useNavigation } from "@react-navigation/native";
 const Swiper = require('react-native-swiper').default;
 
 
 
 function CardsSwiper({swiperType,title}) {
-  
+  const navigation = useNavigation();
 
+const toRestaurant = ()=> {navigation.navigate("Order")}
 
 	return (
     <>
@@ -44,7 +46,7 @@ function CardsSwiper({swiperType,title}) {
     </Text>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{width: '100%'}}>
       <View style={{ flexDirection: 'row',paddingBottom:10}}>
-        <CardShop title='Mc donnalds' description='La casa de hamburguesas que te espera con una sonrisa' type='rest'/>
+        <CardShop title='Mc donnalds' description='La casa de hamburguesas que te espera con una sonrisa' type='rest' to={()=>toRestaurant()}/>
         <CardShop title='Mc donnalds' description='La casa de hamburguesas que te espera con una sonrisa' type='rest'/>
         <CardShop title='Mc donnalds' description='La casa de hamburguesas que te espera con una sonrisa' type='rest'/>
         <CardShop title='Mc donnalds' description='La casa de hamburguesas que te espera con una sonrisa' type='rest'/>

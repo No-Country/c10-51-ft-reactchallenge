@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { SvgGOOGLE } from "../svgs/Svgs";
 
 
 export function BtnPrimaryPep(props) {
@@ -22,7 +23,7 @@ export function BtnPrimaryLarge (props) {
     return (
         <TouchableOpacity onPress={onPress} style={{ ...styles.btnsPrimaryLarge, backgroundColor:'#f1f1f1',
     }}>
-            <Text style={styles.textBtn}>{text}</Text>
+            <Text style={{...styles.textBtn, color:'#00869F'}}>{text}</Text>
         </TouchableOpacity >
     );
 };
@@ -83,7 +84,7 @@ export function BtnPrimaryColLargee(props) {
 			onPress={onPress}
 			style={{
 				...styles.btnsPrimaryLarge,
-				backgroundColor: "#7d7d7d",
+				backgroundColor: "#006477",
 			}}
 		>
 			<Text style={{ ...styles.textBtn, color: "#f1f1f1" }}>
@@ -98,7 +99,7 @@ export function BtnPrimaryy(props) {
 	return (
 		<TouchableOpacity
 			onPress={onPress}
-			style={{ ...styles.btnsPrimary, backgroundColor: "#f1f1f1" }}
+			style={{ ...styles.btnsPrimary, backgroundColor: "#006477" }}
 		>
 			<Text style={styles.textBtn}>{text}</Text>
 		</TouchableOpacity>
@@ -110,7 +111,7 @@ export function BtnPrimaryCol(props) {
 	return (
 		<TouchableOpacity
 			onPress={onPress}
-			style={{ ...styles.btnsPrimary, backgroundColor: "#a6a6a6" }}
+			style={{ ...styles.btnsPrimary, backgroundColor: "#006477" }}
 		>
 			<Text style={{ ...styles.textBtn, color: "#f1f1f1" }}>
 				{text}
@@ -140,9 +141,47 @@ export function BtnFiltroComp(props) {
 	);
 }
 
+export function BtnPrimaryLargeIconGoogle(){
+    return (
+        <TouchableOpacity 
+        style={{  ...styles.btnsPrimaryLarge, backgroundColor:'#f1f1f1', justifyContent:'flex-start',paddingLeft:27}}
+        onPress = {() => Alert.alert("ejemplo")}>
+            <SvgGOOGLE/>
+            <Text style={{ ...styles.textBtn,  color:'#00869F'}}>Registrarse con Google</Text>
+         </TouchableOpacity>
+    );
+}
+export function BtnPrimaryLargeIconApple(){
+    return (
+        <TouchableOpacity 
+        style={{  ...styles.btnsPrimaryLarge, backgroundColor:'#f1f1f1',justifyContent:'flex-start',paddingLeft:27}}
+        onPress = {() => Alert.alert("ejemplo")}>
+            <SvgGOOGLE/>
+            <Text style={{ ...styles.textBtn,  color:'#00869F'}}>Registrarse con apple</Text>
+         </TouchableOpacity>
+    );
+}
+export function BtnPrimaryLargeIconFace(){
+    return (
+        <TouchableOpacity 
+        style={{  ...styles.btnsPrimaryLarge, backgroundColor:'#f1f1f1',justifyContent:'flex-start',paddingLeft:27}}
+        onPress = {() => Alert.alert("ejemplo")}>
+            <SvgGOOGLE/>
+            <Text style={{ ...styles.textBtn,  color:'#00869F',}}>Registrarse con facebook</Text>
+         </TouchableOpacity>
+    );
+}
+
 const styles = StyleSheet.create({
 	btnsPrimaryLarge: {
-		borderRadius: 100,
+		borderRadius: 15,
+		alignItems:'center',
+		justifyContent:'center',
+		flexDirection: 'row',
+		width:"63%",
+		marginBottom:16,
+		paddingVertical:16,
+		gap:10, 
 	},
 	textBtn: {
 		fontFamily: "Poppins-SemiBold",
