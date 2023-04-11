@@ -33,17 +33,18 @@ export default function addCreditCard() {
 					<Text style={{fontSize: 18, marginRight: 90, marginBottom: 20}}>Añadir Tarjeta</Text>
 
 
-					<Ionicons  name="add" size={24} color="orange" xlinkHref="NewPage" />
+					<Ionicons  name="add" size={24} color="#00869F" xlinkHref="NewPage" />
 				</View>
 			</TouchableOpacity>
 		</View>
 
 			<Text style={{position: 'absolute', top: 150, left: 0, fontSize: 17, fontWeight: "900", padding: 20}}>Ultimos Pedidos</Text>
 
-			<View style={{width: '90%', top: 80, borderBottomWidth: 2, borderBottomColor: 'orange'}}></View>
+			<View style={{width: '90%', top: 80, borderBottomWidth: 2, borderBottomColor: '#00869F'}}></View>
 
 			<View style={{width: '75%', top: 180, backgroundColor: '#f7f7f7', borderRadius: 8, shadowColor: '#000', shadowOffset: { width: 3, height: 3 }, shadowOpacity: 0.2, shadowRadius: 1, elevation: 2, alignItems: 'center', padding: 20}}>
-				<Text style={{fontSize: 12,  fontWeight: '600', marginBottom: 10}}>Por ahora no tiene gastos{'\n'}Aquí podrá ver sus pedidos pagados</Text>
+				<Text style={{fontSize: 12,  fontWeight: '600', marginBottom: 10, textShadowColor: '#fff', textShadowOffset: {width: 1, height: 1}, textShadowRadius: 2}}>Por ahora no tiene gastos{'\n'}Aquí podrá ver sus pedidos pagados</Text>
+
 			</View>
 
 		</View>
