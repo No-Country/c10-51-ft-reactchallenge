@@ -12,8 +12,7 @@ import Order from './src/pages/app/order';
 import Profile from './src/pages/app/profile';
 import Search from './src/pages/app/search';
 import Cart from './src/pages/app/cart';
-import addCreditCard from './src/pages/app/addCreditCard';
-import creditCardData from './src/pages/app/creditCardData';
+import Pay from './src/pages/app/pay';
 import { StatusBar } from 'expo-status-bar';
 
 
@@ -79,7 +78,7 @@ export default function App() {
     />
     <Stack.Screen
       name="Pay"
-      component={addCreditCard}
+      component={Pay}
       options={{ 
         headerShown: true,
         header: () => <NavBar />
