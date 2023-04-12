@@ -87,7 +87,7 @@ export default function App() {
       name="Profile"
       component={Profile}
       options={{ 
-        headerShown: true,
+        headerShown: false,
         header: () => <NavBar />
       }}
     />

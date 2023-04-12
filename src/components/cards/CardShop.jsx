@@ -31,7 +31,7 @@ export default function CardShop ({title,description,type,image}){
 					</Text> 
 				</View>
 				<TouchableOpacity style={styles.buttonCart}>
-          {type === 'food' ? <CartSvg width={12} height={12}/> : <HeartSvg width={12} height={12}/>}
+          {type === 'food' ? <CartSvg width={12} height={12}/> : <HeartSvg width={12} height={12} fill="#000000"/>}
 				</TouchableOpacity>
 			</ImageBackground>
 		</View>
