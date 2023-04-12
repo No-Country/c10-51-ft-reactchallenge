@@ -91,7 +91,9 @@ export default function crediCartData() {
                         <View style={{ alignSelf: 'center' }}>
 
                             <TouchableOpacity onPress={goToPayActualizado} style={{ width: 150, backgroundColor: '#00869F', marginTop: 10, borderRadius: 10 }}>
-                                <Text style={{ color: '#fff', padding: 10, textAlign: 'center', fontWeight: 900, textShadowColor: '#000', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 10 }}>Guardar</Text>
+                                <Text style={{ color: '#fff', padding: 10, textAlign: 'center', fontWeight: 900, textShadowColor: '#000', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 10 }}>
+                                    Guardar
+                                </Text>
 
                             </TouchableOpacity>
                         </View>

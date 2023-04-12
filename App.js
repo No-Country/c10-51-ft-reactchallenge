@@ -9,7 +9,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/pages';
 import Order from './src/pages/app/order';
-import addCreditCard from './src/pages/app/addCreditCard';
+import Pay from './src/pages/app/pay';
 import creditCardData from './src/pages/app/creditCardData';
 import Profile from './src/pages/app/profile/';
 import { StatusBar } from 'expo-status-bar';
@@ -63,7 +63,7 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }} >
         <Stack.Screen name="Home" component={HomeScreen}/>
         <Stack.Screen name="Order" component={Order} />
-        <Stack.Screen name="addCreditCard" component={addCreditCard} />
+        <Stack.Screen name="Pay" component={Pay} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="creditCardData" component={creditCardData} />
 

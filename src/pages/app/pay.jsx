@@ -7,7 +7,9 @@ import { useNavigation } from '@react-navigation/native';
 import goTocreditCardData from './creditCardData'
 import CreditCard from "../../components/cards/CreditCard";
 
-export default function addCreditCard() {
+export default function Pay () {
+
+
 
 	const navigation = useNavigation();
 
@@ -27,16 +29,16 @@ export default function addCreditCard() {
 
 			<Text style={{position: 'absolute', top: 0, left: 0, fontSize: 20, fontWeight: "900", padding: 20}}>Tarjeta</Text>
 
-		<View style={{marginTop: -250, alignItems: 'center'}}>
-			<TouchableOpacity onPress={goTocreditCardData}>
-				<View style={{backgroundColor: '#f7f7f7', borderRadius: 8, shadowColor: '#000', shadowOffset: { width: 3, height: 3 }, shadowOpacity: 0.2, shadowRadius: 1, elevation: 2, flexDirection: 'row', alignItems: 'center', paddingVertical: 10, paddingHorizontal: 15}}>
-					<Text style={{fontSize: 18, marginRight: 90, marginBottom: 20}}>Añadir Tarjeta</Text>
+			<View style={{marginTop: -250, alignItems: 'center'}}>
+				<TouchableOpacity onPress={goTocreditCardData}>
+					<View style={{backgroundColor: '#f7f7f7', borderRadius: 8, shadowColor: '#000', shadowOffset: { width: 3, height: 3 }, shadowOpacity: 0.2, shadowRadius: 1, elevation: 2, flexDirection: 'row', alignItems: 'center', paddingVertical: 10, paddingHorizontal: 15}}>
+						<Text style={{fontSize: 18, marginRight: 90, marginBottom: 20}}>Añadir Tarjeta</Text>
 
 
-					<Ionicons  name="add" size={24} color="#00869F" xlinkHref="NewPage" />
-				</View>
-			</TouchableOpacity>
-		</View>
+						<Ionicons  name="add" size={24} color="#00869F" xlinkHref="crediCardData" />
+					</View>
+				</TouchableOpacity>
+			</View>
 
 			<Text style={{position: 'absolute', top: 150, left: 0, fontSize: 17, fontWeight: "900", padding: 20}}>Ultimos Pedidos</Text>
 
@@ -48,6 +50,9 @@ export default function addCreditCard() {
 			</View>
 
 		</View>
+	);
+}
+
 
 		/* 
 		
@@ -101,6 +106,3 @@ export default function addCreditCard() {
 
 
 		// </View>
-
-	);
-}

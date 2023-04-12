@@ -28,7 +28,7 @@ export default function NavBarBottom() {
 			</TouchableOpacity>
 			<TouchableOpacity onPress={() => {
         setPressed(3)
-        navigation.navigate('addCreditCard')
+        navigation.navigate('Pay')
         }}>
 				<CreditCardSvg fill='#00869F' width='20' height='20' isPressed={pressed === 3}/>
 			</TouchableOpacity>
