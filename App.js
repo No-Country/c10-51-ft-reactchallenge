@@ -12,6 +12,7 @@ import Order from './src/pages/app/order';
 import Pay from './src/pages/app/pay';
 import Profile from './src/pages/app/profile';
 import Search from './src/pages/app/search';
+import Cart from './src/pages/app/cart';
 import { StatusBar } from 'expo-status-bar';
 
 
@@ -94,6 +95,14 @@ export default function App() {
     <Stack.Screen
       name="Search"
       component={Search}
+    />
+    <Stack.Screen
+      name="Cart"
+      component={Cart}
+      options={{ 
+        headerShown: true,
+        header: () => <NavBar />
+      }}
     />
   </Stack.Navigator>
   <NavBarBottom />
