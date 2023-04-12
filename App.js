@@ -9,9 +9,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/pages';
 import Order from './src/pages/app/order';
-import Pay from './src/pages/app/pay';
-import Profile from './src/pages/app/profile';
-import Search from './src/pages/app/search';
+import addCreditCard from './src/pages/app/addCreditCard';
+import creditCardData from './src/pages/app/creditCardData';
+import Profile from './src/pages/app/profile/';
 import { StatusBar } from 'expo-status-bar';
 
 
@@ -57,49 +57,21 @@ export default function App() {
 
   return (
     <NavigationContainer>
-  <StatusBar/>
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen
-      name="Home"
-      component={HomeScreen}
-      options={{ 
-        headerShown: true,
-        header: () => <NavBar />
-      }}
-    />
-    <Stack.Screen
-      name="Order"
-      component={Order}
-      options={{ 
-        headerShown: true,
-        header: () => <NavBar />
-      }}
-    />
-    <Stack.Screen
-      name="Pay"
-      component={Pay}
-      options={{ 
-        headerShown: true,
-        header: () => <NavBar />
-      }}
-    />
-    <Stack.Screen
-      name="Profile"
-      component={Profile}
-      options={{ 
-        headerShown: true,
-        header: () => <NavBar />
-      }}
-    />
-    <Stack.Screen
-      name="Search"
-      component={Search}
-    />
-  </Stack.Navigator>
-  <NavBarBottom />
-</NavigationContainer>
+      <StatusBar/>
+      <NavBar />
 
+      <Stack.Navigator screenOptions={{ headerShown: false }} >
+        <Stack.Screen name="Home" component={HomeScreen}/>
+        <Stack.Screen name="Order" component={Order} />
+        <Stack.Screen name="addCreditCard" component={addCreditCard} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="creditCardData" component={creditCardData} />
 
+      </Stack.Navigator>
+
+      <NavBarBottom />
+      
+    </NavigationContainer>
   );
 };
 
