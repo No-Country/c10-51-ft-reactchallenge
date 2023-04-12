@@ -9,7 +9,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/pages';
 import Order from './src/pages/app/order';
-import Profile from './src/pages/app/profile';
+import Profile from './src/pages/app/profile/';
 import Search from './src/pages/app/search';
 import Cart from './src/pages/app/cart';
 import Pay from './src/pages/app/pay';
@@ -106,6 +106,7 @@ export default function App() {
     />
   </Stack.Navigator>
   <NavBarBottom />
+
       
     </NavigationContainer>
   );
