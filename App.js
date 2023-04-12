@@ -10,7 +10,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/pages';
 import Order from './src/pages/app/order';
 import Pay from './src/pages/app/pay';
-import creditCardData from './src/pages/app/creditCardData';
+// import creditCardData from './src/pages/app/creditCardData';
 import Profile from './src/pages/app/profile/';
 import { StatusBar } from 'expo-status-bar';
 
