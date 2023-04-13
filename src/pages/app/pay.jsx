@@ -4,8 +4,6 @@ import React from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import goTocreditCardData from './creditCardData'
-import CreditCard from "../../components/cards/CreditCard";
 
 export default function Pay () {
 
