@@ -1,62 +1,88 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import CardsSwiper from "../../components/swipers/CardsSwiper";
 import InputSearchFood from "../../components/cards/InputSearchFood";
 import { BtnFiltroComp } from "../../components/buttons/Buttons";
+import data from "../../../data.json";
+import axios from "axios";
 
 function Home() {
-	const tags = [
-		"Hamburguesas",
-		"Sushi",
-		"Pizza",
-		"Comida arabe",
-		"Comida china",
-		"Comida italiana",
-		"Comida mexicana",
-		"Comida peruana",
-		"Comida tailandesa",
-		"Comida vegetariana",
-		"Comida vegana",
-		"Comida rápida",
-		"Comida saludable",
-		"Comida gourme",
-	];
+  const [dataRestaurants, setDataRestaurants] = React.useState([]);
+  const [dataFood, setDataFood] = React.useState([]);
+  const [dataCategories, setDataCategories] = React.useState([]);
+  const [dataCategorieSelected, setDataCategorieSelected] =
+    React.useState(null);
+  const [categoryName, setCategoryName] = React.useState("");
 
- 
+  const nose = (data) => {
+    setCategoryName(data);
+  };
 
-	return (
-		<ScrollView style={{backgroundColor:'white',paddingVertical:16}}>
-     
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const restaurants = await axios.get("http://192.168.56.1:3001/rest/");
+        const food = await axios.get("http://192.168.56.1:3001/food/");
+        const categories = await axios.get(
+          "http://192.168.56.1:3001/food/categories"
+        );
+        const categorieSelected = await axios.get(
+          `http://192.168.56.1:3001/food/?category=${categoryName}`
+        );
+        setDataRestaurants(restaurants.data);
+        setDataFood(food.data);
+        setDataCategories(categories.data);
+        setDataCategorieSelected(categorieSelected.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, [categoryName]);
 
-			<CardsSwiper swiperType="promo" />
-      
+  return (
+    <ScrollView style={{ backgroundColor: "white", paddingVertical: 16 }}>
+      <CardsSwiper swiperType="promo" data={data} />
 
-      <View style={{marginHorizontal:16}}>
-      <View style={{flexDirection: 'row',justifyContent:'center',alignItems:'center',width: '100%'}}>
-			<InputSearchFood filterIcon={true} isOpen={true} finalWidth='100'/>
-
+      <View style={{ marginHorizontal: 16 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <InputSearchFood
+            filterIcon={true}
+            isOpen={true}
+            finalWidth="100"
+            color="#00869F"
+          />
+        </View>
       </View>
 
-      </View>
-			<ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-				<View style={{ flexDirection: "row", height: 100 ,alignItems:'center' }}>
-					{tags.map((tag) => (
-            <View key={tag} >
-							<BtnFiltroComp text={tag}/>
-						</View>
-						
-            ))}
-				</View>
-			</ScrollView>
+      <CardsSwiper data={dataCategories} settering={nose}/>
 
-			<CardsSwiper swiperType="food" title='Restaurants populares'/>
-			
-			<CardsSwiper swiperType="fav" title='Pizzerías favoritas de la zona'/>
-      
-			<CardsSwiper swiperType="fav" title='Pizzerías favoritas de la zona'/>
-		</ScrollView>
-	);
+      <CardsSwiper
+        swiperType="shop"
+        title="Restaurantes populares"
+        data={dataRestaurants}
+      />
+
+      <CardsSwiper
+        swiperType="favs"
+        title="Favoritos de la zona"
+        data={dataRestaurants}
+      />
+
+      <CardsSwiper
+        swiperType="rebajas"
+        title="Rebajas de última hora"
+        data={dataCategorieSelected ? dataCategorieSelected : dataFood}
+      />
+    </ScrollView>
+  );
 }
 export default Home;
-

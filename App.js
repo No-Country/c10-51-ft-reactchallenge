@@ -1,11 +1,9 @@
 
 import { StyleSheet, View, Text } from 'react-native';
 import { useFonts } from 'expo-font';
-import { useEffect, useCallback, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import SplashScreen  from './src/pages/SplashScreen';
 
 //access
 import Login from './src/pages/access/Login';
@@ -16,6 +14,10 @@ import NavBar from './src/components/navigation/NavBar';
 import HomeScreen from './src/pages/app/index';
 import Pay from './src/pages/app/pay';
 import Profile from './src/pages/app/profile';
+import React, { useEffect, useCallback, useState } from 'react';
+import * as SplashScreen from 'expo-splash-screen';
+import Search from './src/pages/app/search';
+import Cart from './src/pages/app/cart';
 import { StatusBar } from 'expo-status-bar';
 import RestaurantContainer from './src/pages/app/restaurantContainer';
 import Ordenar from './src/pages/app/order';
@@ -48,19 +50,54 @@ const Stack = createStackNavigator();
 function StackNavApp() {
   return (
     <>
-      <NavBar />
-      <Stack.Navigator screenOptions={{
-        headerShown: false,
-        
+     <StatusBar/>
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen
+      name="Home"
+      component={HomeScreen}
+      options={{ 
+        headerShown: true,
+        header: () => <NavBar />
       }}
-      >
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Order" component={RestaurantContainer} />
-        <Stack.Screen name="Pay" component={Pay} />
-        <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Ordenar" component={Ordenar}/>
-      </Stack.Navigator>
-      <NavBarBottom />
+    />
+    <Stack.Screen
+      name="Order"
+      component={Order}
+      options={{ 
+        headerShown: true,
+        header: () => <NavBar />
+      }}
+    />
+    <Stack.Screen
+      name="Pay"
+      component={Pay}
+      options={{ 
+        headerShown: true,
+        header: () => <NavBar />
+      }}
+    />
+    <Stack.Screen
+      name="Profile"
+      component={Profile}
+      options={{ 
+        headerShown: false,
+        header: () => <NavBar />
+      }}
+    />
+    <Stack.Screen
+      name="Search"
+      component={Search}
+    />
+    <Stack.Screen
+      name="Cart"
+      component={Cart}
+      options={{ 
+        headerShown: true,
+        header: () => <NavBar />
+      }}
+    />
+  </Stack.Navigator>
+  <NavBarBottom />
     </>
   );
 }
