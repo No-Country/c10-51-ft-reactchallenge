@@ -5,7 +5,7 @@ import CircleButton from "../../components/buttons/Circle";
 import CardShop from "../../components/cards/CardShop";
 import { InfoSvg, EstrellaSvg, RelojSvg, SvgMOTO   } from "../../components/svgs/Svgs";
 import { useNavigation } from "@react-navigation/native";
-import Ordenar from "./ordenar";
+import Ordenar from "./order";
 
 const Restaurant = () => {
   const image = {

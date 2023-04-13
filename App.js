@@ -18,7 +18,7 @@ import Pay from './src/pages/app/pay';
 import Profile from './src/pages/app/profile';
 import { StatusBar } from 'expo-status-bar';
 import RestaurantContainer from './src/pages/app/restaurantContainer';
-import Ordenar from './src/pages/app/ordenar';
+import Ordenar from './src/pages/app/order';
 
 //navigate para el inicio
 const StackIni = createStackNavigator();
