@@ -1,9 +1,10 @@
 import React from "react";
 import { View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import CardsSwiper from "../components/swipers/CardsSwiper";
-import InputSearchFood from "../components/cards/InputSearchFood";
-import data from "../../data.json";
+import CardsSwiper from "../../components/swipers/CardsSwiper";
+import InputSearchFood from "../../components/cards/InputSearchFood";
+import { BtnFiltroComp } from "../../components/buttons/Buttons";
+import data from "../../../data.json";
 import axios from "axios";
 
 function Home() {

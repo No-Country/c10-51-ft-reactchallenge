@@ -5,14 +5,18 @@ import CardPromocion from "../cards/CardPromocion";
 import CardShop from "../cards/CardShop";
 import CardMenu from "../cards/CardMenu";
 import { BtnPrimaryIconDef } from "../buttons/BtnsIcon";
+import { useNavigation } from "@react-navigation/native";
+const Swiper = require('react-native-swiper').default;
 import CardEnvio from "../cards/CardEnvio";
 import { StyleSheet } from "react-native";
-const Swiper = require("react-native-swiper").default;
 
 function CardsSwiper({ swiperType, title, data ,settering}) {
   const [selectedButton, setSelectedButton] = React.useState(null);
+  const navigation = useNavigation();
+  const toRestaurant = ()=> {navigation.navigate("Order")}
 
   useEffect(() => {
+
 
 
   }, [selectedButton]);
@@ -68,6 +72,7 @@ function CardsSwiper({ swiperType, title, data ,settering}) {
                   description={shop.adress}
                   image={shop.img}
                   type="rest"
+				  to={()=>toRestaurant()}
                 />
               ))}
             </View>
