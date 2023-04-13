@@ -9,9 +9,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/pages';
 import Order from './src/pages/app/order';
-import Pay from './src/pages/app/pay';
-import Profile from './src/pages/app/profile';
+import Profile from './src/pages/app/profile/';
 import Search from './src/pages/app/search';
+import Cart from './src/pages/app/cart';
+import Pay from './src/pages/app/pay';
 import { StatusBar } from 'expo-status-bar';
 
 
@@ -95,11 +96,19 @@ export default function App() {
       name="Search"
       component={Search}
     />
+    <Stack.Screen
+      name="Cart"
+      component={Cart}
+      options={{ 
+        headerShown: true,
+        header: () => <NavBar />
+      }}
+    />
   </Stack.Navigator>
   <NavBarBottom />
-</NavigationContainer>
 
-
+      
+    </NavigationContainer>
   );
 };
 
