@@ -1,7 +1,7 @@
 import * as React from "react";
 import Svg, { Path, G } from "react-native-svg";
 
-function SvgComponent(props) {
+function Ilustracion(props) {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
@@ -469,4 +469,4 @@ function SvgComponent(props) {
   );
 }
 
-export default SvgComponent;
+export default Ilustracion;

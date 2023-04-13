@@ -15,19 +15,19 @@ import HomeScreen from './src/pages/app/index';
 import Pay from './src/pages/app/pay';
 import Profile from './src/pages/app/profile';
 import React, { useEffect, useCallback, useState } from 'react';
-import * as SplashScreen from 'expo-splash-screen';
+import SplashScreen from 'expo-splash-screen';
 import Search from './src/pages/app/search';
 import Cart from './src/pages/app/cart';
 import { StatusBar } from 'expo-status-bar';
 import RestaurantContainer from './src/pages/app/restaurantContainer';
 import Ordenar from './src/pages/app/order';
-
+import Splash from './src/pages/SplashScreen';
 //navigate para el inicio
 const StackIni = createStackNavigator();
 function StackNavIni() {
   return (
     <StackIni.Navigator initialRouteName="Splash">
-      <StackIni.Screen name='Splash' component={SplashScreen}
+      <StackIni.Screen name='Splash' component={Splash}
         options={{
           headerShown: false
         }}/>
@@ -62,7 +62,7 @@ function StackNavApp() {
     />
     <Stack.Screen
       name="Order"
-      component={Order}
+      component={Ordenar}
       options={{ 
         headerShown: true,
         header: () => <NavBar />

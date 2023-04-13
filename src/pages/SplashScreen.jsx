@@ -13,7 +13,7 @@ import Desing from "../components/svgs/Desing";
 //navigate
 import { useNavigation } from "@react-navigation/native";
 
-const SplashScreen = () => {
+const Splash = () => {
     const navigation = useNavigation();
   const toRegister = () => {
     navigation.navigate("Register");
@@ -51,7 +51,7 @@ const SplashScreen = () => {
     </View>
   );
 };
-export default SplashScreen; // Asegurarse de exportar el componente correctamente
+export default Splash; // Asegurarse de exportar el componente correctamente
 
 
 const styles = StyleSheet.create({
