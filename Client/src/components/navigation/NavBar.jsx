@@ -129,10 +129,15 @@ export default function NavBar() {
             <InfoSvg fill="#00869F" width="25" height="25" />
             <Text style={styles.text}>Términos y condiciones</Text>
           </View>
-          <View style={styles.options}>
+          <TouchableOpacity
+            style={styles.options}
+            onPress={() => {
+              navigation.navigate("Onboarding");
+            }}
+          >
             <CubiertosSvg fill="#00869F" width="25" height="25" />
             <Text style={styles.text}>Registra tu restaurante</Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </Animated.View>
     </View>
