@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 //access
 import Login from './src/pages/access/Login';
 import Register from './src/pages/access/Register';
+import RegisterRestaurant from './src/pages/access/RegisterRestaurant';
 //app
 import NavBarBottom from './src/components/navigation/NavBarBottom';
 import NavBar from './src/components/navigation/NavBar';
@@ -30,14 +31,15 @@ function StackNavIni() {
       <StackIni.Screen name='Splash' component={Splash}
         options={{
           headerShown: false
-        }}/>
-        <StackIni.Screen name='Register' component={Register}
-        options={{headerShown:false
-      }}/><StackIni.Screen name='Login' component={Login}
+        }} />
+      <StackIni.Screen name='Register' component={Register}
         options={{
           headerShown: false
-        }}/>
-        
+        }} /><StackIni.Screen name='Login' component={Login}
+          options={{
+            headerShown: false
+          }} />
+
 
     </StackIni.Navigator>
   )
@@ -50,54 +52,54 @@ const Stack = createStackNavigator();
 function StackNavApp() {
   return (
     <>
-     <StatusBar/>
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen
-      name="Home"
-      component={HomeScreen}
-      options={{ 
-        headerShown: true,
-        header: () => <NavBar />
-      }}
-    />
-    <Stack.Screen
-      name="Order"
-      component={Ordenar}
-      options={{ 
-        headerShown: true,
-        header: () => <NavBar />
-      }}
-    />
-    <Stack.Screen
-      name="Pay"
-      component={Pay}
-      options={{ 
-        headerShown: true,
-        header: () => <NavBar />
-      }}
-    />
-    <Stack.Screen
-      name="Profile"
-      component={Profile}
-      options={{ 
-        headerShown: false,
-        header: () => <NavBar />
-      }}
-    />
-    <Stack.Screen
-      name="Search"
-      component={Search}
-    />
-    <Stack.Screen
-      name="Cart"
-      component={Cart}
-      options={{ 
-        headerShown: true,
-        header: () => <NavBar />
-      }}
-    />
-  </Stack.Navigator>
-  <NavBarBottom />
+      <StatusBar />
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            headerShown: true,
+            header: () => <NavBar />
+          }}
+        />
+        <Stack.Screen
+          name="Order"
+          component={Ordenar}
+          options={{
+            headerShown: true,
+            header: () => <NavBar />
+          }}
+        />
+        <Stack.Screen
+          name="Pay"
+          component={Pay}
+          options={{
+            headerShown: true,
+            header: () => <NavBar />
+          }}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            headerShown: false,
+            header: () => <NavBar />
+          }}
+        />
+        <Stack.Screen
+          name="Search"
+          component={Search}
+        />
+        <Stack.Screen
+          name="Cart"
+          component={Cart}
+          options={{
+            headerShown: false,
+            header: () => <NavBar />
+          }}
+        />
+      </Stack.Navigator>
+      <NavBarBottom />
     </>
   );
 }
@@ -113,7 +115,7 @@ export default function App() {
     'Poppins-Light': require('./assets/fonts/Poppins-Light.ttf'),
     'Poppins-ExtraBold': require('./assets/fonts/Poppins-ExtraBold.ttf'),
     'Poppins-ExtraLight': require('./assets/fonts/Poppins-ExtraLight.ttf'),
-  }); 
+  });
 
   const [appIsReady, setAppIsReady] = useState(false);
   useEffect(() => {
