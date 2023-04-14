@@ -1,0 +1,5 @@
+DB_USER=postgres
+DB_PASSWORD=1234
+DB_HOST=localhost
+
+DB_DEPLOY= postgresql://postgres:4YJf3sufBNM4OIBavS4g@containers-us-west-40.railway.app:7872/railway

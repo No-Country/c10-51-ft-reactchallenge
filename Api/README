@@ -1,0 +1,187 @@
+Utilización de rutas:
+
+RESTAURANTES
+
+rest/
+
+Si se utiliza solo se obtiene un array con todos los restaurantes en base de datos.
+
+rest/1
+
+Cuando se coloca un número seguido de "rest/" se obtiene un detalle del restaurante que tenga un id igual al número
+
+rest/?category=Comida Rápida
+
+Devuelve un array con todos los restaurantes que sirvan comidas con categoria "Comida Rápida"
+
+
+rest/restCreator
+
+Esta ruta es la que se emplea para la creación de restaurantes
+El objeto que debe recibir debe tener el siguiente formato:
+{
+    name: STRING,
+    img: STRING,
+    adress: STRING,
+    phone: NUMBER,
+    shipping: NUMBER,
+    description: TEXT,
+    user: [1] ----> id del usuario administrador
+}
+
+rest/rating/1
+
+Devuelve el promedio de calificaciones hechas por los usuarios del restauirante con id 1
+
+rest?category=Pizza
+
+Devuelve array con todos los restaurantes que sirvan comida de categoria Pizza.
+
+rest/edit?idRest=1
+
+Edita la información de un restaurante existente. Se le debe pasar por body un objeto del siguiente formato:
+
+{
+    edit:{
+        propiedad a modificar: Valor de la propiedad modificada 
+    }
+}
+
+
+COMIDA
+
+food/
+
+Si se utiliza solo se obtiene un array con todas las comidas en base de datos.
+
+Pero a su vez se le pueden aplicar querys para filtrar los valores. Por ejemplo:
+
+?idrest=1   ----> entrega array de comidas pertenecientes al restaruante de id = 1
+
+?category=Pizza   ----> entrega array de comidas pertenecientes a la categoria "Pizza"
+
+?minprice=1000  o  ?maxprice=2000   ----> entrega array con las comidas que estén en ese rango de precios
+
+?promo=1  ----> En este caso no es requisito que sea "1", puede ser cualquier cosa mientras que retorne un valor true. Entrega array con comidas que tengan propiedad promo en true.
+
+Todas son combinables. Para combinarlas se debe emplear "&" de la siguiente forma:
+
+"food?idrest=2&category=Hamburguesa&minprice=1000&maxprice=3000"
+
+En el ejemplo se obtendría un array de las comidas pertenecientes al restaurant cuya "id" sea igual a 2, que posean categoria "Hamburguesa" y que su precio esté entre 1000 y 3000.
+
+food/foodCreator
+
+Esta ruta es la que se emplea para la creación de comidas
+El objeto que debe recibir debe tener el siguiente formato:
+{
+    name: STRING,
+    img: STRING,
+    price: INTEGER,
+    description: TEXT,
+    categories: ["Categoria1", "Categoria2"],
+    promo: false
+    rest: [1]  ----> id del restaurante que sirve esa comida
+}
+
+Se le puede colocar infinitas categorias y la propiedad promo solo es necesaria si se coloca en true. De lo contrario se puede omitir.
+
+/food/categories
+
+Traerá un array con las categorías disponibles
+
+/food/2
+
+Traerá un detalle de la comida cuyo id sea igual a 2
+
+rest/edit?idFood=1
+
+Edita la información de una comida existente. Se le debe pasar por body un objeto del siguiente formato:
+
+{
+    edit:{
+        propiedad a modificar: Valor de la propiedad modificada 
+    }
+}
+
+
+USUARIOS
+
+/users/
+
+Trae array con todos los usuarios en base de datos
+
+users/1
+
+Trae detalle del usuario con id = 1
+
+users/rating
+
+Ruta de comando PUT, agrega una puntuación a un restaurante. Se le debe colocar por querys userId y restId respectivamente y por body enviar el siguiente objeto:
+
+{
+    qualification: NUMBER
+}
+
+users/userCreator
+
+Ruta de creación de usuarios. Se le debe pasar un objeto del siguiente formato:
+
+{
+    name: STRING,
+    img: STRING,
+    email: STRING,
+    birthday: DATE
+}
+
+users/updateFavorites?idUser=1&idRest=1
+
+Ruta para agregar favoritos a usuario. idUser = id del usuario a actualizar. idRest = id del restaurante a agregar.
+
+
+ORDENES - PEDIDOS
+
+order/
+
+Traerá un array con todas las ordenes en base de datos. A su vez se le pueden aplicar querys
+
+?idOrder=1 ------------>  Traerá un array que contenga la orden pedida con el id 1
+
+?idRest=1 ------------->  Filtrará el array con las ordenes que sean solo del restaurante con el id 1
+
+?idUser=1 ------------->  Filtrará el array con las ordenes que sean solo del usuario con el id 1
+
+idRest e idUser son combinables, de esta forma se pueden obtener todos los pedidos que un usuario haya realizado a un restaurante en particular.
+
+order/orderCreator
+
+Ruta de creación de ordenes. Se le debe pasar un objeto con el siguiente formato:
+
+{
+    items: [1,2,3] ------> Id de las comidas pedidas
+    rest: [2],   ------> Id del restaurante
+    user: [2]    ------> Id del usuario que realiza el pedido
+}
+
+Algo importante de aclarar es que las ordenes tienen tres propiedades que por default están en false.
+{
+    received: false  (recibido)
+    onWay: false     (en camino)
+    delivered: false (entregado)
+}
+
+Estos estados pueden cambiar utilizando las siguientes rutas
+
+order/received?idOrder=1
+order/onWay?idOrder=1
+order/delivered?idOrder=1
+
+Cada una modifica a la propiedad correspondiente de la orden a la que pertenezca el id pasado por query. Transformando el booleano a true.
+
+BUSQUEDA
+
+search/:id
+
+Traerá un array con todo lo que se asemeje al texto dentro del mismo, tanto comidas como restaurantes
+Si un restaurante tiene Pizza en el nombre y hay comidas que tengan pizza en el nombre traerá ambas cosas. Se pueden diferenciar por sus propiedades.
+
