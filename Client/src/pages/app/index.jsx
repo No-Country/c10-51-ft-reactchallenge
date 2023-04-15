@@ -22,13 +22,13 @@ function Home() {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const restaurants = await axios.get("http://192.168.56.1:3001/rest/");
-        const food = await axios.get("http://192.168.56.1:3001/food/");
+        const restaurants = await axios.get("http://localhost:3001/rest/");
+        const food = await axios.get("http://localhost:3001/food/");
         const categories = await axios.get(
-          "http://192.168.56.1:3001/food/categories"
+          "http://localhost:3001/food/categories"
         );
         const categorieSelected = await axios.get(
-          `http://192.168.56.1:3001/food/?category=${categoryName}`
+          `http://localhost:3001/food/?category=${categoryName}`
         );
         setDataRestaurants(restaurants.data);
         setDataFood(food.data);
