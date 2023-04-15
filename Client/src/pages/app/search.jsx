@@ -16,7 +16,7 @@ export default function Pay() {
 
   React.useEffect(() => {
     try {
-      axios.get("http://192.168.56.1:3001/food/categories/").then((res) => {
+      axios.get("http://localhost:3001/food/categories/").then((res) => {
         setData(res.data);
       });
     } catch (error) {
