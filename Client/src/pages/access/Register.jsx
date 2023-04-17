@@ -16,7 +16,7 @@ const RegisterScreen = () => {
     setShowPassword(!showPassword);
   };
 
-
+console.log(process.env,BASE_URL)
   return (
     <View style={styles.container}>
       <View

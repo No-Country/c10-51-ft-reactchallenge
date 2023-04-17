@@ -98,8 +98,16 @@ function StackNavApp() {
             header: () => <NavBar />
           }}
         />
+        <Stack.Screen
+          name="RegisterRestaurant"
+          component={RegisterRestaurant}
+          options={{
+            headerShown: false,
+            header: () => <NavBar />
+          }}
+        />
       </Stack.Navigator>
-      <NavBarBottom />
+      <NavBarBottom type='client'/>
     </>
   );
 }
