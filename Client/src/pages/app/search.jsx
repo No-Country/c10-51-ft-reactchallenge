@@ -10,7 +10,7 @@ import axios from "axios";
 import Loading from "../../components/spinners/loading";
 
 export default function Search() {
-  const ip = "192.168.56.1";
+  const ip = "localhost";
   const [isLoading, setIsLoading] = React.useState(true);
   const navigation = useNavigation();
   const [dataSearch, setDataSearch] = React.useState([]);
@@ -38,6 +38,7 @@ export default function Search() {
 
   React.useEffect(() => {
     try {
+
       axios.get(`http://${ip}:3001/food/categories/`).then((res) => {
         setDataCategories(res.data);
       });
@@ -48,6 +49,7 @@ export default function Search() {
       }
       axios.get(`http://${ip}:3001/rest`).then((res) => {
         setDataRestaurants(res.data);
+
       });
       setIsLoading(false);
     } catch (error) {

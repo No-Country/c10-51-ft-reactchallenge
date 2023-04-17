@@ -6,7 +6,7 @@ import InputSearchFood from "../../components/cards/InputSearchFood";
 import axios from "axios";
 
 function Home() {
-  const ip = "192.168.56.1";
+  const ip = "localhost";
   const [isLoading, setIsLoading] = React.useState(true);
   const [dataRestaurants, setDataRestaurants] = React.useState([]);
   const [dataFood, setDataFood] = React.useState([]);
@@ -41,6 +41,7 @@ function Home() {
     
     const fetchData = async () => {
       try {
+
         const restaurants = await axios.get(
           `http://${ip}:3001/rest${
             categoryName === "" ? "" : `/?category=${categoryName}`
@@ -50,6 +51,7 @@ function Home() {
           `http://${ip}:3001/food${
             categoryName === "" ? "" : `/?category=${categoryName}`
           }`
+
         );
         const categories = await axios.get(`http://${ip}:3001/food/categories`);
         const promos = await axios.get(`http://${ip}:3001/food`);
