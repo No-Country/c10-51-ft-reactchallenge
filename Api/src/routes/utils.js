@@ -234,6 +234,39 @@ const favorites = async (idUser, idRest) => {
     }
 }
 
+const noFavorite = async (idUser, idRest) => {
+    try{
+        const user = await Users.findByPk(idUser);
+        const filteredFavorites = user.favorites.filter(e => e != idRest)
+        const newFavorites = [...filteredFavorites]
+
+        await user.update({favorites:newFavorites})
+
+    }catch(error){
+        console.log("Error en favorites: "+ error.message)
+    }
+}
+
+const includeTarget = async (idUser, target) => {
+    try{
+        const user = await Users.findByPk(idUser);
+        const newTargets = [...user.targets, target]
+        await user.update({targets:newTargets})
+    }catch(error){
+        console.log("Error en incluideTarget: "+ error.message)
+    }
+}
+
+const deleteTarget = async (idUser, number) => {
+    try{
+        const user = await Users.findByPk(idUser);
+        const filteredTargets = user.targets.filter(e => e.number != number)
+        const newTargets = [...filteredTargets]
+        await user.update({targets:newTargets})
+    }catch(error){
+        console.log("Error en deleteTarget: "+ error.message)
+    }
+}
 
 
 
@@ -508,10 +541,10 @@ function levenshteinDistance(a, b) {
       const distance = levenshteinDistance(e.name, str)
       const includesWord = e.name.toLowerCase().includes(str.toLowerCase())
       const includesCategory = e.categories && e.categories.some(category =>
-        levenshteinDistance(category, str) <= 3 ||
+        levenshteinDistance(category, str) <= 4 ||
         category.toLowerCase().includes(str.toLowerCase())
       )
-      return includesWord || distance <= 3 || includesCategory
+      return includesWord || distance <= 4 || includesCategory
     })
   
     return searchResult
@@ -632,6 +665,9 @@ module.exports = {
     getAllUsers,
     getUserDetail,
     favorites,
+    noFavorite,
+    includeTarget,
+    deleteTarget,
     //Funciones /food
     getFood,
     foodCreator,
