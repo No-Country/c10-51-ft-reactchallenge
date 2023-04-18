@@ -1,4 +1,3 @@
-
 import { StyleSheet, View, Text } from 'react-native';
 import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
@@ -25,6 +24,8 @@ import Ordenar from './src/pages/app/order';
 import Splash from './src/pages/SplashScreen';
 //navigate para el inicio
 const StackIni = createStackNavigator();
+
+
 function StackNavIni() {
   return (
     <StackIni.Navigator initialRouteName="Splash">

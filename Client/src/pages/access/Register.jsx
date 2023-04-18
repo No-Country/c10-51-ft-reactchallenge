@@ -13,6 +13,7 @@ import { Ionicons } from "@expo/vector-icons";
 import DesingRegister from "../../components/svgs/Desing2";
 import { useForm, Controller } from "react-hook-form";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 
 const RegisterScreen = () => {
   const [text, onChangeText] = useState("");
@@ -34,7 +35,18 @@ const RegisterScreen = () => {
       Password: "",
     },
   });
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    axios.post('users/userCreator',{data})
+    .then((response)=> {
+      console.log("register submit")
+      console.log(data)
+      console.log(response);
+    })
+    .catch((error)=>{
+      console.log("register fail")
+      console.log(error);
+    })
+    }
 
   const navigation = useNavigation();
   const toLogin = () => {
