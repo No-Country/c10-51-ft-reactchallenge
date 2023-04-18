@@ -31,6 +31,7 @@ export default function Profile() {
     fetchData();
   }, []);
 
+
   return (
     <ScrollView style={{ backgroundColor: "#ffffff" }}>
       <View style={{ position: "relative" }}>
