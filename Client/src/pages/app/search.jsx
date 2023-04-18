@@ -10,27 +10,29 @@ import axios from "axios";
 import Loading from "../../components/spinners/loading";
 
 export default function Search() {
-  const ip = "localhost";
+  const ip = "192.168.56.1";
   const [isLoading, setIsLoading] = React.useState(true);
   const navigation = useNavigation();
   const [dataSearch, setDataSearch] = React.useState([]);
   const [dataRestaurants, setDataRestaurants] = React.useState([]);
   const [dataCategories, setDataCategories] = React.useState([]);
   const [inputValue, setInputValue] = React.useState("");
+  const [recentSearch, setRecentSearch] = React.useState([]);
 
-  const recentSearch = [];
+
+
 
   function getInputValue(dataInput) {
     setIsLoading(true);
     setInputValue(dataInput);
     if (recentSearch.length === 3) {
+      recentSearch.unshift(dataInput);
       recentSearch.pop();
-      recentSearch.push(dataInput);
     } else {
-      recentSearch.push(dataInput);
+      recentSearch.unshift(dataInput);
     }
   }
-
+//que funcion cumplen lo metodos de array pop mpush ,unshift y shift?y push?
   const setterCategories = (data) => {
     setIsLoading(true);
     data === "Todos" ? setInputValue("") : setInputValue(data);
@@ -109,7 +111,7 @@ export default function Search() {
           </View>
         </View>
 
-        {/*  {recentSearch.length > 0 ? (
+         {recentSearch.length > 0 ? (
           <View style={{ paddingHorizontal: 16 }}>
             <Text>Búsquedas reciente</Text>
             <View
@@ -121,7 +123,7 @@ export default function Search() {
               }}
             >
               {recentSearch.map((item) => (
-                <View style={styles.recentItems}>
+                <View style={styles.recentItems} key={item}>
                   <ClockSvg fill="#514E4E" width="16" height="16" />
                   <Text style={styles.text}>{item}</Text>
                 </View>
@@ -129,14 +131,15 @@ export default function Search() {
             </View>
           </View>
         ) : (
-          <View><Text>hola</Text></View>
-        )} */}
+          null
+        )}
 
-        <ScrollView style={{ paddingHorizontal: 16 }}>
+        <ScrollView style={{ paddingHorizontal: 16}}>
           {isLoading ? (
             <Loading />
           ) : inputValue === "" ? (
             dataRestaurants.map((item) => (
+              
               <CardEnvio
                 key={item.id}
                 title={item.name}
