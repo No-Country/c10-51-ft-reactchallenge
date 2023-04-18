@@ -24,10 +24,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true
     },
-    rating: {
-      type: DataTypes.FLOAT,
-      allowNull: true
-    },
     time: {
       type: DataTypes.INTEGER,
       allowNull: true

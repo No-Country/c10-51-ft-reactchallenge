@@ -50,6 +50,10 @@ Edita la información de un restaurante existente. Se le debe pasar por body un 
         propiedad a modificar: Valor de la propiedad modificada 
 }
 
+## rest/rating/1
+
+Devuelve el promedio de rating del restaurante con `id = 1`
+
 
 # COMIDA
 
@@ -99,7 +103,7 @@ Traerá un array con las categorías disponibles
 
 Traerá un detalle de la comida cuyo id sea igual a 2
 
-## rest/edit?idFood=1
+## food/edit?idFood=1
 
 Edita la información de una comida existente. Se le debe pasar por body un objeto del siguiente formato:
 
@@ -129,6 +133,12 @@ Ruta de comando `PUT`, agrega una puntuación a un restaurante. Se le debe coloc
 
     qualification: NUMBER
 }
+
+La ruta finalmente debe poseer este formato:
+
+`users/rating=idUser=1&idRest=1`
+
+Con esta ruta estariamos colocando la calificación al restaurante de `id = 1` desde el usuario de `id = 1`
 
 ## users/userCreator
 

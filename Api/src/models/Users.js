@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
     },
     rating: {
       type: DataTypes.JSON,
-      defaultValue: [{ restId: null, qualification: null }],
+      defaultValue: [],
     },
     favorites: {
       type: DataTypes.ARRAY(DataTypes.INTEGER),

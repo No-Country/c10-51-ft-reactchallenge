@@ -23,9 +23,10 @@ router.get('/', async (req, res) => {
 
 router.put('/rating', async (req, res) => {
     try{
-        const {userId, restId} = req.query
+        const {idUser, idRest} = req.query
         const qualification = req.body
-        const info = await doRating(userId, restId, qualification)
+        console.log(qualification.qualification)
+        const info = await doRating(idUser, idRest, qualification.qualification)
         res.status(201).json(info)
 
     }catch(error){
