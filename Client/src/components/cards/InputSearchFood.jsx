@@ -36,15 +36,7 @@ const InputSearchFood = ({ filterIcon, finalWidth, color, getInputValue,Category
         }}
       />
 
-      <View
-        style={{
-          position: "absolute",
-          right: 15,
-          display: filterIcon ? "flex" : "none",
-        }}
-      >
-        <FilterSvg width={21} height={21} fill={color} />
-      </View>
+      
     </TouchableOpacity>
   );
 };
