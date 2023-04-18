@@ -28,6 +28,7 @@ const StackIni = createStackNavigator();
 function StackNavIni() {
   return (
     <StackIni.Navigator initialRouteName="Splash">
+      
       <StackIni.Screen name='Splash' component={Splash}
         options={{
           headerShown: false
@@ -52,7 +53,7 @@ const Stack = createStackNavigator();
 function StackNavApp() {
   return (
     <>
-      <StatusBar />
+      <StatusBar/>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen
           name="Home"
@@ -89,6 +90,10 @@ function StackNavApp() {
         <Stack.Screen
           name="Search"
           component={Search}
+          options={{
+            headerShown: false,
+            header: () => <NavBar />
+          }}
         />
         <Stack.Screen
           name="Cart"
@@ -98,8 +103,16 @@ function StackNavApp() {
             header: () => <NavBar />
           }}
         />
+        <Stack.Screen
+          name="RegisterRestaurant"
+          component={RegisterRestaurant}
+          options={{
+            headerShown: false,
+            header: () => <NavBar />
+          }}
+        />
       </Stack.Navigator>
-      <NavBarBottom />
+      <NavBarBottom type='client'/>
     </>
   );
 }

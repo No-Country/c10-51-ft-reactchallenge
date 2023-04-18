@@ -15,11 +15,14 @@
 			"birthday": "1995-06-30"
 		},
 		{
-			"name": "Alan",
+			"name": "Alan Vargas",
 			"password": "cacatuas",
-			"img": "ajgoijahogi",
-			"email": "mauroalos@hotmail.com",
-			"birthday": "1995-06-30"
+			"favorites": [1,2],
+			"img": "https://alan-vargas-portfolio.netlify.app/static/media/myphoto.619c2fac4db21c3086a3.jpg",
+			"email": "alan@gmail.com",
+			"birthday": "1999-07-07",
+			"address": "Av. Oroño 3432",
+			"phone": "3413100950"
 		},
 		{
 			"name": "Jaime",
@@ -63,6 +66,7 @@
 			"img": "https://media-cdn.tripadvisor.com/media/photo-s/1a/53/aa/26/somos-un-restaurante.jpg",
 			"email": "sushimaniacos@gmail.com",
 			"adress": "San Juan 3432",
+			"rating": 4.5,
 			"phone": "320199933",
 			"shipping": 140,
 			"user": ["1"]
@@ -118,7 +122,8 @@
 			"price": 1500,
 			"description": "Infaltable Mc'Combo Big Mac con papas y bebida",
 			"rest": ["3"],
-			"categories":["Hamburguesa", "Combo", "Comida Rápida"]
+			"categories":["Hamburguesa", "Combo", "Comida Rápida"],
+			"promo": true
 		},
 		{
 			"name": "Super pancho con papas",
