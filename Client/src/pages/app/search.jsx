@@ -10,7 +10,7 @@ import axios from "axios";
 import Loading from "../../components/spinners/loading";
 
 export default function Search() {
-  const ip = "192.168.56.1";
+  const ip = "localhost";
   const [isLoading, setIsLoading] = React.useState(true);
   const navigation = useNavigation();
   const [dataSearch, setDataSearch] = React.useState([]);
