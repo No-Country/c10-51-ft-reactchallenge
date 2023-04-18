@@ -6,6 +6,7 @@ import CardShop from "../../components/cards/CardShop";
 import { InfoSvg, EstrellaSvg, RelojSvg, SvgMOTO   } from "../../components/svgs/Svgs";
 import { useNavigation } from "@react-navigation/native";
 import Ordenar from "./order";
+import axios from "axios";
 
 const Restaurant = () => {
   const image = {
@@ -15,6 +16,24 @@ const Restaurant = () => {
   const navigation = useNavigation();
 
   const toOrder = ()=> {navigation.navigate('Ordenar')};
+
+  const [restaurants, setRestaurants] = React.useState([]);
+  
+  console.log(restaurants);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+      const restaurants = await axios.get("http://192.168.100.198:3001/rest/");
+      setRestaurants(restaurants.data)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+
 
   return (
     <ScrollView style={{ flex: 1 }}>
@@ -220,7 +239,7 @@ const Restaurant = () => {
             />
             <CardShop
               title="Hamburgresa c/ papas y chedar"
-              description="$1200"
+              description="$1200" 
               type="food"
             />
           </ScrollView>
