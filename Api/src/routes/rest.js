@@ -66,7 +66,7 @@ router.get("/:id", async (req, res) => {
 router.put('/edit', async (req, res) => {
   try{
     const { idRest } = req.query
-    const { edit } = req.body
+    const edit = req.body
     let info = await updateRest(idRest, edit)
     res.status(200).json(info)
   }catch(error){

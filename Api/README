@@ -46,9 +46,8 @@ Edita la información de un restaurante existente. Se le debe pasar por body un 
 
 {
     
-    edit:{
+
         propiedad a modificar: Valor de la propiedad modificada 
-    }
 }
 
 
@@ -106,9 +105,9 @@ Edita la información de una comida existente. Se le debe pasar por body un obje
 
 {
     
-    edit:{
+
         propiedad a modificar: Valor de la propiedad modificada 
-    }
+
 }
 
 
@@ -158,16 +157,16 @@ Ruta para agregar una tarjeta por body para realizar compras. El objeto por body
 
 {
 
-
-  "target": {
-    
     "number": INTEGER
     "name": STRING
     "lastname": STRING
     "exp": STRING  (Formato XX/XX - mes/año)
     "code": INTEGER
-  }
 }
+
+## users/deleteTarget?idUser=1&target=4352123412341234
+
+Ruta para eliminar del usuario con `id=1` la tarjeta con número `4352123412341234`
 
 
 # ORDENES - PEDIDOS
