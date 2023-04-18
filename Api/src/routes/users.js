@@ -23,9 +23,10 @@ router.get('/', async (req, res) => {
 
 router.put('/rating', async (req, res) => {
     try{
-        const {userId, restId} = req.query
-        const {qualification} = req.body
-        const info = await doRating(userId, restId, qualification)
+        const {idUser, idRest} = req.query
+        const qualification = req.body
+        console.log(qualification.qualification)
+        const info = await doRating(idUser, idRest, qualification.qualification)
         res.status(201).json(info)
 
     }catch(error){
@@ -60,7 +61,7 @@ router.put('/noFavorite', async (req,res) => {
 router.put('/updateTargets', async (req, res) => {
     try{
         const { idUser } = req.query
-        const { target } = req.body
+        const target = req.body
         const info = await includeTarget(parseInt(idUser), target)
         res.status(201).json(info)
     }catch(error){
@@ -72,8 +73,8 @@ router.put('/updateTargets', async (req, res) => {
 
 router.put('/deleteTarget', async (req,res) => {
     try{
-        const {idUser, number} = req.query
-        const info = await deleteTarget(parseInt(idUser), number)
+        const {idUser, target} = req.query
+        const info = await deleteTarget(parseInt(idUser), target)
         res.status(201).json(info)
     }catch(error){
         res.status(400).json({ error: error.message })

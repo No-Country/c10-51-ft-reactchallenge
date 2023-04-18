@@ -30,22 +30,28 @@ const restCreator = async (dataRest) => {
 };
 
 
-const getRating = async (restId) =>{
+const getRating = async (idRest) => {
     try {
+ 
         // Obtener todas las calificaciones de los usuarios para el restaurante con el id "restId"
-        const ratings = await Users.findAll({
-          where: sequelize.literal(`rating @> '[{"restId": ${restId}}]'`)
-        });
-    
-        // Calcular el promedio de las calificaciones
-        const sum = ratings.reduce((total, rating) => total + rating.rating.find(r => r.restId === restId).qualification, 0);
-        const average = sum / ratings.length;
-    
-        return average;
-      } catch (error) {
+        const allUsers = await Users.findAll();
+        let qualifications = []
+        for(let i = 0; i < allUsers.length; i++){
+            for(let j = 0; j < allUsers[i].rating.length; j++){
+                if(allUsers[i].rating[j].idRest == idRest)
+                qualifications.push(allUsers[i].rating[j].qualification)
+            }
+        }
+        const sum = qualifications.reduce(
+            (accumulator, currentValue) => accumulator + currentValue,
+            0
+          );
+        const average = sum / qualifications.length;
+        return parseFloat(average.toFixed(1))
+    } catch (error) {
         console.log(`Error en getRating: ${error.message}`);
         return null;
-      }
+    }
 }
 
 
@@ -61,22 +67,22 @@ const getAllRest = async (category) => {
                 }
             }
         })
-        if(category){
+        if (category) {
             const aux = [];
 
             for (let i = 0; i < allRest.length; i++) {
-              const food = allRest[i].food;
-              for (let j = 0; j < food.length; j++) {
-                const categories = food[j].categories;
-                if (categories.includes(category)) {
-                  aux.push(allRest[i]);
-                  break;
+                const food = allRest[i].food;
+                for (let j = 0; j < food.length; j++) {
+                    const categories = food[j].categories;
+                    if (categories.includes(category)) {
+                        aux.push(allRest[i]);
+                        break;
+                    }
                 }
-              }
             }
-          
+
             return aux;
-        }else{
+        } else {
             return allRest
         }
     } catch (error) {
@@ -124,7 +130,7 @@ const getRestDetail = async (id, menu) => {
 }
 
 const updateRest = async (idRest, updateInfo) => {
-    try{
+    try {
         const rest = await Restaurant.findByPk(idRest);
         console.log(`idRest=${idRest} - updateInfo=${updateInfo}`)
         await rest.update({
@@ -132,8 +138,8 @@ const updateRest = async (idRest, updateInfo) => {
         })
         return rest
 
-    }catch(error){
-        console.log("Error en updateRest -->"+error.message)
+    } catch (error) {
+        console.log("Error en updateRest -->" + error.message)
     }
 }
 
@@ -210,61 +216,61 @@ const getUserDetail = async (id) => {
 }
 
 
-const doRating = async (userId, restId, qualification) => {
+const doRating = async (idUser, idRest, qualification) => {
     try {
-        const user = await Users.findByPk(userId);
-    
-        const newRating = [...user.rating, { restId, qualification }];
+        const user = await Users.findByPk(idUser);
+
+        const newRating = [...user.rating, { idRest, qualification }];
         await user.update({ rating: newRating });
-    
-        console.log(`Calificación agregada para el usuario con ID ${userId}`);
-      } catch (error) {
+
+        console.log(`Calificación agregada para el usuario con ID ${idUser}`);
+    } catch (error) {
         console.log(`Error en doRating: ${error.message}`);
-      }
+    }
 }
 
 const favorites = async (idUser, idRest) => {
-    try{
+    try {
         const user = await Users.findByPk(idUser);
         const newFavorites = [...user.favorites, idRest]
-        await user.update({favorites:newFavorites})
+        await user.update({ favorites: newFavorites })
 
-    }catch(error){
-        console.log("Error en favorites: "+ error.message)
+    } catch (error) {
+        console.log("Error en favorites: " + error.message)
     }
 }
 
 const noFavorite = async (idUser, idRest) => {
-    try{
+    try {
         const user = await Users.findByPk(idUser);
         const filteredFavorites = user.favorites.filter(e => e != idRest)
         const newFavorites = [...filteredFavorites]
 
-        await user.update({favorites:newFavorites})
+        await user.update({ favorites: newFavorites })
 
-    }catch(error){
-        console.log("Error en favorites: "+ error.message)
+    } catch (error) {
+        console.log("Error en favorites: " + error.message)
     }
 }
 
 const includeTarget = async (idUser, target) => {
-    try{
+    try {
         const user = await Users.findByPk(idUser);
         const newTargets = [...user.targets, target]
-        await user.update({targets:newTargets})
-    }catch(error){
-        console.log("Error en incluideTarget: "+ error.message)
+        await user.update({ targets: newTargets })
+    } catch (error) {
+        console.log("Error en incluideTarget: " + error.message)
     }
 }
 
 const deleteTarget = async (idUser, number) => {
-    try{
+    try {
         const user = await Users.findByPk(idUser);
         const filteredTargets = user.targets.filter(e => e.number != number)
         const newTargets = [...filteredTargets]
-        await user.update({targets:newTargets})
-    }catch(error){
-        console.log("Error en deleteTarget: "+ error.message)
+        await user.update({ targets: newTargets })
+    } catch (error) {
+        console.log("Error en deleteTarget: " + error.message)
     }
 }
 
@@ -275,7 +281,7 @@ const deleteTarget = async (idUser, number) => {
 
 const foodCreator = async (dataFood) => {
     try {
-        const { name, img, price, description,categories, rest, promo } = dataFood; // esto para el req.body en post
+        const { name, img, price, description, categories, rest, promo } = dataFood; // esto para el req.body en post
         let Rest = await Restaurant.findAll({
             where: { id: rest }
         })
@@ -300,7 +306,7 @@ const foodCreator = async (dataFood) => {
 
 
 const getFood = async (idRest, category, minPrice, maxPrice, promo) => {
-    try{
+    try {
         let aux = await Food.findAll({
             include: {
                 model: Restaurant,
@@ -310,24 +316,24 @@ const getFood = async (idRest, category, minPrice, maxPrice, promo) => {
                 }
             }
         })
-        if(idRest){
+        if (idRest) {
             aux = aux.filter(e => e.restaurants[0].id == idRest)
         }
-        if(category){
+        if (category) {
             aux = aux.filter(e => e.categories.includes(category))
         }
-        if(minPrice){
+        if (minPrice) {
             aux = aux.filter(e => e.price >= minPrice)
         }
-        if(maxPrice){
+        if (maxPrice) {
             aux = aux.filter(e => e.price <= maxPrice)
         }
-        if(promo){
+        if (promo) {
             aux = aux.filter(e => e.promo === true)
         }
-    
+
         return aux
-    }catch(error){
+    } catch (error) {
         console.log('Error en getFood ', error.message)
     }
 
@@ -368,21 +374,21 @@ const getCategories = async () => {
     });
     const uniqueCategories = categories.filter((element, index, array) => {
         return index === array.indexOf(element);
-      });
-    
-      return uniqueCategories;
+    });
+
+    return uniqueCategories;
 }
 
 const updateFood = async (idFood, updateInfo) => {
-    try{
+    try {
         const rest = await Food.findByPk(idFood);
         await rest.update({
             ...updateInfo
         })
         return rest
 
-    }catch(error){
-        console.log("Error en updateRest -->"+error.message)
+    } catch (error) {
+        console.log("Error en updateRest -->" + error.message)
     }
 }
 
@@ -398,7 +404,7 @@ const createOrder = async (order) => {
         where: { id: user }
     })
     let Foods = await Food.findAll({
-        where: { id: items}
+        where: { id: items }
     })
     let newOrder = await Order.create({})
 
@@ -409,7 +415,7 @@ const createOrder = async (order) => {
 }
 
 const getOrder = async (idOrder, idRest, idUser) => {
-    if(idOrder){
+    if (idOrder) {
         let order = await Order.findAll({
             where: { id: idOrder },
             include: [
@@ -463,10 +469,10 @@ const getOrder = async (idOrder, idRest, idUser) => {
             }
         ]
     })
-    if(idRest){
-        order = order.filter(e=> e.restaurants[0].id == idRest)
+    if (idRest) {
+        order = order.filter(e => e.restaurants[0].id == idRest)
     }
-    if(idUser){
+    if (idUser) {
         order = order.filter(e => e.users[0].id == idUser)
     }
     return order
@@ -475,23 +481,23 @@ const getOrder = async (idOrder, idRest, idUser) => {
 const changeOrderState = async (task, idOrder) => {
     const order = await Order.findByPk(idOrder);
 
-    if(task == "received"){
+    if (task == "received") {
         order.update({
             order,
-            received:true
+            received: true
         });
-    }else if( task == "onWay"){
+    } else if (task == "onWay") {
         order.update({
             order,
-            received:true,
-            onWay:true
+            received: true,
+            onWay: true
         });
-    }else if( task == "delivered"){
+    } else if (task == "delivered") {
         order.update({
             order,
-            received:true,
-            onWay:true,
-            delivered:true
+            received: true,
+            onWay: true,
+            delivered: true
         });
     }
 }
@@ -502,53 +508,53 @@ const changeOrderState = async (task, idOrder) => {
 function levenshteinDistance(a, b) {
     if (a.length === 0) return b.length
     if (b.length === 0) return a.length
-  
+
     const matrix = []
-  
+
 
     for (let i = 0; i <= b.length; i++) {
-      matrix[i] = [i]
+        matrix[i] = [i]
     }
-  
+
     for (let j = 0; j <= a.length; j++) {
-      matrix[0][j] = j
+        matrix[0][j] = j
     }
-  
+
 
     for (let i = 1; i <= b.length; i++) {
-      for (let j = 1; j <= a.length; j++) {
-        if (b.charAt(i - 1) === a.charAt(j - 1)) {
-          matrix[i][j] = matrix[i - 1][j - 1]
-        } else {
-          matrix[i][j] = Math.min(
-            matrix[i - 1][j - 1] + 1, // Sustitución
-            matrix[i][j - 1] + 1, // Inserción
-            matrix[i - 1][j] + 1 // Eliminación
-          )
+        for (let j = 1; j <= a.length; j++) {
+            if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                matrix[i][j] = matrix[i - 1][j - 1]
+            } else {
+                matrix[i][j] = Math.min(
+                    matrix[i - 1][j - 1] + 1, // Sustitución
+                    matrix[i][j - 1] + 1, // Inserción
+                    matrix[i - 1][j] + 1 // Eliminación
+                )
+            }
         }
-      }
     }
-  
-    return matrix[b.length][a.length]
-  }
 
-  const search = async (str) => {
+    return matrix[b.length][a.length]
+}
+
+const search = async (str) => {
     let allFood = await getFood()
     let allRest = await getAllRest()
     let foodAndRest = [...allFood, ...allRest]
-  
+
     let searchResult = foodAndRest.filter(e => {
-      const distance = levenshteinDistance(e.name, str)
-      const includesWord = e.name.toLowerCase().includes(str.toLowerCase())
-      const includesCategory = e.categories && e.categories.some(category =>
-        levenshteinDistance(category, str) <= 4 ||
-        category.toLowerCase().includes(str.toLowerCase())
-      )
-      return includesWord || distance <= 4 || includesCategory
+        const distance = levenshteinDistance(e.name, str)
+        const includesWord = e.name.toLowerCase().includes(str.toLowerCase())
+        const includesCategory = e.categories && e.categories.some(category =>
+            levenshteinDistance(category, str) <= 4 ||
+            category.toLowerCase().includes(str.toLowerCase())
+        )
+        return includesWord || distance <= 4 || includesCategory
     })
-  
+
     return searchResult
-  }
+}
 
 
 //----------FUNCIONES PRELOAD-------------------
