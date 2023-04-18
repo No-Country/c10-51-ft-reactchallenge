@@ -38,7 +38,8 @@ router.post('/restCreator', async (req, res) => {
 router.get('/rating/:id', async (req, res) => {
   try{
     const idRest = req.params.id
-    const info = getRating(idRest)
+    const info = await getRating(parseInt(idRest))
+    console.log('info '+info)
     res.status(200).json(info)
   }catch(error){
     res.status(404).json({ error: error.message })
@@ -66,7 +67,7 @@ router.get("/:id", async (req, res) => {
 router.put('/edit', async (req, res) => {
   try{
     const { idRest } = req.query
-    const { edit } = req.body
+    const edit = req.body
     let info = await updateRest(idRest, edit)
     res.status(200).json(info)
   }catch(error){
