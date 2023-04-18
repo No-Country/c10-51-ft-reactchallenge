@@ -70,11 +70,12 @@ function Home() {
         setIsLoading(false);
       } catch (error) {
         console.error(error);
-        setError("Ocurrió un error al cargar la información");
       }
     };
     fetchData();
   }, [categoryName, inputValue]);
+
+
 
   //funcion de voto que se envia al hijo cardsSwiper
   async function vote(id) {
@@ -146,6 +147,7 @@ function Home() {
         data={dataSearch ? dataSearch : dataFood}
         isLoading={isLoading}
       />
+      <View style={{backgroundColor:'white',width:'100%',height:50}}></View>
     </ScrollView>
   );
 }
