@@ -22,15 +22,20 @@ module.exports = (sequelize) => {
     },
     birthday: {
       type: DataTypes.DATEONLY,
-      allowNull: false,
+      allowNull: true,
     },
     rating: {
       type: DataTypes.JSON,
       defaultValue: [{ restId: null, qualification: null }],
     },
     favorites: {
-      type: DataTypes.ARRAY(DataTypes.DOUBLE),
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      defaultValue: []
+    },
+    targets: {
+      type: DataTypes.ARRAY(DataTypes.JSON),
       defaultValue: [],
+      allowNull: true
     },
     address: {
       type: DataTypes.STRING,

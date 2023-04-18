@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const {userCreator, getAllUsers, getUserDetail, doRating, favorites} = require('./utils')
+const {userCreator, getAllUsers, getUserDetail, doRating, favorites, noFavorite, includeTarget, deleteTarget} = require('./utils')
 const router = Router();
 
 router.get('/', async (req, res) => {
@@ -46,6 +46,39 @@ router.put('/updateFavorites', async (req, res) => {
 }
 
 )
+
+router.put('/noFavorite', async (req,res) => {
+    try{
+        const {idUser, idRest} = req.query
+        const info = await noFavorite(parseInt(idUser), parseInt(idRest))
+        res.status(201).json(info)
+    }catch(error){
+        res.status(400).json({ error: error.message })
+    }
+})
+
+router.put('/updateTargets', async (req, res) => {
+    try{
+        const { idUser } = req.query
+        const { target } = req.body
+        const info = await includeTarget(parseInt(idUser), target)
+        res.status(201).json(info)
+    }catch(error){
+        res.status(400).json({ error: error.message })
+    }
+}
+
+)
+
+router.put('/deleteTarget', async (req,res) => {
+    try{
+        const {idUser, number} = req.query
+        const info = await deleteTarget(parseInt(idUser), number)
+        res.status(201).json(info)
+    }catch(error){
+        res.status(400).json({ error: error.message })
+    }
+})
 
 
 router.post('/userCreator', async (req, res) => {
