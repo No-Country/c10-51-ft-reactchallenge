@@ -5,9 +5,9 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  FlatList,
   TextInput,
 } from "react-native";
+import axios from "axios";
 import { ArrowSvg, CartSvg } from "../../components/svgs/Svgs";
 import AddComboButton from "../../components/buttons/AddComboButton";
 import { BtnPrimaryCol } from "../../components/buttons/Buttons";
@@ -15,19 +15,50 @@ import CreditCard from "../../components/cards/CreditCard";
 import CardDeliveryDetail from "../../components/cards/CardDeliveryDetail";
 
 const Cart = () => {
+  const ip = "localhost";
+  const [userData, setUserData] = React.useState([]);
+  const [order, setOrder] = React.useState([]); //Aca guardo las ordenes del usuario
+  const [foodList, setFoodList] = React.useState([]);
+  const [subtotal, setSubtotal] = React.useState(0);
+  const total = subtotal + 150;
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userProfile = await axios.get(`http://${ip}:3001/users/3`);
+        const order = await axios.get(`http://${ip}:3001/order/?idUser=3`); //Aca traigo las ordenes del usuario
+        setUserData(userProfile.data);
+        setOrder(order.data);
+
+        const foods = order.data[0].food; // Accede al array de comida de la primera orden
+        const foodList = [];
+
+        for (let i = 0; i < foods.length; i++) {
+          const foodId = foods[i].id; // Obtiene el ID de la comida actual
+          const food = await axios.get(`http://${ip}:3001/food/${foodId}`); // Hace una solicitud a la URL de la comida para obtener su información
+          const price = food.data.price; // Obtiene el precio de la comida
+          const foodObj = { name: foods[i].name, price: price };
+          foodList.push(foodObj);
+        }
+
+        setFoodList(foodList);
+
+        const subtotalPrice = foodList.reduce(
+          (acc, curr) => acc + curr.price,
+          0
+        );
+        setSubtotal(subtotalPrice);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
   const [selectDomicilio, setSelectDomicilio] = React.useState(
     "Seleccionar domicilio"
   );
   const [isClicked, setIsClicked] = React.useState(false);
-  const domicilios = [
-    {
-      dom: "Domicilio 1",
-    },
-    {
-      dom: "Domicilio 2",
-    },
-  ];
-  const [data, setData] = useState(domicilios);
 
   //Cupon
   const [cupon, setCupon] = useState("");
@@ -48,18 +79,20 @@ const Cart = () => {
   const [metodoPago, setMetodoPago] = useState(1);
   return (
     <View style={{ marginTop: 32, flex: 1, backgroundColor: "white" }}>
-      <View style={styles.header}>
-        <Text
-          onPress={() => {
-            if (step === 1) return;
-            setStep(step - 1);
-          }}
-        >
-          <ArrowSvg width={21} height={21} fill="black" rotating={90} />
-        </Text>
-        <Text style={styles.title}>Finalizar compra</Text>
-        <CartSvg width={"24"} height={"24"} />
-      </View>
+      {step !== 3 && (
+        <View style={styles.header}>
+          <Text
+            onPress={() => {
+              if (step === 1) return;
+              setStep(step - 1);
+            }}
+          >
+            <ArrowSvg width={21} height={21} fill="black" rotating={90} />
+          </Text>
+          <Text style={styles.title}>Finalizar compra</Text>
+          <CartSvg width={"24"} height={"24"} />
+        </View>
+      )}
       <ScrollView style={styles.container}>
         {step === 1 ? (
           <>
@@ -89,33 +122,26 @@ const Cart = () => {
               </TouchableOpacity>
               {isClicked ? (
                 <View style={styles.dropdownArea}>
-                  <FlatList
-                    data={data}
-                    renderItem={({ item }) => {
-                      return (
-                        <TouchableOpacity
-                          style={styles.domicilios}
-                          onPress={() => {
-                            setSelectDomicilio(item.dom);
-                            setIsClicked(false);
-                          }}
-                        >
-                          <Text>{item.dom}</Text>
-                        </TouchableOpacity>
-                      );
+                  <TouchableOpacity
+                    style={styles.domicilios}
+                    onPress={() => {
+                      setSelectDomicilio(userData.address);
+
+                      setIsClicked(false);
                     }}
-                  />
+                  >
+                    <Text>{userData.address}</Text>
+                  </TouchableOpacity>
                 </View>
               ) : null}
             </View>
             <Text style={{ marginTop: 16 }}>Productos</Text>
             <View style={styles.buttonsContainer}>
-              <AddComboButton />
-              <AddComboButton />
-              <AddComboButton />
-              <AddComboButton />
-              <AddComboButton />
+              {foodList.map((food) => (
+                <AddComboButton title={food.name} price={food.price} />
+              ))}
             </View>
+
             <TouchableOpacity
               style={{
                 borderColor: "#009F86",
@@ -142,7 +168,7 @@ const Cart = () => {
             <View style={styles.resumeContainer}>
               <View style={styles.resumeLine}>
                 <Text>Total</Text>
-                <Text>$2820</Text>
+                <Text>${total}</Text>
               </View>
               <View style={styles.resumeLine}>
                 <Text>Envio</Text>
@@ -150,12 +176,12 @@ const Cart = () => {
               </View>
               <View style={styles.resumeLine}>
                 <Text>Subtotal</Text>
-                <Text>$2970</Text>
+                <Text>${subtotal}</Text>
               </View>
             </View>
             <View style={styles.separator} />
           </>
-        ) : (
+        ) : step === 2 ? (
           <>
             <Text style={{ marginTop: 16, marginBottom: 16, fontWeight: 500 }}>
               Elegir metodo de pago
@@ -209,7 +235,7 @@ const Cart = () => {
             <View style={styles.resumeContainer}>
               <View style={styles.resumeLine}>
                 <Text>Productos</Text>
-                <Text>$2820</Text>
+                <Text>${subtotal}</Text>
               </View>
               <View style={styles.resumeLine}>
                 <Text>Envio</Text>
@@ -218,20 +244,26 @@ const Cart = () => {
               <View style={styles.separator} />
               <View style={styles.resumeLine}>
                 <Text>Total</Text>
-                <Text style={{ fontWeight: 500 }}>$2970</Text>
+                <Text style={{ fontWeight: 500 }}>${total}</Text>
               </View>
             </View>
           </>
+        ) : (
+          <>
+            <Text>Pedido realizado</Text>
+          </>
         )}
-        <View style={{ width: "50%", alignSelf: "center", marginBottom: 16 }}>
-          <BtnPrimaryCol
-            text={step === 2 ? "Pagar" : "Siguiente"}
-            onPress={() => {
-              setStep(step + 1);
-            }}
-            style={step === 2 ? { width: "100%" } : null}
-          />
-        </View>
+        {step !== 3 && (
+          <View style={{ width: "50%", alignSelf: "center", marginBottom: 16 }}>
+            <BtnPrimaryCol
+              text={step === 2 ? "Pagar" : "Siguiente"}
+              onPress={() => {
+                setStep(step + 1);
+              }}
+              style={step === 2 ? { width: "100%" } : null}
+            />
+          </View>
+        )}
       </ScrollView>
     </View>
   );

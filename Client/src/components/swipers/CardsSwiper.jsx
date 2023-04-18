@@ -9,21 +9,33 @@ import { useNavigation } from "@react-navigation/native";
 const Swiper = require("react-native-swiper").default;
 import CardEnvio from "../cards/CardEnvio";
 import { StyleSheet } from "react-native";
+import Loading from "../spinners/loading";
 
-function CardsSwiper({ swiperType, title, data, settering }) {
-  const [selectedButton, setSelectedButton] = React.useState(null);
+function CardsSwiper({
+  swiperType,
+  title,
+  data,
+  settering,
+  isPressed,
+  favorites,
+  vote,
+  isLoading,
+}) {
+  const [selectedButton, setSelectedButton] = React.useState(
+    isPressed ? "Todos" : ""
+  );
+
   const navigation = useNavigation();
+
   const toRestaurant = () => {
     navigation.navigate("Order");
   };
-
-  useEffect(() => {}, [selectedButton]);
 
   return (
     <>
       {swiperType === "promo" ? (
         <Swiper autoplay={true} autoplayTimeout={6} height={200}>
-          {data.promociones.map((promo) => (
+          {data.map((promo) => (
             <View
               key={promo.id}
               style={{
@@ -32,9 +44,9 @@ function CardsSwiper({ swiperType, title, data, settering }) {
               }}
             >
               <CardPromocion
-                title={promo.titulo}
-                description={promo.descripcion}
-                image={promo.imagen}
+                title={promo.name}
+                description={promo.description}
+                image={promo.img}
               />
             </View>
           ))}
@@ -50,31 +62,38 @@ function CardsSwiper({ swiperType, title, data, settering }) {
               marginHorizontal: 16,
             }}
           >
-            {title}
+            {isLoading ? "Cargando restaurantes..." : title}
           </Text>
-          <ScrollView
+         
+            {isLoading ? (
+              <Loading />
+            ) : ( <ScrollView
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             style={{ width: "100%" }}
           >
-            <View
-              style={{
-                flexDirection: "row",
-                paddingBottom: 10,
-              }}
-            >
-              {data.map((shop) => (
-                <CardShop
-                  key={shop.id}
-                  title={shop.name}
-                  description={shop.adress}
-                  image={shop.img}
-                  type="rest"
-                  to={() => toRestaurant()}
-                />
-              ))}
-            </View>
-          </ScrollView>
+              <View
+                style={{
+                  flexDirection: "row",
+                  paddingBottom: 10,
+                }}
+              >
+                {data.map((shop) => (
+                  <CardShop
+                    key={shop.id}
+                    title={shop.name}
+                    description={shop.adress}
+                    image={shop.img}
+                    type="rest"
+                    to={() => toRestaurant()}
+                    id={shop.id}
+                    isVoted={favorites.includes(shop.id)}
+                    vote={vote}
+                  />
+                ))}
+              </View></ScrollView>
+            )}
+          
           <View style={{ alignItems: "flex-end", width: "100%" }}>
             <BtnPrimaryIconDef text="Ver todo" />
           </View>
@@ -89,8 +108,11 @@ function CardsSwiper({ swiperType, title, data, settering }) {
               padding: 16,
             }}
           >
-            {title}
+            {isLoading ? "Cargando restaurantes..." : title}
           </Text>
+          {isLoading ? (
+              <Loading />
+            ) : (
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <View
               style={{
@@ -116,7 +138,7 @@ function CardsSwiper({ swiperType, title, data, settering }) {
                 </View>
               ))}
             </View>
-          </ScrollView>
+          </ScrollView>)}
           <View
             style={{
               alignItems: "flex-end",
@@ -136,8 +158,11 @@ function CardsSwiper({ swiperType, title, data, settering }) {
               padding: 16,
             }}
           >
-            {title}
+            {isLoading ? "Cargando comidas..." : title}
           </Text>
+          {isLoading ? (
+              <Loading />
+            ) : (
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <View
               style={{
@@ -165,7 +190,7 @@ function CardsSwiper({ swiperType, title, data, settering }) {
                 </View>
               ))}
             </View>
-          </ScrollView>
+          </ScrollView>)}
           <View
             style={{
               alignItems: "flex-end",
@@ -184,12 +209,36 @@ function CardsSwiper({ swiperType, title, data, settering }) {
               alignItems: "center",
             }}
           >
+            <TouchableOpacity
+              onPress={() => {
+                setSelectedButton("Todos");
+                settering("Todos");
+              }}
+              style={{
+                ...styles.tagButton,
+                backgroundColor:
+                  selectedButton === "Todos" ? "#00869F" : "#FFFFFF",
+              }}
+            >
+              <Text
+                style={{
+                  color: selectedButton === "Todos" ? "#FFFFFF" : "#000000",
+                }}
+              >
+                Todos
+              </Text>
+            </TouchableOpacity>
             {data.map((tag) => (
               <TouchableOpacity
                 key={tag}
                 onPress={() => {
-                  setSelectedButton(tag);
-                  settering(tag);
+                  if (selectedButton != tag) {
+                    setSelectedButton(tag);
+                    settering(tag);
+                  } else {
+                    setSelectedButton("Todos");
+                    settering("Todos");
+                  }
                 }}
                 style={{
                   ...styles.tagButton,

@@ -1,106 +1,151 @@
-// Pagina donde tenga la opcion de añadir una tarjeta de credito.
-
-import React from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, Modal, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import CreditCard from '../../components/cards/CreditCard';
 
-export default function Pay () {
+const Pay = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [cardNumber, setCardNumber] = useState('');
+  const [cardHolderName, setCardHolderName] = useState('');
+  const [expiryDate, setExpiryDate] = useState('');
+  const [cvv, setCvv] = useState('');
+  const [codigo, setCodigo] = useState('');
 
+  const handleAddCreditCard = () => {
+    setModalVisible(true);
+  };
 
+  const handleCreditCardSubmit = () => {
+    // Handle credit card submission
+    setModalVisible(false);
+  };
 
-	const navigation = useNavigation();
+  return (
 
-	const goTocreditCardData = () => {
-		navigation.navigate('creditCardData');
-	}
+    
 
-	return (
+        <View>
 
-		/* 
-		
-		La primera pagina donde esta la opcion de añadir tarjeta, y ultimos pedidos.
-		
-		*/
-
-		<View style={{height: '100%', alignItems:'center', justifyContent: 'center'}}>
-
-			<Text style={{position: 'absolute', top: 0, left: 0, fontSize: 20, fontWeight: "900", padding: 20}}>Tarjeta</Text>
-
-			<View style={{marginTop: -250, alignItems: 'center'}}>
-				<TouchableOpacity onPress={goTocreditCardData}>
-					<View style={{backgroundColor: '#f7f7f7', borderRadius: 8, shadowColor: '#000', shadowOffset: { width: 3, height: 3 }, shadowOpacity: 0.2, shadowRadius: 1, elevation: 2, flexDirection: 'row', alignItems: 'center', paddingVertical: 10, paddingHorizontal: 15}}>
-						<Text style={{fontSize: 18, marginRight: 90, marginBottom: 20}}>Añadir Tarjeta</Text>
-
-
-						<Ionicons  name="add" size={24} color="#00869F" xlinkHref="crediCardData" />
-					</View>
-				</TouchableOpacity>
-			</View>
-
-			<Text style={{position: 'absolute', top: 150, left: 0, fontSize: 17, fontWeight: "900", padding: 20}}>Ultimos Pedidos</Text>
-
-			<View style={{width: '90%', top: 80, borderBottomWidth: 2, borderBottomColor: '#00869F'}}></View>
-
-			<View style={{width: '75%', top: 180, backgroundColor: '#f7f7f7', borderRadius: 8, shadowColor: '#000', shadowOffset: { width: 3, height: 3 }, shadowOpacity: 0.2, shadowRadius: 1, elevation: 2, alignItems: 'center', padding: 20}}>
-				<Text style={{fontSize: 12,  fontWeight: '600', marginBottom: 10, textShadowColor: '#fff', textShadowOffset: {width: 1, height: 1}, textShadowRadius: 2}}>Por ahora no tiene gastos{'\n'}Aquí podrá ver sus pedidos pagados</Text>
-
-			</View>
-
-		</View>
-	);
-}
+            <View>
+                <Text style={{ fontWeight: 900, fontSize: 20, margin: 15 }}>Tarjeta</Text>
+            </View>
 
 
-		/* 
-		
-		Ahora es la parte cuando el cliente ya añadio su carjeta y ahora tiene el historial de sus pedidos y la opcion de añadir otra tarjeta.
-		
-		*/
+            <View style={{ width: '80%', alignSelf: 'center', backgroundColor: '#f7f7f7', borderRadius: 8, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 10, paddingHorizontal: 15,
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 5 },
+                    shadowOpacity: 0.3,
+                    shadowRadius: 5,
+                    elevation: 5,
+                }}>
+                
+                <Text style={{ fontSize: 18, marginBottom: 20 }}>Añadir Tarjeta</Text>
 
+                <TouchableOpacity onPress={handleAddCreditCard}>
+                    <Ionicons name="add" size={24} color="#00869F" />
+                </TouchableOpacity>
 
-		// <View style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}>
+            </View>
 
-		// 	<Text style={{ position: 'absolute', top: 0, left: 0, fontSize: 20, fontWeight: "900", padding: 20 }}>Tarjeta</Text>
+            <View>
+                <Text style={{ fontWeight: 900, fontSize: 20, margin: 15 }}>Ultimos pedidos</Text>
+            </View>
 
-		// 	<ScrollView horizontal={true}>
-		// 		<View style={{ flexDirection: 'row', padding: 15, gap: 20, marginTop: -150, alignItems: 'center' }}>
+            {/* Linea horizontal */}
+            <View style={{ width: '90%', alignSelf: 'center', borderBottomColor: '#00869F', borderBottomWidth: 1.5, marginVertical: 10, }}></View>
 
-		// 			<CreditCard />
+                
+            <View style={{ marginTop: 15, padding: 15, height: '40%', width: '80%', alignSelf: 'center', backgroundColor: '#f7f7f7', borderRadius: 8, flexDirection: 'column', alignItems: 'center',
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 5 },
+                    shadowOpacity: 0.3,
+                    shadowRadius: 5,
+                    elevation: 5,
+                }}>
 
-		// 			<View style={{ height: 100, marginTop: 0, alignItems: 'center' }}>
-		// 				<TouchableOpacity onPress={goTocreditCardData}>
-		// 					<View style={{ backgroundColor: '#f7f7f7', borderRadius: 8, shadowColor: '#000', shadowOffset: { width: 3, height: 3 }, shadowOpacity: 0.2, shadowRadius: 1, elevation: 2, flexDirection: 'row', alignItems: 'center', paddingVertical: 10, paddingHorizontal: 15 }}>
-		// 						<Text style={{ fontSize: 18, marginRight: 90, marginBottom: 20 }}>Añadir nueva Tarjeta</Text>
+                <View style={{ padding: 10, alignSelf: 'center', fontSize: 15,}}>
+                    <Text >Por ahora no tiene gastos{'\n'}Aca podra ver todos los gastos que tiene</Text>
+                </View>
 
+            </View>
 
-		// 						<Ionicons name="add" size={24} color="orange" xlinkHref="NewPage" />
-		// 					</View>
-		// 				</TouchableOpacity>
-		// 			</View>
-		// 		</View>
-		// 	</ScrollView>
+            {/* Credit card modal */}
+            <Modal visible={modalVisible} animationType="slide">
 
-		// 	<Text style={{ position: 'absolute', top: 200, left: 0, fontSize: 17, fontWeight: "900", padding: 20 }}>Ultimos gastos</Text>
+                <ScrollView>
 
-		// 	<View style={{ width: '90%', top: -70, borderBottomWidth: 2, borderBottomColor: 'orange' }}></View>
+                    <View style={{ alignItems: 'center' }}>
 
+                        <Text style={{ fontSize: 20, fontWeight: '800', marginTop: 15 }}>Agregar Tarjeta</Text>
 
-		// 	<View >
+                        <View style={{ margin: 25, alignItems: 'center', justifyContent: 'center' }}>
+                            <CreditCard />
+                        </View>
 
-		// 		<View style={{ width: '75%', top: -50, backgroundColor: '#f7f7f7', borderRadius: 8, shadowColor: '#000', shadowOffset: { width: 3, height: 3 }, shadowOpacity: 0.2, shadowRadius: 1, elevation: 2, padding: 20 }}>
+                        <View style={{ width: '85%', alignSelf: 'center' }}>
 
-		// 			<View style={{ minHeight: '25%', flexDirection: 'row', justifyContent: 'space-between', width: 270}}>
-		// 				<Text style={{ fontSize: 15, fontWeight: '900', marginBottom: 10 }}>Hamburguesa con cheddar{'\n'}Con papas fritas</Text>
-		// 				<Text style={{ fontWeight: 900 }}>$2670</Text>
-		// 			</View>
+                        <TextInput
+                            style={{ width: '106%', height: 40, borderColor: 'gray', borderWidth: 1.5, borderRadius: 10, paddingHorizontal: 10, marginBottom: 20, alignSelf: 'center' }}
+                            placeholder="Número de Tarjeta"
+                            onChangeText={setCardNumber}
+                            value={cardNumber}
+                        />
+                        <View style={{ flexDirection: 'row', gap: 10, alignSelf: 'center' }}>
+                            <TextInput
+                            style={{ width: 180, height: 40, borderColor: 'gray', borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, marginBottom: 20, alignSelf: 'center' }}
+                            placeholder="Nombre"
+                            onChangeText={setCardHolderName}
+                            value={cardHolderName}
+                            />
+                            <TextInput
+                            style={{ width: 180, height: 40, borderColor: 'gray', borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, marginBottom: 20, alignSelf: 'center' }}
+                            placeholder="Apellidos"
+                            onChangeText={setExpiryDate}
+                            value={expiryDate}
+                            />
+                        </View>
 
-		// 			<Text>1x lata de Coca-Cola 200ml</Text>
-		// 			<Text>1x lata de Sprite 200ml</Text>
+                        <View style={{ flexDirection: 'row', gap: 10, alignSelf: 'center' }}>
 
-		// 		</View>
+                            <View>
+                            <Text>Fecha de expiración</Text>
+                            <TextInput
+                                style={{ width: 180, height: 40, borderColor: 'gray', borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, marginBottom: 10, alignSelf: 'center' }}
+                                placeholder="MM/YY"
+                                onChangeText={setCvv}
+                                value={cvv}
+                            />
+                            </View>
 
-		// 	</View>
+                            <View>
+                            <Text>Código de Seguridad</Text>
+                            <TextInput
+                                style={{ width: 180, height: 40, borderColor: 'gray', borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, marginBottom: 10, alignSelf: 'center' }}
+                                placeholder="CVV"
+                                onChangeText={setCodigo}
+                                value={codigo}
+                            />
+                            </View>
 
+                        </View>
 
-		// </View>
+                        <TouchableOpacity onPress={handleCreditCardSubmit} style={{ width: 150, alignSelf: 'center', backgroundColor: '#00869F', marginTop: 10, borderRadius: 10 }}>
+
+                            <Text style={{ fontSize: 17, color: '#fff', padding: 10, textAlign: 'center', fontWeight: 900, fontextShadowColor: '#000', textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 10 }}>
+                            Guardar
+                            </Text>
+
+                        </TouchableOpacity>
+                        
+                        </View>
+                    </View>
+                </ScrollView>
+            </Modal>
+
+        </View>
+
+    
+  );
+};
+
+export default Pay;

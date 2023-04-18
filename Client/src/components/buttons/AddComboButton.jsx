@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import { Text, View, StyleSheet, Button,TouchableOpacity } from "react-native";
 import { AddButtonSvg, AvatarSvg } from "../svgs/Svgs";
 
-const AddComboButton = () => {
+const AddComboButton = ({title,price}) => {
 	const [counter, setCounter] = useState(1);
 
 	return (
 		<View as={Button} style={styles.container}>
 			<AvatarSvg width={"64"} height={"64"} />
 			<View style={styles.textContainer}>
-				<Text style={{ fontWeight: 700 }}>Lata de Coca-Cola 220ml</Text>
+				<Text style={{ fontWeight: 700 }}>{title}</Text>
 				<Text style={{ fontWeight: 300, fontSize: 10 }}>
-        $220
+        {price}
 				</Text>
 			</View>
 			<TouchableOpacity onPress={() =>

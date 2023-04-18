@@ -6,32 +6,30 @@ import {
   Text,
   Animated,
   Dimensions,
-  ScrollView,
+  Image,
 } from "react-native";
 import {
   MenuSvg,
   LupaSvg,
   CartSvg,
-  AvatarSvg,
   CampaingSvg,
   CuponSvg,
   CreditCardSvg,
   InfoSvg,
   BookSvg,
-  ClockSvg,
   CubiertosSvg,
 } from "../svgs/Svgs";
-import InputSearchFood from "../cards/InputSearchFood";
-import { BtnFiltroComp } from "../buttons/Buttons";
-import CardEnvio from "../cards/CardEnvio";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 
 export default function NavBar() {
+  const ip = "192.168.56.1";
   const [isOpen, setIsOpen] = React.useState(false);
   const [typeOfMenu, setTypeOfMenu] = React.useState("");
   const height = React.useRef(new Animated.Value(0)).current;
-  const windowHeight = Dimensions.get("window").height;
+  const [userData, setUserData] = React.useState([]);
 
+  // effect for menu animation
   React.useEffect(() => {
     Animated.timing(height, {
       toValue: isOpen ? 1 : 0,
@@ -39,6 +37,18 @@ export default function NavBar() {
       useNativeDriver: false,
     }).start();
   }, [isOpen]);
+  // effect for get userData from db
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userProfile = await axios.get(`http://${ip}:3001/users/3`);
+        setUserData(userProfile.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const interpolatedHeight = height.interpolate({
     inputRange: [0, 1],
@@ -64,10 +74,21 @@ export default function NavBar() {
           <MenuSvg width={"24"} height={"24"} />
         </TouchableOpacity>
         <View style={styles.containerUser}>
-          <TouchableOpacity>
-            <AvatarSvg width={"38"} height={"38"} />
-          </TouchableOpacity>
-          <Text style={styles.navText}>Bienvenido, User</Text>
+        <View
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: 100,
+              overflow: "hidden",
+              backgroundColor:'gray'
+            }}
+          >
+            <Image
+              source={{uri:userData.img}}
+              style={{ width: "100%", height: "100%" }}
+            />
+          </View>
+          <Text style={styles.navText}>Bienvenido, {userData.name}</Text>
         </View>
 
         <TouchableOpacity
@@ -132,7 +153,7 @@ export default function NavBar() {
           <TouchableOpacity
             style={styles.options}
             onPress={() => {
-              navigation.navigate("Onboarding");
+              navigation.navigate("RegisterRestaurant");
             }}
           >
             <CubiertosSvg fill="#00869F" width="25" height="25" />

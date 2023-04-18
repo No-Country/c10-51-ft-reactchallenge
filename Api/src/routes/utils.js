@@ -1,7 +1,5 @@
 //Aqui estarán todas las funciones que se utilizaran durante el ruteo.
 
-const axios = require('axios');
-const { Op } = require('sequelize');
 const { Restaurant, Users, Food, Order } = require('../db.js');
 
 
@@ -165,7 +163,7 @@ const getAllUsers = async () => {
 
 const userCreator = async (dataUser) => {
     try {
-        const { name, password, img, email, birthday } = dataUser; // esto para el req.body en post
+        const { name, password, img, email, birthday ,address,phone} = dataUser; // esto para el req.body en post
         const aux1 = await getAllUsers()
         //Traigo los datos existentes en la base para corroborar que no se repita ningun pokemon
         const aux2 = aux1.find(e => e.name === name)
@@ -176,7 +174,9 @@ const userCreator = async (dataUser) => {
             password,
             img,
             email,
-            birthday
+            birthday,
+            address,
+            phone
         });
     } catch (error) {
         console.log("Error en funcion restCreator", error.message);
@@ -564,8 +564,10 @@ const preloadUsers = async () => {
                 password: user.password,
                 img: user.img,
                 email: user.email,
-                birthday: user.birthday
-
+                birthday: user.birthday,
+                address: user.address,
+                phone: user.phone,
+                favorites: user.favorites,
             };
         });
 
