@@ -6,7 +6,7 @@ import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Profile() {
-  const ip = "192.168.56.1";
+  const ip = "localhost";
   const [userData, setUserData] = React.useState([]);
   const navigation = useNavigation();
   const [favorites, setFavorites] = React.useState([]);
