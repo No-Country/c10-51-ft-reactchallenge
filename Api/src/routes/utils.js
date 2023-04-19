@@ -132,7 +132,6 @@ const getRestDetail = async (id, menu) => {
 const updateRest = async (idRest, updateInfo) => {
     try {
         const rest = await Restaurant.findByPk(idRest);
-        console.log(`idRest=${idRest} - updateInfo=${updateInfo}`)
         await rest.update({
             ...updateInfo
         })
@@ -143,7 +142,20 @@ const updateRest = async (idRest, updateInfo) => {
     }
 }
 
-
+const deleteRest = async (idRest) => {
+    try{
+        let foodRest = await getFood(idRest)
+        let idFoods = foodRest.map(e => e.id)
+        idFoods.map(async(e) => {
+            deleteFood(e)
+        })
+        await Restaurant.destroy({
+            where: {id: idRest}
+        })
+        }catch(error){
+        console.log("Error en deleteRest -->"+error.message)
+    }
+}
 
 
 // Funciones de  /users
@@ -184,6 +196,7 @@ const userCreator = async (dataUser) => {
             address,
             phone
         });
+        return newRest
     } catch (error) {
         console.log("Error en funcion restCreator", error.message);
     }
@@ -274,7 +287,20 @@ const deleteTarget = async (idUser, number) => {
     }
 }
 
-
+const deleteUser = async (idUser) => {
+    try{
+        let userDB = await getUserDetail(parseInt(idUser))
+        let idRests = userDB.restaurants.map(e => e.id)
+        idRests.map(async(e) => {
+            deleteRest(e)
+        })
+        await Users.destroy({
+            where: {id: idUser}
+        })
+        }catch(error){
+        console.log("Error en deleteUser -->"+error.message)
+    }
+}
 
 
 // -----------Funciones de Food--------------------
@@ -388,7 +414,17 @@ const updateFood = async (idFood, updateInfo) => {
         return rest
 
     } catch (error) {
-        console.log("Error en updateRest -->" + error.message)
+        console.log("Error en updateFood -->" + error.message)
+    }
+}
+
+const deleteFood = async (idFood) => {
+    try{
+        await Food.destroy({
+            where: {id: idFood}
+        })
+    }catch(error){
+        console.log("Error en deleteFood -->"+error.message)
     }
 }
 
@@ -667,6 +703,7 @@ module.exports = {
     getRestDetail,
     getRating,
     updateRest,
+    deleteRest,
     //Funciones /users
     doRating,
     userCreator,
@@ -676,12 +713,14 @@ module.exports = {
     noFavorite,
     includeTarget,
     deleteTarget,
+    deleteUser,
     //Funciones /food
     getFood,
     foodCreator,
     getFoodDetail,
     getCategories,
     updateFood,
+    deleteFood,
     //Funciones /order
     createOrder,
     getOrder,
