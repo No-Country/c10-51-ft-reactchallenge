@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const { getFood, foodCreator, getFoodDetail, getCategories, updateFood } = require('./utils')
+const { getFood, foodCreator, getFoodDetail, getCategories, updateFood, deleteFood } = require('./utils')
 const router = Router();
 
 router.get('/', async (req, res) => {
@@ -84,7 +84,15 @@ router.put('/edit', async (req, res) => {
     }
   })
 
-
+router.delete('/delete/:id', async (req, res) => {
+    try{
+        const id = req.params.id
+        deleteFood(id)
+        res.status(200).json("Comida borrada")
+    }catch(error){
+        res.status(400).json({error: error.message})
+    }
+})
 
 
 
