@@ -76,7 +76,7 @@ router.get("/categories", async (req, res) => {
 router.put('/edit', async (req, res) => {
     try{
       const { idFood } = req.query
-      const { edit } = req.body
+      const edit = req.body
       let info = await updateFood(idFood, edit)
       res.status(200).json(info)
     }catch(error){

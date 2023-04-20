@@ -1,5 +1,4 @@
 
-import { StyleSheet, View, Text } from 'react-native';
 import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -15,13 +14,14 @@ import NavBar from './src/components/navigation/NavBar';
 import HomeScreen from './src/pages/app/index';
 import Pay from './src/pages/app/pay';
 import Profile from './src/pages/app/profile';
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SplashScreen from 'expo-splash-screen';
 import Search from './src/pages/app/search';
 import Cart from './src/pages/app/cart';
 import { StatusBar } from 'expo-status-bar';
 import RestaurantContainer from './src/pages/app/restaurantContainer';
-import Ordenar from './src/pages/app/order';
+import Restaurant from './src/pages/app/restaurant';
+import Food from './src/pages/app/food';
 import Splash from './src/pages/SplashScreen';
 //navigate para el inicio
 const StackIni = createStackNavigator();
@@ -64,10 +64,18 @@ function StackNavApp() {
           }}
         />
         <Stack.Screen
-          name="Order"
-          component={Ordenar}
+          name="Restaurant"
+          component={Restaurant}
           options={{
-            headerShown: true,
+            headerShown: false,
+            header: () => <NavBar />
+          }}
+        />
+        <Stack.Screen
+          name="Food"
+          component={Food}
+          options={{
+            headerShown: false,
             header: () => <NavBar />
           }}
         />

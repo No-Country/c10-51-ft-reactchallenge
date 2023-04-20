@@ -5,18 +5,39 @@ import {
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { CartSvg, HeartSvg } from "../svgs/Svgs";
+import { useNavigation } from "@react-navigation/native";
 
+export default function CardShop({
+  title,
+  description,
+  type,
+  image,
+  id,
+  isVoted,
+  vote,
+}) {
 
-export default function CardShop({ title, description, type, image, to, id,isVoted,vote }) {
-
-
-	
+  const navigation = useNavigation();
 
   return (
-    <TouchableOpacity style={styles.container} onPress={to}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => {
+        if (type === "food") {
+          navigation.navigate("Food", {
+            foodId: id,
+          });
+        } else {
+          navigation.navigate("Restaurant", {
+            restaurantId: id,
+          });
+        }
+      }}
+    >
       <ImageBackground source={{ uri: image }} style={styles.backgroundImg}>
         <LinearGradient
           colors={["black", "transparent"]}
@@ -28,12 +49,19 @@ export default function CardShop({ title, description, type, image, to, id,isVot
         </View>
 
         {type === "food" ? (
-          <TouchableOpacity style={styles.buttonCart}>
+          <TouchableOpacity style={styles.buttonCart} onPress={() => {
+            Alert.alert("Producto agregado al carrito✅");
+          }}>
             <CartSvg width={12} height={12} />
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity style={styles.buttonCart} onPress={() => vote(id)}>
-            <HeartSvg width={12} height={12} fill="#000000" isPressed={isVoted} />
+          <TouchableOpacity style={styles.buttonCart} onPress={() => vote(id,isVoted)}>
+            <HeartSvg
+              width={12}
+              height={12}
+              fill="#000000"
+              isPressed={isVoted}
+            />
           </TouchableOpacity>
         )}
       </ImageBackground>
