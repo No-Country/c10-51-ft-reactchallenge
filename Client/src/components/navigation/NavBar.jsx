@@ -23,7 +23,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
 export default function NavBar() {
-  const ip = "192.168.56.1";
+  const ip = "localhost";
   const [isOpen, setIsOpen] = React.useState(false);
   const [typeOfMenu, setTypeOfMenu] = React.useState("");
   const height = React.useRef(new Animated.Value(0)).current;
