@@ -25,6 +25,8 @@ import Food from './src/pages/app/food';
 import Splash from './src/pages/SplashScreen';
 //navigate para el inicio
 const StackIni = createStackNavigator();
+//context
+import { LoginContext } from './context/loginContext';
 function StackNavIni() {
   return (
     <StackIni.Navigator initialRouteName="Splash">
@@ -137,8 +139,12 @@ export default function App() {
     'Poppins-ExtraBold': require('./assets/fonts/Poppins-ExtraBold.ttf'),
     'Poppins-ExtraLight': require('./assets/fonts/Poppins-ExtraLight.ttf'),
   });
-
-  const [appIsReady, setAppIsReady] = useState(false);
+  
+  const [login, setLogin] = useState(false);
+  function logFunction() {
+    setLogin(true);
+  }
+  
   useEffect(() => {
     async function inicia() {
       try {
@@ -150,15 +156,18 @@ export default function App() {
       } catch (e) {
         console.log(e);
       } finally {
-        setAppIsReady(true);// <====== false muestra inicio de sesion, true muestra la app
+        login();// <====== false muestra inicio de sesion, true muestra la app
       }
     }
     inicia();
   }, []);
 
   return (
+    <LoginContext.Provider value={{ login, logFunction }}>
+
     <NavigationContainer>
-      {appIsReady ? <StackNavApp /> : <StackNavIni />}
+      {login ? <StackNavApp /> : <StackNavIni />}
     </NavigationContainer>
+    </LoginContext.Provider>
   );
 }
