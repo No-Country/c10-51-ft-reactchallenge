@@ -2,27 +2,55 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, Modal, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import CreditCard from '../../components/cards/CreditCard';
+import axios from "axios";
+
 
 const Pay = () => {
+  const ip = "localhost";
   const [modalVisible, setModalVisible] = useState(false);
   const [cardNumber, setCardNumber] = useState('');
-  const [cardHolderName, setCardHolderName] = useState('');
+  const [cardFirstName, setCardFirstName] = useState('');
+  const [cardLastName, setCardLastName] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCvv] = useState('');
-  const [codigo, setCodigo] = useState('');
 
   const handleAddCreditCard = () => {
     setModalVisible(true);
+    // console.log(cardNumber, cardHolderName, expiryDate, cvv, codigo)
+    
   };
 
-  const handleCreditCardSubmit = () => {
-    // Handle credit card submission
-    setModalVisible(false);
+  const handleCreditCardSubmit = async () => {
+
+    try {
+        const creditCardData = {
+            number: parseInt(cardNumber),
+            name: cardFirstName,
+            lastname: cardLastName,
+            exp: expiryDate,
+            code: parseInt(cvv),
+        };
+        console.log(creditCardData);
+
+        const response = await axios.post('http://localhost:3001/users/updateTargets?idUser=1', creditCardData);
+        console.log(response.data);
+
+        // Intente borrar los input despues que se presione el boto de guardar pero no se borra.
+        // setCardNumber('');
+        // setCardFirstName('');
+        // setCardLastName('');
+        // setExpiryDate('');
+        // setCvv('');
+
+    } catch (error) {
+      console.error(error);
+    }
+
+    setModalVisible(false)
+
   };
 
   return (
-
-    
 
         <View>
 
@@ -89,19 +117,20 @@ const Pay = () => {
                             placeholder="Número de Tarjeta"
                             onChangeText={setCardNumber}
                             value={cardNumber}
+                            maxLength={16}
                         />
                         <View style={{ flexDirection: 'row', gap: 10, alignSelf: 'center' }}>
                             <TextInput
                             style={{ width: 180, height: 40, borderColor: 'gray', borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, marginBottom: 20, alignSelf: 'center' }}
                             placeholder="Nombre"
-                            onChangeText={setCardHolderName}
-                            value={cardHolderName}
+                            onChangeText={setCardFirstName}
+                            value={cardFirstName}
                             />
                             <TextInput
                             style={{ width: 180, height: 40, borderColor: 'gray', borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, marginBottom: 20, alignSelf: 'center' }}
                             placeholder="Apellidos"
-                            onChangeText={setExpiryDate}
-                            value={expiryDate}
+                            onChangeText={setCardLastName} 
+                            value={cardLastName}
                             />
                         </View>
 
@@ -112,8 +141,9 @@ const Pay = () => {
                             <TextInput
                                 style={{ width: 180, height: 40, borderColor: 'gray', borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, marginBottom: 10, alignSelf: 'center' }}
                                 placeholder="MM/YY"
-                                onChangeText={setCvv}
-                                value={cvv}
+                                onChangeText={setExpiryDate}
+                                value={expiryDate}
+                                
                             />
                             </View>
 
@@ -122,8 +152,9 @@ const Pay = () => {
                             <TextInput
                                 style={{ width: 180, height: 40, borderColor: 'gray', borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, marginBottom: 10, alignSelf: 'center' }}
                                 placeholder="CVV"
-                                onChangeText={setCodigo}
-                                value={codigo}
+                                onChangeText={setCvv}
+                                value={cvv}
+                                maxLength={3}
                             />
                             </View>
 
