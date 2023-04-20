@@ -1,15 +1,27 @@
 import React from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
-import {RelojSvg,EstrellaSvg} from "../svgs/Svgs";
+import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
+import { RelojSvg, EstrellaSvg } from "../svgs/Svgs";
 
 import { LinearGradient } from "expo-linear-gradient";
+import { useNavigation } from "@react-navigation/native";
 
-const CardEnvio = ({title,address,image,deliverTime,score}) => {
-  
+const CardEnvio = ({ title, address, image, deliverTime, score ,id}) => {
+  const navigation = useNavigation();
+
   return (
-    <View style={styles.container}>
-      <Image source={{uri:image}} style={styles.image} />
-      <LinearGradient colors={['rgba(0,0,0,0.5)', 'transparent']} style={styles.linear}/>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => {
+        navigation.navigate("Restaurant", {
+          restaurantId: id,
+        });
+      }}
+    >
+      <Image source={{ uri: image }} style={styles.image} />
+      <LinearGradient
+        colors={["rgba(0,0,0,0.5)", "transparent"]}
+        style={styles.linear}
+      />
       <View style={styles.content}>
         <View>
           <Text style={styles.title}>{title}</Text>
@@ -26,7 +38,7 @@ const CardEnvio = ({title,address,image,deliverTime,score}) => {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -46,7 +58,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3,
     elevation: 5,
-    marginBottom:16
+    marginBottom: 16,
   },
   image: {
     width: "100%",
@@ -55,7 +67,7 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 10,
-    flexDirection : "row",
+    flexDirection: "row",
     justifyContent: "space-between",
   },
   titles: {

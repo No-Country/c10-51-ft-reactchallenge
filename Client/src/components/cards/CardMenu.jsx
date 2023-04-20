@@ -1,14 +1,26 @@
 import React from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
-import {RelojSvg,EstrellaSvg,PesosSvg} from "../svgs/Svgs";
+import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
+import { RelojSvg, EstrellaSvg, PesosSvg } from "../svgs/Svgs";
 import { LinearGradient } from "expo-linear-gradient";
+import { useNavigation } from "@react-navigation/native";
 
-const CardMenu = ({title,price,score,deliverTime,image}) => {
-  
+const CardMenu = ({ title, price, score, deliverTime, image ,id}) => {
+  const navigation = useNavigation();
+
   return (
-    <View style={styles.container}>
-      <Image source={{uri:image}} style={styles.image} />
-      <LinearGradient colors={['rgba(0,0,0,0.5)', 'transparent']} style={styles.linear}/>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => {
+        navigation.navigate("Food", {
+          foodId: id,
+        });
+      }}
+    >
+      <Image source={{ uri: image }} style={styles.image} />
+      <LinearGradient
+        colors={["rgba(0,0,0,0.5)", "transparent"]}
+        style={styles.linear}
+      />
       <View style={styles.content}>
         <Text style={styles.title}>{title}</Text>
         <View style={styles.titles}>
@@ -26,19 +38,19 @@ const CardMenu = ({title,price,score,deliverTime,image}) => {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     height: 152,
-    width: '100%',
+    width: "100%",
     textAlign: "start",
     borderRadius: 20,
     overflow: "hidden",
     backgroundColor: "white",
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -46,6 +58,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3,
     elevation: 5,
+    marginBottom: 16
   },
   image: {
     width: "100%",
@@ -66,7 +79,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     marginBottom: 10,
-    fontSize:12,
+    fontSize: 12,
   },
   text: {
     fontSize: 12,

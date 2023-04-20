@@ -66,6 +66,7 @@
 			"img": "https://media-cdn.tripadvisor.com/media/photo-s/1a/53/aa/26/somos-un-restaurante.jpg",
 			"email": "sushimaniacos@gmail.com",
 			"adress": "San Juan 3432",
+			"time": 10,
 			"rating": 4.5,
 			"phone": "320199933",
 			"shipping": 140,
@@ -77,6 +78,7 @@
 			"email": "burgerking@gmail.com",
 			"adress": "Santiago 3432",
 			"phone": "320199933",
+			"time": 25,
 			"shipping": 99,
 			"user": ["2"]
 		},
@@ -86,6 +88,7 @@
 			"email": "mencanta@gmail.com",
 			"adress": "Av. Lagos 3432",
 			"phone": "320199933",
+			"time": 15,
 			"shipping": 230,
 			"user": ["3"]
 		},
@@ -94,6 +97,7 @@
 			"img": "https://www.disfrutandosingluten.es/wp-content/uploads/2018/11/Restaurantes-Comida-Rapida-Espana-sin-gluten.jpg",
 			"email": "el_asadorargentino@gmail.com",
 			"adress": "Av. Oroño 3432",
+			"time": 30,
 			"phone": "320199933",
 			"shipping": 230,
 			"user": ["3"]
@@ -132,8 +136,9 @@
 			"description": "Super pancho con salsa de tomate, queso mozzarella y jamón cocido",
 			"rest": ["1"],
 			"categories":["Comida Rápida"]
-		},
-		{
+			},
+			
+			{
 			"name": "Super pancho con papas y gaseosa",
 			"img": "https://cdn.pedix.app/rEGrDroIkaQVrMD1XNUZ/categories/1592945456416.png?size=1500x1500",
 			"price": 1200,
@@ -142,6 +147,7 @@
 			"categories":["Comida Rápida"],
 			"promo": true
 		}
+
 
 	],
 	"order":[

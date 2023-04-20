@@ -36,12 +36,11 @@ function Home() {
     }
   };
 
+
   //peticiones a la api
   React.useEffect(() => {
-    
     const fetchData = async () => {
       try {
-
         const restaurants = await axios.get(
           `http://${ip}:3001/rest${
             categoryName === "" ? "" : `/?category=${categoryName}`
@@ -51,7 +50,6 @@ function Home() {
           `http://${ip}:3001/food${
             categoryName === "" ? "" : `/?category=${categoryName}`
           }`
-
         );
         const categories = await axios.get(`http://${ip}:3001/food/categories`);
         const promos = await axios.get(`http://${ip}:3001/food`);
@@ -59,7 +57,17 @@ function Home() {
           const search = await axios.get(
             `http://${ip}:3001/search/${inputValue}`
           );
+          // aqui se guardan los restaurantes filtrados por la busqueda , ya que search es solo un arreglo de comidas filtradas
+          const filteredRestaurants = search.data.reduce((acc, cur) => {
+            const ids = cur.restaurants.map(
+              (restaurant) => restaurant.restaurant_food?.restaurantId
+            );
+            return acc.concat(ids.filter((id) => id));
+          }, []).map((id) => restaurants.data.find((rest) => rest.id === id));
+          
           setDataSearch(search.data);
+          setDataRestaurants(filteredRestaurants);
+          /* setDataRestaurants(restaurants.data.filter((rest) => )); */
         }
         const favorites = await axios.get(`http://${ip}:3001/users/3`);
         setDataRestaurants(restaurants.data);
@@ -73,31 +81,44 @@ function Home() {
       }
     };
     fetchData();
-  }, [categoryName, inputValue]);
-
+  }, [categoryName, inputValue ]);
 
 
   //funcion de voto que se envia al hijo cardsSwiper
-  async function vote(id) {
-    Alert.alert("Gracias por tu voto!");
+  async function vote(id,isVoted) {
     try {
-      await axios.put(`http://${ip}:3001/users/updateFavorites?idUser=3&idRest=${id}`);
-      const [restaurants, favorites] = await Promise.all([
-        axios.get(`http://${ip}:3001/rest`),
-        axios.get(`http://${ip}:3001/users/3`)
-      ]);
-      setDataRestaurants(restaurants.data);
-      setFavorites(favorites.data.favorites);
+      if(isVoted){
+        Alert.alert("Este restaurante ya no esta en tus favoritos!");
+        await axios.put(
+          `http://${ip}:3001/users/noFavorite?idUser=3&idRest=${id}`
+        );
+        const [restaurants, favorites] = await Promise.all([
+          axios.get(`http://${ip}:3001/rest`),
+          axios.get(`http://${ip}:3001/users/3`),
+        ]);
+        setDataRestaurants(restaurants.data);
+        setFavorites(favorites.data.favorites);
+      }else{
+        Alert.alert("Agregaste este restaurante a tus favoritos!");
+        await axios.put(
+          `http://${ip}:3001/users/updateFavorites?idUser=3&idRest=${id}`
+        );
+        const [restaurants, favorites] = await Promise.all([
+          axios.get(`http://${ip}:3001/rest`),
+          axios.get(`http://${ip}:3001/users/3`),
+        ]);
+        setDataRestaurants(restaurants.data);
+        setFavorites(favorites.data.favorites);
+      }
+      
     } catch (error) {
       console.error(error);
     }
   }
-  
-
 
   return (
     <ScrollView style={{ backgroundColor: "white", paddingVertical: 16 }}>
-      <CardsSwiper swiperType="promo" data={promos} isLoading={isLoading}/>
+      <CardsSwiper swiperType="promo" data={promos}/>
 
       <View style={{ marginHorizontal: 16 }}>
         <View
@@ -127,18 +148,26 @@ function Home() {
 
       <CardsSwiper
         swiperType="shop"
-        title={!dataSearch ? "Restaurantes" : dataSearch.length > 0 ? "Resultados de la búsqueda" : "No se encontraron resultados"}
-        data={dataSearch ? dataSearch : dataRestaurants}
+        title={
+          !dataSearch
+            ? "Restaurantes"
+            : dataSearch.length > 0
+            ? "Resultados de la búsqueda"
+            : "No se encontraron resultados"
+        }
+        data={dataRestaurants}
         favorites={favorites}
         vote={vote}
         isLoading={isLoading}
+        viewAllBtn={true}
       />
 
       <CardsSwiper
         swiperType="favs"
         title="Favoritos de la zona"
-        data={dataSearch ? dataSearch : dataRestaurants}
+        data={dataRestaurants}
         isLoading={isLoading}
+        viewAllBtn={true}
       />
 
       <CardsSwiper
@@ -146,8 +175,12 @@ function Home() {
         title="Rebajas de última hora"
         data={dataSearch ? dataSearch : dataFood}
         isLoading={isLoading}
+        restaurants={dataRestaurants}
+        viewAllBtn={true}
       />
-      <View style={{backgroundColor:'white',width:'100%',height:50}}></View>
+      <View
+        style={{ backgroundColor: "white", width: "100%", height: 50 }}
+      ></View>
     </ScrollView>
   );
 }

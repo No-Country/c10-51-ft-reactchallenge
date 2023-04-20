@@ -54,6 +54,10 @@ Edita la información de un restaurante existente. Se le debe pasar por body un 
 
 Devuelve el promedio de rating del restaurante con `id = 1`
 
+## rest/delete/1
+
+Borra de la base de datos el restaurante de `id = 1` y todas las comidas relacionadas al mismo.
+
 
 # COMIDA
 
@@ -113,6 +117,11 @@ Edita la información de una comida existente. Se le debe pasar por body un obje
         propiedad a modificar: Valor de la propiedad modificada 
 
 }
+
+
+## food/delete/1
+
+Borra de la base de datos la comida de `id = 1`
 
 
 # USUARIOS
@@ -179,6 +188,11 @@ Ruta para agregar una tarjeta por body para realizar compras. El objeto por body
 Ruta para eliminar del usuario con `id=1` la tarjeta con número `4352123412341234`
 
 
+## users/delete/1
+
+Borra de la base de datos el usuario de `id = 1` y todas los restaurantes relacionados al mismo.
+
+
 # ORDENES - PEDIDOS
 
 ## order/
@@ -229,4 +243,3 @@ Cada una modifica a la propiedad correspondiente de la orden a la que pertenezca
 
 Traerá un array con todo lo que se asemeje al texto dentro del mismo, tanto comidas como restaurantes
 Si un restaurante tiene Pizza en el nombre y hay comidas que tengan pizza en el nombre traerá ambas cosas. Se pueden diferenciar por sus propiedades.
-
