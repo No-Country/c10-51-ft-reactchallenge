@@ -20,7 +20,7 @@ import CreditCard from "../../components/cards/CreditCard";
 import CardDeliveryDetail from "../../components/cards/CardDeliveryDetail";
 
 const Cart = () => {
-  const ip = "192.168.56.1";
+  const ip = "localhost";
   const [userData, setUserData] = React.useState([]);
   const [order, setOrder] = React.useState([]); //Aca guardo las ordenes del usuario
   const [foodList, setFoodList] = React.useState([]);
