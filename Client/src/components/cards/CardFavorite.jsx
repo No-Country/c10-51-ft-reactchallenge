@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { EstrellaSvg, HeartSvg } from "../svgs/Svgs";
-import axios from "axios";
+
 
 const CardFavorite = ({ id,title, rating , removeVote }) => {
-  const ip = "192.168.56.1";
+
 
 
   return (
