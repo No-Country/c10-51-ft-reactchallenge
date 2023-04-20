@@ -5,7 +5,7 @@ const { preloadUsers, preloadRest, preloadFood, preloadOrders, doRating } = requ
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-  server.listen(3002, () => {
+  server.listen(3004, () => {
     preloadUsers()
     setTimeout(()=>{
       preloadRest()
@@ -29,7 +29,7 @@ conn.sync({ force: true }).then(() => {
       doRating(2,5,3)
     },4000)
 
-    console.log('%s listening at 3001'); // eslint-disable-line no-console
+    console.log('%s listening at 3003'); // eslint-disable-line no-console
   });
 });
 
