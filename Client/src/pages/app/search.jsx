@@ -11,7 +11,7 @@ import Loading from "../../components/spinners/loading";
 import CardMenu from "../../components/cards/CardMenu";
 
 export default function Search() {
-  const ip = "localhost";
+  const ip = "192.168.56.1";
   const [isLoading, setIsLoading] = React.useState(true);
   const navigation = useNavigation();
   const [dataSearch, setDataSearch] = React.useState([]);
@@ -24,8 +24,8 @@ export default function Search() {
     setIsLoading(true);
     setInputValue(dataInput);
     if (recentSearch.length === 3) {
-      recentSearch.unshift(dataInput);
       recentSearch.pop();
+      recentSearch.unshift(dataInput);
     } else {
       recentSearch.unshift(dataInput);
     }
@@ -150,7 +150,9 @@ export default function Search() {
               />
             ))
           ) : (
-            dataSearch.map((food) => (
+            dataSearch.length === 0 ? (
+            <View style={{width:'100%',justifyContent:'center',alignItems:'center'}}><Text>No hay resultados de tu busqueda.</Text></View>
+          ) : (dataSearch.map((food) => (
               <CardMenu
                 id={food.id}
                 key={food.id}
@@ -163,8 +165,7 @@ export default function Search() {
                 }
                 score="---"
               />
-            ))
-          )}
+            ))))}
         </ScrollView>
       </View>
     </ScrollView>

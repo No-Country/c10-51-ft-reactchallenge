@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const {userCreator, getAllUsers, getUserDetail, doRating, favorites, noFavorite, includeTarget, deleteTarget} = require('./utils')
+const {userCreator, getAllUsers, getUserDetail, doRating, favorites, noFavorite, includeTarget, deleteTarget, deleteUser} = require('./utils')
 const router = Router();
 
 router.get('/', async (req, res) => {
@@ -27,6 +27,7 @@ router.put('/rating', async (req, res) => {
         const qualification = req.body
         console.log(qualification.qualification)
         const info = await doRating(idUser, idRest, qualification.qualification)
+
         res.status(201).json(info)
 
     }catch(error){
@@ -61,7 +62,7 @@ router.put('/noFavorite', async (req,res) => {
 router.put('/updateTargets', async (req, res) => {
     try{
         const { idUser } = req.query
-        const { target } = req.body
+        const target = req.body
         const info = await includeTarget(parseInt(idUser), target)
         res.status(201).json(info)
     }catch(error){
@@ -73,8 +74,8 @@ router.put('/updateTargets', async (req, res) => {
 
 router.put('/deleteTarget', async (req,res) => {
     try{
-        const {idUser, number} = req.query
-        const info = await deleteTarget(parseInt(idUser), number)
+        const {idUser, target} = req.query
+        const info = await deleteTarget(parseInt(idUser), target)
         res.status(201).json(info)
     }catch(error){
         res.status(400).json({ error: error.message })
@@ -93,6 +94,16 @@ router.post('/userCreator', async (req, res) => {
 }
 
 )
+
+router.delete('/delete/:id', async (req, res) => {
+    try{
+        const id = req.params.id
+        deleteUser(id)
+        res.status(200).json("Usuario Borrado")
+    }catch(error){
+        res.status(400).json({error: error.message})
+    }
+})
 
 router.get("/:id", async (req, res) => {
     try{

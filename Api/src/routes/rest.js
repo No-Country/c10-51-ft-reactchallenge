@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const { restCreator, getAllRest, getRestDetail, getRating, updateRest } = require('./utils')
+const { restCreator, getAllRest, getRestDetail, getRating, updateRest, deleteRest } = require('./utils')
 const router = Router();
 
 router.get('/', async (req, res) => {
@@ -46,6 +46,15 @@ router.get('/rating/:id', async (req, res) => {
   }
 })
 
+router.delete('/delete/:id', async (req, res) => {
+  try{
+    const { id } = req.params
+    deleteRest(id)
+    res.status(200).json("Elemento Borrado")
+  }catch(error){
+    res.status(400).json({error: error.message})
+  }
+})
 
 router.get("/:id", async (req, res) => {
   try {

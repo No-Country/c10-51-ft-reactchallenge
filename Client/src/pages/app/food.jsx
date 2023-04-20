@@ -13,7 +13,7 @@ import { ImageBackground } from "react-native";
 
 
 const Food = () => {
-  const id = "localhost";
+  const id = "192.168.56.1";
   const route = useRoute();
   const { foodId } = route.params;
   const [food, setFood] = React.useState([]);

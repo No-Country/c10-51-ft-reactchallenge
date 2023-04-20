@@ -131,17 +131,33 @@ const getRestDetail = async (id, menu) => {
 };
 
 const updateRest = async (idRest, updateInfo) => {
-  try {
-    const rest = await Restaurant.findByPk(idRest);
-    console.log(`idRest=${idRest} - updateInfo=${updateInfo}`);
-    await rest.update({
-      ...updateInfo,
-    });
-    return rest;
-  } catch (error) {
-    console.log("Error en updateRest -->" + error.message);
-  }
-};
+    try {
+        const rest = await Restaurant.findByPk(idRest);
+        await rest.update({
+            ...updateInfo
+        })
+        return rest
+
+    } catch (error) {
+        console.log("Error en updateRest -->" + error.message)
+    }
+}
+
+const deleteRest = async (idRest) => {
+    try{
+        let foodRest = await getFood(idRest)
+        let idFoods = foodRest.map(e => e.id)
+        idFoods.map(async(e) => {
+            deleteFood(e)
+        })
+        await Restaurant.destroy({
+            where: {id: idRest}
+        })
+        }catch(error){
+        console.log("Error en deleteRest -->"+error.message)
+    }
+}
+
 
 // Funciones de  /users
 
@@ -170,18 +186,19 @@ const userCreator = async (dataUser) => {
     //Traigo los datos existentes en la base para corroborar que no se repita ningun pokemon
     const aux2 = aux1.find((e) => e.name === name);
 
-    const newRest = await Users.create({
-      name,
-      password,
-      img,
-      email,
-      birthday,
-      address,
-      phone,
-    });
-  } catch (error) {
-    console.log("Error en funcion restCreator", error.message);
-  }
+        const newRest = await Users.create({
+            name,
+            password,
+            img,
+            email,
+            birthday,
+            address,
+            phone
+        });
+        return newRest
+    } catch (error) {
+        console.log("Error en funcion restCreator", error.message);
+    }
 };
 
 const getUserDetail = async (id) => {
@@ -210,79 +227,97 @@ const getUserDetail = async (id) => {
   }
 };
 
+
 const doRating = async (idUser, idRest, qualification) => {
-  try {
-    const user = await Users.findByPk(idUser);
+    try {
+        const user = await Users.findByPk(idUser);
 
-    const newRating = [...user.rating, { idRest, qualification }];
-    console.log(newRating);
-    await user.update({ rating: newRating });
+        const newRating = [...user.rating, { idRest, qualification }];
+        await user.update({ rating: newRating });
 
-    console.log(`Calificación agregada para el usuario con ID ${idUser}`);
-  } catch (error) {
-    console.log(`Error en doRating: ${error.message}`);
-  }
-};
+        console.log(`Calificación agregada para el usuario con ID ${idUser}`);
+    } catch (error) {
+        console.log(`Error en doRating: ${error.message}`);
+    }
+}
 
 const favorites = async (idUser, idRest) => {
-  try {
-    const user = await Users.findByPk(idUser);
-    const newFavorites = [...user.favorites, idRest];
-    await user.update({ favorites: newFavorites });
-  } catch (error) {
-    console.log("Error en favorites: " + error.message);
-  }
-};
+    try {
+        const user = await Users.findByPk(idUser);
+        const newFavorites = [...user.favorites, idRest]
+        await user.update({ favorites: newFavorites })
+
+    } catch (error) {
+        console.log("Error en favorites: " + error.message)
+    }
+}
 
 const noFavorite = async (idUser, idRest) => {
-  try {
-    const user = await Users.findByPk(idUser);
-    const filteredFavorites = user.favorites.filter((e) => e != idRest);
-    const newFavorites = [...filteredFavorites];
+    try {
+        const user = await Users.findByPk(idUser);
+        const filteredFavorites = user.favorites.filter(e => e != idRest)
+        const newFavorites = [...filteredFavorites]
 
-    await user.update({ favorites: newFavorites });
-  } catch (error) {
-    console.log("Error en favorites: " + error.message);
-  }
-};
+        await user.update({ favorites: newFavorites })
+
+    } catch (error) {
+        console.log("Error en favorites: " + error.message)
+    }
+}
 
 const includeTarget = async (idUser, target) => {
-  try {
-    const user = await Users.findByPk(idUser);
-    const newTargets = [...user.targets, target];
-    await user.update({ targets: newTargets });
-  } catch (error) {
-    console.log("Error en incluideTarget: " + error.message);
-  }
-};
+    try {
+        const user = await Users.findByPk(idUser);
+        const newTargets = [...user.targets, target]
+        await user.update({ targets: newTargets })
+    } catch (error) {
+        console.log("Error en incluideTarget: " + error.message)
+    }
+}
 
 const deleteTarget = async (idUser, number) => {
-  try {
-    const user = await Users.findByPk(idUser);
-    const filteredTargets = user.targets.filter((e) => e.number != number);
-    const newTargets = [...filteredTargets];
-    await user.update({ targets: newTargets });
-  } catch (error) {
-    console.log("Error en deleteTarget: " + error.message);
-  }
-};
+    try {
+        const user = await Users.findByPk(idUser);
+        const filteredTargets = user.targets.filter(e => e.number != number)
+        const newTargets = [...filteredTargets]
+        await user.update({ targets: newTargets })
+    } catch (error) {
+        console.log("Error en deleteTarget: " + error.message)
+    }
+}
+
+const deleteUser = async (idUser) => {
+    try{
+        let userDB = await getUserDetail(parseInt(idUser))
+        let idRests = userDB.restaurants.map(e => e.id)
+        idRests.map(async(e) => {
+            deleteRest(e)
+        })
+        await Users.destroy({
+            where: {id: idUser}
+        })
+        }catch(error){
+        console.log("Error en deleteUser -->"+error.message)
+    }
+}
+
 
 // -----------Funciones de Food--------------------
 
 const foodCreator = async (dataFood) => {
-  try {
-    const { name, img, price, description, categories, rest, promo } = dataFood; // esto para el req.body en post
-    let Rest = await Restaurant.findAll({
-      where: { id: rest },
-    });
-    const newFood = await Food.create({
-      name,
-      img,
-      price,
-      description,
-      categories,
-      promo,
-    });
+    try {
+        const { name, img, price, description, categories, rest, promo } = dataFood; // esto para el req.body en post
+        let Rest = await Restaurant.findAll({
+            where: { id: rest }
+        })
+        const newFood = await Food.create({
+            name,
+            img,
+            price,
+            description,
+            categories,
+            promo
+        });
 
     newFood.addRestaurant(Rest);
     return newFood;
@@ -364,14 +399,24 @@ const getCategories = async () => {
 };
 
 const updateFood = async (idFood, updateInfo) => {
-  try {
+  try  {
     const rest = await Food.findByPk(idFood);
     await rest.update({
       ...updateInfo,
     });
     return rest;
+    } catch (error) {
+        console.log("Error en updateFood -->" + error.message)
+    }
+}
+
+const deleteFood = async (idFood) => {
+    try{
+        await Food.destroy({
+            where: {id: idFood}
+        })
   } catch (error) {
-    console.log("Error en updateRest -->" + error.message);
+    console.log("Error en deleteFood -->" + error.message);
   }
 };
 
@@ -386,7 +431,7 @@ const createOrder = async (order) => {
     where: { id: user },
   });
   let Foods = await Food.findAll({
-    where: { id: items },
+    where: { id: items  },
   });
   let newOrder = await Order.create({});
 
@@ -634,35 +679,39 @@ const preloadOrders = async () => {
 };
 
 module.exports = {
-  //Funciones /rest
-  restCreator,
-  getAllRest,
-  getRestDetail,
-  getRating,
-  updateRest,
-  //Funciones /users
-  doRating,
-  userCreator,
-  getAllUsers,
-  getUserDetail,
-  favorites,
-  noFavorite,
-  includeTarget,
-  deleteTarget,
-  //Funciones /food
-  getFood,
-  foodCreator,
-  getFoodDetail,
-  getCategories,
-  updateFood,
-  //Funciones /order
-  createOrder,
-  getOrder,
-  changeOrderState,
-  search,
-  //Preloads
-  preloadUsers,
-  preloadRest,
-  preloadFood,
-  preloadOrders,
-};
+    //Funciones /rest
+    restCreator,
+    getAllRest,
+    getRestDetail,
+    getRating,
+    updateRest,
+    deleteRest,
+    //Funciones /users
+    doRating,
+    userCreator,
+    getAllUsers,
+    getUserDetail,
+    favorites,
+    noFavorite,
+    includeTarget,
+    deleteTarget,
+    deleteUser,
+    //Funciones /food
+    getFood,
+    foodCreator,
+    getFoodDetail,
+    getCategories,
+    updateFood,
+    deleteFood,
+    //Funciones /order
+    createOrder,
+    getOrder,
+    changeOrderState,
+    search,
+    //Preloads
+    preloadUsers,
+    preloadRest,
+    preloadFood,
+    preloadOrders
+}
+

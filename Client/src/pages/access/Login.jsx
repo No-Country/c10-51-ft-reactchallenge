@@ -5,19 +5,28 @@ import { Text, View, StyleSheet, TextInput, TouchableOpacity } from "react-nativ
 import { BtnPrimaryColLarge } from "../../components/buttons/Buttons";
 import { Ionicons } from '@expo/vector-icons';
 import DesingRegister from "../../components/svgs/Desing2";
+import { useForm, Controller } from "react-hook-form";
 
 
 
 
 
 const Login = () => {
-  const [text, onChangeText] = useState("");
-  const [user, onChangeUser] = useState("");
-  const [password, onChangePassword] = useState("");
+ 
   const [showPassword, setShowPassword] = useState(false);
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+  //form
+  const {control,handleSubmit,formState: { errors },} = useForm({
+    defaultValues: {
+      UserName: "",
+      Password: "",
+    },
+  });
+  const onSubmit = (data) => {
+    console.log(data)
+    }
 
 
   return (
@@ -40,20 +49,43 @@ const Login = () => {
         <Text style={{fontFamily:'Poppins-Regular', marginVertical:16,fontSize:12}}>Iniciar Sesion</Text>
       </View>
       <View style={styles.containerInputs}>
+
+      <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
           
         <TextInput
           style={styles.input}
-          onChangeText={onChangeUser}
-          value={user}
+          onChangeText={onChange}
+          value={value}
+          onBlur={onBlur}
           placeholder="Usuario"
             placeholderTextColor="gray"
             autoCapitalize="none"
             autoCorrect={false}
         />
+        )}
+        name="UserName"
+      />
+      {errors.UserName?.type === "required" && (
+        <Text style={styles.required}>Debe completar este campo.</Text>
+      )}
+    
+    <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+          
         <TextInput
           style={{...styles.input, marginBottom:24}}
-          onChangeText={onChangePassword}
-          value={password}
+          onChangeText={onChange}
+          value={value}
+          onBlur={onBlur}
           placeholder="Contrase'a"
             placeholderTextColor="gray"
             autoCapitalize="none"
@@ -61,19 +93,26 @@ const Login = () => {
             secureTextEntry={!showPassword}
 
         />
+        )}
+        name="Password"
+      />
+      {errors.Password?.type === "required" && (
+        <Text style={{ ...styles.required, top:76,right:60}}>Debe completar este campo.</Text>
+      )}
         <TouchableOpacity onPress={toggleShowPassword} style={styles.toggleButton}>
         <Ionicons name={showPassword ? 'eye-outline' : 'eye-off-outline'} size={24} color="#333" />
       </TouchableOpacity>
 
-        <BtnPrimaryColLarge text="Iniciar Sesion" />
+        <BtnPrimaryColLarge text="Iniciar Sesion"  onPress={handleSubmit(onSubmit)}
+ />
         <Text
           style={{
             fontFamily: "Poppins-Regular",
             marginVertical: 24, fontSize:12, lineHeight: 14
           }}
         >
-          Ya tengo cuenta.{" "}
-          <Text style={{ fontFamily: "Poppins-SemiBold" }}>Ingresar aqui</Text>
+          No tengo cuenta.{" "}
+          <Text style={{ fontFamily: "Poppins-SemiBold" }}>Registrarse aqui</Text>
         </Text>
       </View>
     </View>
@@ -84,6 +123,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-start",
+  },
+  required: {
+    color: "red",
+    fontSize: 12,
+    position: "absolute",
+    right: 23,
+    top: 13,
   },
   containerInputs: {
     width: "100%",

@@ -7,7 +7,7 @@ import CardsSwiper from "../../components/swipers/CardsSwiper";
 import NavBarRestaurant from "../../components/navigation/NavBarRestaurant";
 
 const Restaurant = () => {
-  const id = "localhost";
+  const id = "192.168.56.1";
   const route = useRoute();
   const { restaurantId } = route.params;
   const [restaurant, setRestaurants] = React.useState([]);

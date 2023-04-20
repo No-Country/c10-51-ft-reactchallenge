@@ -6,7 +6,7 @@ import InputSearchFood from "../../components/cards/InputSearchFood";
 import axios from "axios";
 
 function Home() {
-  const ip = "localhost";
+  const ip = "192.168.56.1";
   const [isLoading, setIsLoading] = React.useState(true);
   const [dataRestaurants, setDataRestaurants] = React.useState([]);
   const [dataFood, setDataFood] = React.useState([]);
