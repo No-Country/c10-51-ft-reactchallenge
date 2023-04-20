@@ -11,7 +11,7 @@ import Loading from "../../components/spinners/loading";
 import CardMenu from "../../components/cards/CardMenu";
 
 export default function Search() {
-  const ip = "192.168.56.1";
+  const ip = "localhost";
   const [isLoading, setIsLoading] = React.useState(true);
   const navigation = useNavigation();
   const [dataSearch, setDataSearch] = React.useState([]);
