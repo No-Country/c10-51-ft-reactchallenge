@@ -143,7 +143,7 @@ export default function App() {
       } catch (e) {
         console.log(e);
       } finally {
-        setAppIsReady(true);// <====== false muestra inicio de sesion, true muestra la app
+        setAppIsReady(false);// <====== false muestra inicio de sesion, true muestra la app
       }
     }
     inicia();
