@@ -27,6 +27,7 @@ router.put('/rating', async (req, res) => {
         const qualification = req.body
         console.log(qualification.qualification)
         const info = await doRating(idUser, idRest, qualification.qualification)
+
         res.status(201).json(info)
 
     }catch(error){

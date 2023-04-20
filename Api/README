@@ -243,4 +243,3 @@ Cada una modifica a la propiedad correspondiente de la orden a la que pertenezca
 
 Traerá un array con todo lo que se asemeje al texto dentro del mismo, tanto comidas como restaurantes
 Si un restaurante tiene Pizza en el nombre y hay comidas que tengan pizza en el nombre traerá ambas cosas. Se pueden diferenciar por sus propiedades.
-
