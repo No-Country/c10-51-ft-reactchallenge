@@ -1,12 +1,16 @@
 ﻿
 ## PLAN DE PRUEBAS
 
+
 ### Proyecto:
-        Bot Apettite      
+        Bot Appetite      
+
 ### Cliente:
-        Nicolás
+        Nicolás No-country
+
 ### Fecha:
-        2023-04-03
+        2023-04-21
+
 ### Objetivo:
 
 	- Evaluar la funcionalidad de navegación de la aplicación fastFood.app para validar y verificar que el sitio de una buena experiencia de usuario a quien llegue hasta él, satisfaciendo sus expectativas. 
@@ -125,7 +129,7 @@ Se trabajará estimando aceptables los niveles de severidad según lo siguiente:
 
 ### Riesgos
 	
-!(Riesgos)[/images/riesgos.png]
+![Riesgos](/images/riesgos.png)
 
 
 ### Tareas
