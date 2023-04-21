@@ -65,7 +65,7 @@ const RegisterScreen = () => {
         }}
       >
         <DesingRegister style={{ position: "absolute" }} />
-        <Text style={styles.primaryText}>Nombre de la APP</Text>
+        <Text style={styles.primaryText}>Bot Appetite</Text>
       </View>
       <View style={{ paddingHorizontal: 16 }}>
         <Text

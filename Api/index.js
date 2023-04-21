@@ -8,7 +8,7 @@ const { preloadUsers, preloadRest, preloadFood, preloadOrders, doRating } = requ
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-  server.listen(3004, () => {
+  server.listen(3001, () => {
     preloadUsers()
     setTimeout(()=>{
       preloadRest()

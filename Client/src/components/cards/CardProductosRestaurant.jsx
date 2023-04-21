@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: "black",
     borderWidth: 0.2,
+    elevation: 2
   },
   image: {
     borderTopRightRadius: 10,

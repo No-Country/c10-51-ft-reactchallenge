@@ -23,6 +23,7 @@ import RestaurantContainer from './src/pages/app/restaurantContainer';
 import Restaurant from './src/pages/app/restaurant';
 import Food from './src/pages/app/food';
 import Splash from './src/pages/SplashScreen';
+import Restaurants from './src/pages/app/restaurants';
 //navigate para el inicio
 const StackIni = createStackNavigator();
 //context
@@ -108,6 +109,14 @@ function StackNavApp() {
         <Stack.Screen
           name="Cart"
           component={Cart}
+          options={{
+            headerShown: false,
+            header: () => <NavBar />
+          }}
+        />
+        <Stack.Screen
+          name="Restaurants"
+          component={Restaurants}
           options={{
             headerShown: false,
             header: () => <NavBar />

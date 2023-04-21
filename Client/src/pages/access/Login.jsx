@@ -48,7 +48,7 @@ const Login = () => {
       >
                 <DesingRegister style={{position:'absolute'}}/>
 
-        <Text style={styles.primaryText}>BotAppetite</Text>
+        <Text style={styles.primaryText}>Bot Appetite</Text>
       </View>
       <View style={{ paddingHorizontal: 16, marginTop:20 }}>
         <Text style={{fontFamily:'Poppins-Regular', marginVertical:16,fontSize:12}}>Iniciar Sesion</Text>
