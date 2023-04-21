@@ -1,32 +1,30 @@
-﻿Documento Colaborativo
-Testing Group
+﻿
+## PLAN DE PRUEBAS
 
-
-PLAN DE PRUEBAS
-Proyecto:
+### Proyecto:
         Bot Apettite      
-Cliente:
+### Cliente:
         Nicolás
-Fecha:
+### Fecha:
         2023-04-03
-Objetivo:
+### Objetivo:
 
-* Evaluar la funcionalidad de navegación de la aplicación fastFood.app para validar y verificar que el sitio de una buena experiencia de usuario a quien llegue hasta él, satisfaciendo sus expectativas. 
-* Reducir al mínimo los errores en producción.
-* Detectar y proponer oportunidades de mejora
-* Verificar que el sistema coincida con sus especificaciones.
+	- Evaluar la funcionalidad de navegación de la aplicación fastFood.app para validar y verificar que el sitio de una buena experiencia de usuario a quien llegue hasta él, satisfaciendo sus expectativas. 
+	- Reducir al mínimo los errores en producción.
+	- Detectar y proponer oportunidades de mejora
+	- Verificar que el sistema coincida con sus especificaciones.
 
 
-Alcance:
+### Alcance:
         Se verificara la funcionalidad de la pagina, el comportamiento al momento de seleccionar las categorias de productos, las vistas de los mismos y sus especificaciones.
 
 
-Quedará fuera del alcance:
+### Quedará fuera del alcance:
 				- las pruebas de seguridad
 				- verificar que la aplicación sea funcionalmente amigable para su usabilidad
 				- verificar que el sistema coincida con sus especificaciones
 
-Equipo
+### Equipo
         El equipo de pruebas estará conformado por Angel Cellillo, tester manual
 
 
@@ -35,26 +33,26 @@ Equipo
 
 
 
-Estrategia
+### Estrategia
 
 
-* El equipo de testing realizará pruebas funcionales de manera manual
-* Cada vez que una nueva versión llegue a testing se hará una prueba de regresión sobre aquellos escenarios que se consideren de prioridad alta. 
-* Al finalizar cada sprint se realizarán pruebas de aceptación de usuario, fuera del alcance del equipo de testing, a cargo del UX
-* Se aprovecharán esas reuniones para hacer pruebas de usabilidad, fuera del alcance del equipo de testing, a cargo del UX
-* A lo largo del proyecto se harán pruebas manuales tanto funcionales, de caja negra
-* Las pruebas UAT y las pruebas de usabilidad quedarán a cargo del equipo de UX, las pruebas unitarias estarán a cargo del equipo de desarrollo
-* Testing intervendrá en los niveles de integración y sistema
+- El equipo de testing realizará pruebas funcionales de manera manual
+- Cada vez que una nueva versión llegue a testing se hará una prueba de regresión sobre aquellos escenarios que se consideren de prioridad alta. 
+- Al finalizar cada sprint se realizarán pruebas de aceptación de usuario, fuera del alcance del equipo de testing, a cargo del UX
+- Se aprovecharán esas reuniones para hacer pruebas de usabilidad, fuera del alcance del equipo de testing, a cargo del UX
+- A lo largo del proyecto se harán pruebas manuales tanto funcionales, de caja negra
+- Las pruebas UAT y las pruebas de usabilidad quedarán a cargo del equipo de UX, las pruebas unitarias estarán a cargo del equipo de desarrollo
+- Testing intervendrá en los niveles de integración y sistema
 
 
-Criterios
+### Criterios
 
 
-* El criterio de finalización de las pruebas será cuando se hayan ejecutado todas las pruebas planificadas o, si el tiempo apremia, al menos se hayan ejecutado los casos de prueba de prioridad alta y media. 
-* El criterio para pasar a producción será que no haya errores bloqueantes o críticos sin resolver.
+- El criterio de finalización de las pruebas será cuando se hayan ejecutado todas las pruebas planificadas o, si el tiempo apremia, al menos se hayan ejecutado los casos de prueba de prioridad alta y media. 
+- El criterio para pasar a producción será que no haya errores bloqueantes o críticos sin resolver.
 
 
-Ambiente de pruebas del equipo de Testing
+### Ambiente de pruebas del equipo de Testing
 
 		Desktop computer ASUS 64 bit
 		8 Gig Ram DIMM DDR3
@@ -66,11 +64,11 @@ Ambiente de pruebas del equipo de Testing
 		Hardware Model: All Series
 
 
-Herramientas de gestión de incidentes: 
+### Herramientas de gestión de incidentes: 
 
 		Asana
 
-Restricciones y Dependencias
+### Restricciones y Dependencias
 
 	Se consideran los siguientes ítems como posibles restricciones y dependencias que no permitan cumplir con la ejecución de las tareas de testing en tiempo y forma:
 		• Datos de prueba a entregar por el cliente.
@@ -79,16 +77,16 @@ Restricciones y Dependencias
 
 
 
-Entregables
+### Entregables
 
 
 Los entregables que se generarán son: 
-* Plan de pruebas
-* Lista de escenarios de pruebas ejecutadas 
-* Reporte de defectos
+- Plan de pruebas
+- Lista de escenarios de pruebas ejecutadas 
+- Reporte de defectos
 
 
-Gestión de Incidente
+### Gestión de Incidente
 
 
 Se utilizará el siguiente workflow para la gestión de defectos 
@@ -96,7 +94,7 @@ Se utilizará el siguiente workflow para la gestión de defectos
 !(Workflow)[/images/incident-workflow.png]
 
 
-Severidad y prioridad
+### Severidad y prioridad
 
 La severidad será asignada por el tester y la prioridad por el product owner. 
 
@@ -125,11 +123,11 @@ Se trabajará estimando aceptables los niveles de severidad según lo siguiente:
 
 
 
-Riesgos
+### Riesgos
 	
 !(Riesgos)[/images/riesgos.png]
 
 
-Tareas
+### Tareas
 
 !(Cronograma de tareas)[/images/cronograma-de-tareas.jpeg]
