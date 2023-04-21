@@ -1,6 +1,6 @@
 //Aqui estarán todas las funciones que se utilizaran durante el ruteo.
 
-const { Restaurant, Users, Food, Order } = require('../db.js');
+const { Restaurant, Users, Food, Order, Cart } = require('../db.js');
 
 
 // Funciones de /rest
@@ -32,20 +32,20 @@ const restCreator = async (dataRest) => {
 
 const getRating = async (idRest) => {
     try {
- 
+
         // Obtener todas las calificaciones de los usuarios para el restaurante con el id "restId"
         const allUsers = await Users.findAll();
         let qualifications = []
-        for(let i = 0; i < allUsers.length; i++){
-            for(let j = 0; j < allUsers[i].rating.length; j++){
-                if(allUsers[i].rating[j].idRest == idRest)
-                qualifications.push(allUsers[i].rating[j].qualification)
+        for (let i = 0; i < allUsers.length; i++) {
+            for (let j = 0; j < allUsers[i].rating.length; j++) {
+                if (allUsers[i].rating[j].idRest == idRest)
+                    qualifications.push(allUsers[i].rating[j].qualification)
             }
         }
         const sum = qualifications.reduce(
             (accumulator, currentValue) => accumulator + currentValue,
             0
-          );
+        );
         const average = sum / qualifications.length;
         return parseFloat(average.toFixed(1))
     } catch (error) {
@@ -143,17 +143,17 @@ const updateRest = async (idRest, updateInfo) => {
 }
 
 const deleteRest = async (idRest) => {
-    try{
+    try {
         let foodRest = await getFood(idRest)
         let idFoods = foodRest.map(e => e.id)
-        idFoods.map(async(e) => {
+        idFoods.map(async (e) => {
             deleteFood(e)
         })
         await Restaurant.destroy({
-            where: {id: idRest}
+            where: { id: idRest }
         })
-        }catch(error){
-        console.log("Error en deleteRest -->"+error.message)
+    } catch (error) {
+        console.log("Error en deleteRest -->" + error.message)
     }
 }
 
@@ -181,9 +181,8 @@ const getAllUsers = async () => {
 
 const userCreator = async (dataUser) => {
     try {
-        const { name, password, img, email, birthday ,address,phone} = dataUser; // esto para el req.body en post
+        const { name, password, img, email, birthday, address, phone} = dataUser; // esto para el req.body en post
         const aux1 = await getAllUsers()
-        //Traigo los datos existentes en la base para corroborar que no se repita ningun pokemon
         const aux2 = aux1.find(e => e.name === name)
 
 
@@ -288,20 +287,122 @@ const deleteTarget = async (idUser, number) => {
 }
 
 const deleteUser = async (idUser) => {
-    try{
+    try {
         let userDB = await getUserDetail(parseInt(idUser))
         let idRests = userDB.restaurants.map(e => e.id)
-        idRests.map(async(e) => {
+        idRests.map(async (e) => {
             deleteRest(e)
         })
         await Users.destroy({
-            where: {id: idUser}
+            where: { id: idUser }
         })
-        }catch(error){
-        console.log("Error en deleteUser -->"+error.message)
+    } catch (error) {
+        console.log("Error en deleteUser -->" + error.message)
     }
 }
 
+// Funciones Users de Carrito
+
+const cartCreator = async (idUser) => {
+    try {
+        const newCart = await Cart.create({
+            user: idUser
+        });
+        return newCart
+    } catch (error) {
+        console.log("Error en funcion cartCreator", error.message);
+    }
+}
+
+const addFoodToCart = async (idUser, idFood) => {
+    try {
+        let cart = await Cart.findAll({
+            where:{
+                user: idUser
+            }
+        })
+        let food = await getFoodDetail(parseInt(idFood))
+
+        let newFoodArray = [...cart[0].cartIn, food]
+        await cart[0].update({ cartIn: newFoodArray })
+    } catch (error) {
+        console.log("Error er addFood --> " + error.message)
+    }
+}
+
+const getCart = async (idUser) => {
+    try{
+        let cart = await Cart.findAll({
+            where:{
+                user: idUser
+            }
+        })
+        return cart
+    }catch(error){
+        console.log("Error en getCart --> "+error.message)
+    }
+}
+
+
+const restartCart = async (idUser) => {
+    try {
+        await Cart.destroy({
+            where:{
+                user:idUser
+            }
+         })
+    } catch (error) {
+        console.log("Error en restartCart --> " + error.message)
+    }
+}
+
+const substractFood = async (idUser, idFood) => {
+    try {
+        let cart = await Cart.findOne({
+            where: {
+              user: idUser
+            }
+          });
+          let newFoodArray = cart.cartIn.slice();
+          let index = newFoodArray.findIndex(food => food.id === idFood);
+          console.log(index);
+          if (index !== -1) {
+            newFoodArray.splice(index, 1);
+            console.log(newFoodArray);
+            cart.cartIn = newFoodArray;
+            await cart.save();
+          }
+        }catch (error) {
+        console.log("Error en substractFood --> " + error.message)
+    }
+}
+
+const amount = async (idUser, idFood) => {
+    try {
+        let cart = await Cart.findAll({
+            where: {
+                user: idUser
+            }
+        })
+        return cart[0].cartIn.filter(e => e.id == idFood).length
+    } catch (error) {
+        console.log("Error en amount --> " + error.message)
+    }
+}
+
+const totalToPay = async (idUser) => {
+    try {
+        let cart = await Cart.findAll({
+            where: {
+                user: idUser
+            }
+        })
+        let total = cart[0].cartIn.map(e => e.price).reduce((a, b) => a + b)
+        return total
+    } catch (error) {
+        console.log("Error en totalToPay --> " + error.message)
+    }
+}
 
 // -----------Funciones de Food--------------------
 
@@ -331,7 +432,7 @@ const foodCreator = async (dataFood) => {
 
 
 
-const getFood = async (idRest, category, minPrice, maxPrice, promo) => {
+const getFood = async (idRest, category, minPrice, maxPrice, promo, idFood) => {
     try {
         let aux = await Food.findAll({
             include: {
@@ -357,6 +458,9 @@ const getFood = async (idRest, category, minPrice, maxPrice, promo) => {
         if (promo) {
             aux = aux.filter(e => e.promo === true)
         }
+        if(idFood) {
+            aux = aux.filter(e => e.id == idFood)
+        }
 
         return aux
     } catch (error) {
@@ -372,11 +476,11 @@ const getFoodDetail = async (id) => {
     El proximo condicional me permite emplear esta misma funcion tanto cuando
     buscaré una comida por su numero de id como para filtrarlo por su nombre
     */
-
+    console.log("allFood --> " +allFood)
     if (typeof (id) === 'number') {
         try {
             const food = allFood.find(e => e.id === id)
-            // console.log('numero ', pokemon)
+            console.log(food)
             return food
         } catch (error) {
             console.log('Error en getFoodDetail con id numerico', error.message)
@@ -419,12 +523,12 @@ const updateFood = async (idFood, updateInfo) => {
 }
 
 const deleteFood = async (idFood) => {
-    try{
+    try {
         await Food.destroy({
-            where: {id: idFood}
+            where: { id: idFood }
         })
-    }catch(error){
-        console.log("Error en deleteFood -->"+error.message)
+    } catch (error) {
+        console.log("Error en deleteFood -->" + error.message)
     }
 }
 
@@ -609,7 +713,7 @@ const preloadUsers = async () => {
                 birthday: user.birthday,
                 address: user.address,
                 phone: user.phone,
-                favorites: user.favorites,
+                favorites: user.favorites
             };
         });
 
@@ -714,6 +818,14 @@ module.exports = {
     includeTarget,
     deleteTarget,
     deleteUser,
+    //Funciones /cart
+    cartCreator,
+    addFoodToCart,
+    getCart, 
+    restartCart,
+    substractFood,
+    amount,
+    totalToPay,
     //Funciones /food
     getFood,
     foodCreator,
