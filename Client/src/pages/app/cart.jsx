@@ -8,7 +8,12 @@ import {
   TextInput,
 } from "react-native";
 import axios from "axios";
-import { ArrowSvg, CartSvg } from "../../components/svgs/Svgs";
+import {
+  ArrowSvg,
+  CartSvg,
+  DesingCart,
+  VectorCheck,
+} from "../../components/svgs/Svgs";
 import AddComboButton from "../../components/buttons/AddComboButton";
 import { BtnPrimaryCol } from "../../components/buttons/Buttons";
 import CreditCard from "../../components/cards/CreditCard";
@@ -95,7 +100,7 @@ const Cart = () => {
       )}
       <ScrollView style={styles.container}>
         {step === 1 ? (
-          <>
+          <View style={{ padding: 16 }}>
             <View style={styles.dropdown}>
               <TouchableOpacity
                 style={styles.dropdownSelector}
@@ -180,9 +185,9 @@ const Cart = () => {
               </View>
             </View>
             <View style={styles.separator} />
-          </>
+          </View>
         ) : step === 2 ? (
-          <>
+          <View style={{ padding: 16 }}>
             <Text style={{ marginTop: 16, marginBottom: 16, fontWeight: 500 }}>
               Elegir metodo de pago
             </Text>
@@ -247,11 +252,23 @@ const Cart = () => {
                 <Text style={{ fontWeight: 500 }}>${total}</Text>
               </View>
             </View>
-          </>
+          </View>
         ) : (
-          <>
-            <Text>Pedido realizado</Text>
-          </>
+          <View
+            style={{
+              justifyContent: "flex-end",
+              alignItems: "center",
+              height: "120%",
+            }}
+          >
+            <Text
+              style={{ fontWeight: "bold", fontSize: 30, color: "#34A853", marginBottom: 16 }}
+            >
+              Pedido realizado
+            </Text>
+            <VectorCheck width={150} height={150} />
+            <DesingCart />
+          </View>
         )}
         {step !== 3 && (
           <View style={{ width: "50%", alignSelf: "center", marginBottom: 16 }}>
@@ -287,7 +304,7 @@ const styles = StyleSheet.create({
 
   container: {
     height: "100%",
-    padding: 16,
+    //padding: 16,
   },
   buttonsContainer: {
     gap: 2,

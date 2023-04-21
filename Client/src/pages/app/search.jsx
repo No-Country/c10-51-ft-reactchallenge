@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import CardsSwiper from "../../components/swipers/CardsSwiper";
 import axios from "axios";
 import Loading from "../../components/spinners/loading";
+import CardMenu from "../../components/cards/CardMenu";
 
 export default function Search() {
   const ip = "localhost";
@@ -19,20 +20,17 @@ export default function Search() {
   const [inputValue, setInputValue] = React.useState("");
   const [recentSearch, setRecentSearch] = React.useState([]);
 
-
-
-
   function getInputValue(dataInput) {
     setIsLoading(true);
     setInputValue(dataInput);
     if (recentSearch.length === 3) {
-      recentSearch.unshift(dataInput);
       recentSearch.pop();
+      recentSearch.unshift(dataInput);
     } else {
       recentSearch.unshift(dataInput);
     }
   }
-//que funcion cumplen lo metodos de array pop mpush ,unshift y shift?y push?
+  //que funcion cumplen lo metodos de array pop mpush ,unshift y shift?y push?
   const setterCategories = (data) => {
     setIsLoading(true);
     data === "Todos" ? setInputValue("") : setInputValue(data);
@@ -40,7 +38,6 @@ export default function Search() {
 
   React.useEffect(() => {
     try {
-
       axios.get(`http://${ip}:3001/food/categories/`).then((res) => {
         setDataCategories(res.data);
       });
@@ -51,7 +48,6 @@ export default function Search() {
       }
       axios.get(`http://${ip}:3001/rest`).then((res) => {
         setDataRestaurants(res.data);
-
       });
       setIsLoading(false);
     } catch (error) {
@@ -111,7 +107,7 @@ export default function Search() {
           </View>
         </View>
 
-         {recentSearch.length > 0 ? (
+        {recentSearch.length > 0 ? (
           <View style={{ paddingHorizontal: 16 }}>
             <Text>Búsquedas reciente</Text>
             <View
@@ -123,44 +119,53 @@ export default function Search() {
               }}
             >
               {recentSearch.map((item) => (
-                <View style={styles.recentItems} key={item}>
-                  <ClockSvg fill="#514E4E" width="16" height="16" />
-                  <Text style={styles.text}>{item}</Text>
-                </View>
+                <TouchableOpacity
+                  key={item}
+                  style={{ width: "100%" }}
+                  onPress={() => setInputValue(item)}
+                >
+                  <View style={styles.recentItems}>
+                    <ClockSvg fill="#514E4E" width="16" height="16" />
+                    <Text style={styles.text}>{item}</Text>
+                  </View>
+                </TouchableOpacity>
               ))}
             </View>
           </View>
-        ) : (
-          null
-        )}
+        ) : null}
 
-        <ScrollView style={{ paddingHorizontal: 16}}>
+        <ScrollView style={{ paddingHorizontal: 16 }}>
           {isLoading ? (
             <Loading />
           ) : inputValue === "" ? (
-            dataRestaurants.map((item) => (
-              
+            dataRestaurants.map((rest) => (
               <CardEnvio
-                key={item.id}
-                title={item.name}
-                address={item.adress}
-                image={item.img}
-                score={item.rating}
-                deliverTime={item.time}
+                id={rest.id}
+                key={rest.id}
+                title={rest.name}
+                address={rest.adress}
+                image={rest.img}
+                score={rest.rating}
+                deliverTime={rest.time}
               />
             ))
           ) : (
-            dataSearch.map((item) => (
-              <CardEnvio
-                key={item.id}
-                title={item.name}
-                address={item.adress}
-                image={item.img}
-                score={item.rating}
-                deliverTime={item.time}
+            dataSearch.length === 0 ? (
+            <View style={{width:'100%',justifyContent:'center',alignItems:'center'}}><Text>No hay resultados de tu busqueda.</Text></View>
+          ) : (dataSearch.map((food) => (
+              <CardMenu
+                id={food.id}
+                key={food.id}
+                image={food.img}
+                title={food.name}
+                price={food.price}
+                deliverTime={
+                  dataRestaurants.find((rest) => rest.id === food.restaurants[0].id)
+                    .time
+                }
+                score="---"
               />
-            ))
-          )}
+            ))))}
         </ScrollView>
       </View>
     </ScrollView>

@@ -1,8 +1,12 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { EstrellaSvg, HeartSvg } from "../svgs/Svgs";
 
-const CardFavorite = ({ title, rating }) => {
+
+const CardFavorite = ({ id,title, rating , removeVote }) => {
+
+
+
   return (
     <View
       style={{
@@ -31,7 +35,7 @@ const CardFavorite = ({ title, rating }) => {
           <Text>{rating}</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.buttonCart}>
+      <TouchableOpacity style={styles.buttonCart} onPress={() => removeVote(id)}>
         <HeartSvg width={16} height={16} fill="#00869F" isPressed />
       </TouchableOpacity>
     </View>

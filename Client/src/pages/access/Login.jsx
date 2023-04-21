@@ -6,12 +6,16 @@ import { BtnPrimaryColLarge } from "../../components/buttons/Buttons";
 import { Ionicons } from '@expo/vector-icons';
 import DesingRegister from "../../components/svgs/Desing2";
 import { useForm, Controller } from "react-hook-form";
-
+import { useContext } from 'react';
+import { LoginContext } from '../../../context/loginContext';
 
 
 
 
 const Login = () => {
+
+  const { login, logFunction } = useContext(LoginContext);
+
  
   const [showPassword, setShowPassword] = useState(false);
   const toggleShowPassword = () => {
@@ -25,6 +29,7 @@ const Login = () => {
     },
   });
   const onSubmit = (data) => {
+    logFunction();
     console.log(data)
     }
 
@@ -43,7 +48,7 @@ const Login = () => {
       >
                 <DesingRegister style={{position:'absolute'}}/>
 
-        <Text style={styles.primaryText}>Nombre de la APP</Text>
+        <Text style={styles.primaryText}>BotAppetite</Text>
       </View>
       <View style={{ paddingHorizontal: 16, marginTop:20 }}>
         <Text style={{fontFamily:'Poppins-Regular', marginVertical:16,fontSize:12}}>Iniciar Sesion</Text>
