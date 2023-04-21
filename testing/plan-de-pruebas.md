@@ -21,7 +21,12 @@
 
 ### Alcance:
         
-	- Se verificara la funcionalidad de la pagina, el comportamiento al momento de seleccionar las categorias de productos, las vistas de los mismos y sus especificaciones.
+	Se verificara:
+
+	- la funcionalidad de la pagina
+	- el comportamiento al momento de seleccionar las categorias de productos
+	- las vistas de los productos ( comidas )
+	- las vistas de los usuarios ( restaurantes ) 
 
 
 ### Quedará fuera del alcance:
@@ -32,8 +37,9 @@
 
 ### Equipo
 
-	El equipo de pruebas estará conformado por Angel Cellillo, tester manual
-
+	El equipo de pruebas estará conformado por:
+			
+			Angel Cellillo, testing manual
 
 	Estará prestando servicios desde home office, Argentina, full time.
 
@@ -86,6 +92,7 @@
 
 
 Los entregables que se generarán son: 
+	
 	- Plan de pruebas
 	- Lista de escenarios de pruebas ejecutadas 
 	- Reporte de defectos
@@ -96,7 +103,7 @@ Los entregables que se generarán son:
 
 Se utilizará el siguiente workflow para la gestión de defectos 
 
-!(Workflow)[/images/incident-workflow.png]
+![Workflow](images/incident-workflow.png)
 
 
 ### Severidad y prioridad
@@ -130,7 +137,7 @@ Se trabajará estimando aceptables los niveles de severidad según lo siguiente:
 
 ### Riesgos
 	
-![Riesgos](/images/riesgos.png)
+![Riesgos](images/riesgos.png)
 
 
 ### Tareas
