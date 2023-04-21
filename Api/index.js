@@ -1,6 +1,9 @@
+require('dotenv').config()
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
+
 const { preloadUsers, preloadRest, preloadFood, preloadOrders, doRating } = require('./src/routes/utils.js')
+
 
 
 // Syncing all the models at once.
@@ -29,7 +32,8 @@ conn.sync({ force: true }).then(() => {
       doRating(2,5,3)
     },4000)
 
-    console.log('%s listening at 3003'); // eslint-disable-line no-console
+
+    console.log(`Server on 3001`); 
   });
 });
 
