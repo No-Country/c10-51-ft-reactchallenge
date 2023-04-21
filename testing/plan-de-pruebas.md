@@ -130,4 +130,4 @@ Se trabajará estimando aceptables los niveles de severidad según lo siguiente:
 
 ### Tareas
 
-!(Cronograma de tareas)[/images/cronograma-de-tareas.jpeg]
+![Cronograma de tareas](images/cronograma-de-tareas.jpeg)
