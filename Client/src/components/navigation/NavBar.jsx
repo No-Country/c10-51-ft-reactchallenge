@@ -23,7 +23,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
 export default function NavBar() {
-  const ip = "192.168.56.1";
+  const ip = "localhost";
   const [isOpen, setIsOpen] = React.useState(false);
   const [typeOfMenu, setTypeOfMenu] = React.useState("");
   const height = React.useRef(new Animated.Value(0)).current;
@@ -74,7 +74,7 @@ export default function NavBar() {
           <MenuSvg width={"24"} height={"24"} />
         </TouchableOpacity>
         <View style={styles.containerUser}>
-        <View
+        <TouchableOpacity
             style={{
               width: 40,
               height: 40,
@@ -82,12 +82,13 @@ export default function NavBar() {
               overflow: "hidden",
               backgroundColor:'gray'
             }}
+            onPress={() => navigation.navigate("Profile")}
           >
             <Image
               source={{uri:userData.img}}
               style={{ width: "100%", height: "100%" }}
             />
-          </View>
+          </TouchableOpacity>
           <Text style={styles.navText}>Bienvenido, {userData.name}</Text>
         </View>
 
@@ -142,10 +143,12 @@ export default function NavBar() {
             <CuponSvg fill="#00869F" width="25" height="25" />
             <Text style={styles.text}>Cupones</Text>
           </View>
-          <View style={styles.options}>
+          <TouchableOpacity style={styles.options} onPress={() => {
+              navigation.navigate("Pay");
+            }}>
             <CreditCardSvg fill="#00869F" width="25" height="25" />
             <Text style={styles.text}>Pagos</Text>
-          </View>
+          </TouchableOpacity>
           <View style={styles.options}>
             <InfoSvg fill="#00869F" width="25" height="25" />
             <Text style={styles.text}>Términos y condiciones</Text>

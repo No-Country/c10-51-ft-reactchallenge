@@ -1,8 +1,8 @@
 import React from "react";
 import { View, TextInput, TouchableOpacity } from "react-native";
-import { FilterSvg, LupaSvg } from "../svgs/Svgs";
+import {  LupaSvg } from "../svgs/Svgs";
 
-const InputSearchFood = ({ filterIcon, finalWidth, color, getInputValue,CategoryButton }) => {
+const InputSearchFood = ({  finalWidth, color, getInputValue }) => {
   const [inputValue, setInputValue] = React.useState("");
 
   return (

@@ -1,5 +1,4 @@
 
-import { StyleSheet, View, Text } from 'react-native';
 import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -15,16 +14,20 @@ import NavBar from './src/components/navigation/NavBar';
 import HomeScreen from './src/pages/app/index';
 import Pay from './src/pages/app/pay';
 import Profile from './src/pages/app/profile';
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SplashScreen from 'expo-splash-screen';
 import Search from './src/pages/app/search';
 import Cart from './src/pages/app/cart';
 import { StatusBar } from 'expo-status-bar';
 import RestaurantContainer from './src/pages/app/restaurantContainer';
-import Ordenar from './src/pages/app/order';
+import Restaurant from './src/pages/app/restaurant';
+import Food from './src/pages/app/food';
 import Splash from './src/pages/SplashScreen';
+import Restaurants from './src/pages/app/restaurants';
 //navigate para el inicio
 const StackIni = createStackNavigator();
+//context
+import { LoginContext } from './context/loginContext';
 function StackNavIni() {
   return (
     <StackIni.Navigator initialRouteName="Splash">
@@ -64,10 +67,18 @@ function StackNavApp() {
           }}
         />
         <Stack.Screen
-          name="Order"
-          component={Ordenar}
+          name="Restaurant"
+          component={Restaurant}
           options={{
-            headerShown: true,
+            headerShown: false,
+            header: () => <NavBar />
+          }}
+        />
+        <Stack.Screen
+          name="Food"
+          component={Food}
+          options={{
+            headerShown: false,
             header: () => <NavBar />
           }}
         />
@@ -104,6 +115,14 @@ function StackNavApp() {
           }}
         />
         <Stack.Screen
+          name="Restaurants"
+          component={Restaurants}
+          options={{
+            headerShown: false,
+            header: () => <NavBar />
+          }}
+        />
+        <Stack.Screen
           name="RegisterRestaurant"
           component={RegisterRestaurant}
           options={{
@@ -129,8 +148,12 @@ export default function App() {
     'Poppins-ExtraBold': require('./assets/fonts/Poppins-ExtraBold.ttf'),
     'Poppins-ExtraLight': require('./assets/fonts/Poppins-ExtraLight.ttf'),
   });
-
-  const [appIsReady, setAppIsReady] = useState(false);
+  
+  const [login, setLogin] = useState(false);
+  function logFunction() {
+    setLogin(true);
+  }
+  
   useEffect(() => {
     async function inicia() {
       try {
@@ -142,15 +165,18 @@ export default function App() {
       } catch (e) {
         console.log(e);
       } finally {
-        setAppIsReady(true);// <====== false muestra inicio de sesion, true muestra la app
+        login();// <====== false muestra inicio de sesion, true muestra la app
       }
     }
     inicia();
   }, []);
 
   return (
+    <LoginContext.Provider value={{ login, logFunction }}>
+
     <NavigationContainer>
-      {appIsReady ? <StackNavApp /> : <StackNavIni />}
+      {login ? <StackNavApp /> : <StackNavIni />}
     </NavigationContainer>
+    </LoginContext.Provider>
   );
 }

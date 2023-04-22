@@ -8,7 +8,7 @@ const restaurantSelected = true //funcion para mostrar o no el restaurante, falt
 
 	return (
 		<View style={{height: '100%', alignItems:'center', justifyContent: 'center'}}>
-			{restaurantSelected ? <Restaurant /> : <Text style={{fontSize: 35 , fontWeight: "600"}}>Eliga un restaurante</Text>}
+			{restaurantSelected ? <Restaurant /> : <Text style={{fontSize: 35 , fontWeight: "600",color:'black'}}>Eliga un restaurante</Text>}
 		</View>
 	);
 }

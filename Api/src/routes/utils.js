@@ -32,8 +32,6 @@ const restCreator = async (dataRest) => {
 
 const getRating = async (idRest) => {
     try {
-
-        // Obtener todas las calificaciones de los usuarios para el restaurante con el id "restId"
         const allUsers = await Users.findAll();
         let qualifications = []
         for (let i = 0; i < allUsers.length; i++) {
@@ -66,6 +64,7 @@ const getAllRest = async (category) => {
                     attributes: []
                 }
             }
+            
         })
         if (category) {
             const aux = [];
