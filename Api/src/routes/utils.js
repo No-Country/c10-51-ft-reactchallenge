@@ -789,7 +789,7 @@ const preloadOrders = async () => {
         });
 
         for (const order of data) {
-            createOrder(order);
+            createOrder(order);;
         }
         return data;
     } catch (error) {
