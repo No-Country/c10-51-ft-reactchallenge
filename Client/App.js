@@ -23,8 +23,13 @@ import RestaurantContainer from './src/pages/app/restaurantContainer';
 import Restaurant from './src/pages/app/restaurant';
 import Food from './src/pages/app/food';
 import Splash from './src/pages/SplashScreen';
+import Restaurants from './src/pages/app/restaurants';
 //navigate para el inicio
 const StackIni = createStackNavigator();
+//context
+import { LoginContext } from './context/loginContext';
+
+
 function StackNavIni() {
   return (
     <StackIni.Navigator initialRouteName="Splash">
@@ -112,6 +117,14 @@ function StackNavApp() {
           }}
         />
         <Stack.Screen
+          name="Restaurants"
+          component={Restaurants}
+          options={{
+            headerShown: false,
+            header: () => <NavBar />
+          }}
+        />
+        <Stack.Screen
           name="RegisterRestaurant"
           component={RegisterRestaurant}
           options={{
@@ -119,6 +132,7 @@ function StackNavApp() {
             header: () => <NavBar />
           }}
         />
+       
       </Stack.Navigator>
       <NavBarBottom type='client'/>
     </>
@@ -137,8 +151,12 @@ export default function App() {
     'Poppins-ExtraBold': require('./assets/fonts/Poppins-ExtraBold.ttf'),
     'Poppins-ExtraLight': require('./assets/fonts/Poppins-ExtraLight.ttf'),
   });
-
-  const [appIsReady, setAppIsReady] = useState(false);
+  
+  const [login, setLogin] = useState(true);
+  function logFunction() {
+    setLogin(true);
+  }
+  
   useEffect(() => {
     async function inicia() {
       try {
@@ -150,15 +168,18 @@ export default function App() {
       } catch (e) {
         console.log(e);
       } finally {
-        setAppIsReady(true);// <====== false muestra inicio de sesion, true muestra la app
+        login();
       }
     }
     inicia();
   }, []);
 
   return (
+    <LoginContext.Provider value={{ login, logFunction }}>
+
     <NavigationContainer>
-      {appIsReady ? <StackNavApp /> : <StackNavIni />}
+      {login ? <StackNavApp /> : <StackNavIni />}
     </NavigationContainer>
+    </LoginContext.Provider>
   );
 }

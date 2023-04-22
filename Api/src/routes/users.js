@@ -27,9 +27,7 @@ router.put('/rating', async (req, res) => {
         const qualification = req.body
         console.log(qualification.qualification)
         const info = await doRating(idUser, idRest, qualification.qualification)
-
         res.status(201).json(info)
-
     }catch(error){
         res.status(400).json({ error: error.message })
     }
@@ -104,6 +102,8 @@ router.delete('/delete/:id', async (req, res) => {
         res.status(400).json({error: error.message})
     }
 })
+
+
 
 router.get("/:id", async (req, res) => {
     try{

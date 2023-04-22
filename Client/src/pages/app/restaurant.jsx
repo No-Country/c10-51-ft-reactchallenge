@@ -7,7 +7,6 @@ import CardsSwiper from "../../components/swipers/CardsSwiper";
 import NavBarRestaurant from "../../components/navigation/NavBarRestaurant";
 
 const Restaurant = () => {
-  const id = "192.168.56.1";
   const route = useRoute();
   const { restaurantId } = route.params;
   const [restaurant, setRestaurants] = React.useState([]);
@@ -16,7 +15,7 @@ const Restaurant = () => {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-      const restaurant = await axios.get(`http://${id}:3001/rest/${restaurantId}`);
+      const restaurant = await axios.get(`http://deliveryback-production.up.railway.app/rest/${restaurantId}`);
       setRestaurants(restaurant.data)
       
       } catch (error) {

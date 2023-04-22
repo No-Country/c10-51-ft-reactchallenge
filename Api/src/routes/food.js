@@ -4,27 +4,6 @@ const router = Router();
 
 router.get('/', async (req, res) => {
     try {
-
-        /* La ruta GET /food tambien sirve como filtro si se le agregan los siguientes querys:
-        ?idrest=(id del restaurante)
-        ?category=(Categoria de la comida)
-        ?minprice=(Precio mínimo dispuesto a pagar)
-        ?maxprice=(Precio máximo dispuesto a pagar)
-
-
-       
-
-        A su vez son combinables, se pueden aplicar varios al mismo tiempo de la siguiente forma:
-
-        "food?idrest=2&category=Pizza&maxprice=2000"
-
-        ?promo=1 ----> traerá todas las promociones. Si se combina con cualquiera de los demás filtros tambien funcionará
-        
-        Por lo tanto si se desean conocer las promociones activas de un restaurante en particular basta con escribir:
-
-        "food?idrest=(id del restauran)&promo=1"
-
-        */
         const { name, idrest, category, minprice, maxprice, promo } = req.query
         if (name) {
             try {

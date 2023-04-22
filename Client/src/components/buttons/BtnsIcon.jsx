@@ -3,11 +3,11 @@ import {View, StyleSheet,Text, Alert, TouchableOpacity,} from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 export function BtnPrimaryIconDef(props){
-    const {text} = props
+    const {text, onPress} = props
     return (
         <TouchableOpacity 
         style={styles.ButtonPrimaryIconDef}
-        onPress = {() => alert("ejemplo")}>
+        onPress = {onPress}>
             <Text style={styles.TextIconBtn}>{text}</Text>
             <Ionicons name="arrow-forward-outline" size={18} />
          </TouchableOpacity>

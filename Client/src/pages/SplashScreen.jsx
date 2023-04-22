@@ -31,7 +31,7 @@ const Splash = () => {
       </View>
       <View style={styles.container}>
         <Desing style={{ position: "absolute" }} />
-        <Text style={styles.primaryText}>MessirveAPP</Text>
+        <Text style={styles.primaryText}>Bot Appetite</Text>
         <BtnPrimaryLarge text="Registrarse" onPress={() => toRegister()} />
         <Text
           onPress={() => toLogin()}

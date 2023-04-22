@@ -11,7 +11,6 @@ import Loading from "../../components/spinners/loading";
 import CardMenu from "../../components/cards/CardMenu";
 
 export default function Search() {
-  const ip = "192.168.56.1";
   const [isLoading, setIsLoading] = React.useState(true);
   const navigation = useNavigation();
   const [dataSearch, setDataSearch] = React.useState([]);
@@ -38,15 +37,15 @@ export default function Search() {
 
   React.useEffect(() => {
     try {
-      axios.get(`http://${ip}:3001/food/categories/`).then((res) => {
+      axios.get(`http://deliveryback-production.up.railway.app/food/categories/`).then((res) => {
         setDataCategories(res.data);
       });
       if (inputValue != "") {
-        axios.get(`http://${ip}:3001/search/${inputValue}`).then((res) => {
+        axios.get(`http://deliveryback-production.up.railway.app/search/${inputValue}`).then((res) => {
           setDataSearch(res.data);
         });
       }
-      axios.get(`http://${ip}:3001/rest`).then((res) => {
+      axios.get(`http://deliveryback-production.up.railway.app/rest`).then((res) => {
         setDataRestaurants(res.data);
       });
       setIsLoading(false);

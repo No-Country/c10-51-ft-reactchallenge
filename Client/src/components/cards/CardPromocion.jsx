@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
         textAlign: 'start',
         borderRadius: 20,
         overflow:"hidden",
+        elevation: 2
         
     },
     textContainer:{

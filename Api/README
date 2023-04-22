@@ -243,3 +243,55 @@ Cada una modifica a la propiedad correspondiente de la orden a la que pertenezca
 
 Traerá un array con todo lo que se asemeje al texto dentro del mismo, tanto comidas como restaurantes
 Si un restaurante tiene Pizza en el nombre y hay comidas que tengan pizza en el nombre traerá ambas cosas. Se pueden diferenciar por sus propiedades.
+
+# CARRITOOOOOOO
+
+Esta cuestión tiene diezmil funcionalidades asi que lean atentamente plz
+
+Esto es muy propenso a buguear la experiencia de usuario por lo tanto creé varias cosas para mantenerlo lo más seguro posible.
+
+Primero se debe crear un carrito en base de datos, es muy importante que se cree y se destruya cuando se termine la compra o se salga de la aplicación, o se salga del restaurante.
+
+Para crear se usa la siguiente ruta:
+
+## /cart/creator?idUser=1
+
+Se debe especificar el id del usuario que está realizando la compra. De esta forma se crea en db un objeto con propiedad "user" cuyo valor es el id que le pasamos y otra propiedad llamada "cartIn" que es un array al cual le pasaremos objetos que serán las comidas que el usuario irá sumando.
+
+## /cart/add?idUser=1&idFood=1
+
+/add agregará una unidad de la comida que le especifiquemos al carrito del usuario que le especifiquemos. Se puede agregar varias veces la misma comida.
+
+## /cart/sub?idUser=1&idFood=1
+
+/sub es la acción contraria a la ruta anterior. Esta elimina una unidad de la comida que le especifiquemos.
+
+## /cart/amount?idUser=1&idFood=1
+
+Esta ruta devuelve el número de veces que una comida está en el carrito del usuario.
+
+## /cart/total?idUser=1
+
+Esta devuelve la suma de los precios de todas las comidas en el carrito del usuario.
+
+# RUTA SUMAMENTE IMPORTANTE
+
+Ruta de eliminación del carrito. `Es importante que esta ruta se asegure de alguna forma que se va a utilizar`. Ya que si el carrito no se elimina producirá errores en la aplicación. Aunque la compra se termine o no es importante que el carrito sea eliminado en algún momento.
+
+## /cart/restart/:idUser
+
+`idUser` es claramente el id del usuario que está realizando la compra.
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+Sin más que agregar, este es el back del proyecto.
+
+
+<img src="https://media.tenor.com/L4CcAh4ljlwAAAAM/good-night-cute.gif"/>
+
+A mimir
+

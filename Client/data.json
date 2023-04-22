@@ -106,5 +106,17 @@
       "precio": 1600.0,
       "imagen": "https://cdn.pedix.app/rEGrDroIkaQVrMD1XNUZ/categories/1592945456416.png?size=1500x1500"
     }
-	]
+	],
+	"prueba":[{
+		
+      "id": 2,
+			"restauranteId": 1,
+			"categoriaId": 7,
+			"unidades":2,
+			"nombre": "Burrito mexicano",
+      "descripcion": "Burrito mexicano con salsa de tomate, queso mozzarella y jamón cocido",
+      "precio": 2400,
+      "imagen": "https://assets.unileversolutions.com/recipes-v2/218407.jpg"
+    }]
+	
 }

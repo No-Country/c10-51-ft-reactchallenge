@@ -9,6 +9,7 @@ const Swiper = require("react-native-swiper").default;
 import CardEnvio from "../cards/CardEnvio";
 import { StyleSheet } from "react-native";
 import Loading from "../spinners/loading";
+import { useNavigation } from "@react-navigation/native";
 
 function CardsSwiper({
   swiperType,
@@ -19,41 +20,42 @@ function CardsSwiper({
   favorites,
   vote,
   isLoading,
-  typeOfCard,
+  typeOfCard, 
   viewAllBtn,
-  restaurants
+  restaurants,
 }) {
-
   const [selectedButton, setSelectedButton] = React.useState(
     isPressed ? "Todos" : ""
   );
+  const navigation = useNavigation();
 
+  
   return (
     <>
       {swiperType === "promo" ? (
         <>
-        {isLoading ? (
+          {isLoading ? (
             <Loading />
           ) : (
-        <Swiper autoplay={true} autoplayTimeout={6} height={200}>
-
-          {data.map((promo) => (
-            <View
-              key={promo.id}
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <CardPromocion
-                id={promo.id}
-                title={promo.name}
-                description={promo.description}
-                image={promo.img}
-              />
-            </View>
-          ))}
-        </Swiper>)}
+            <Swiper autoplay={true} autoplayTimeout={6} height={200}>
+              {data.map((promo) => (
+                <View
+                  key={promo.id}
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <CardPromocion
+                    id={promo.id}
+                    title={promo.name}
+                    description={promo.description}
+                    image={promo.img}
+                  />
+                </View>
+              ))}
+            </Swiper>
+          )}
         </>
       ) : swiperType === "shop" ? (
         <View>
@@ -100,7 +102,14 @@ function CardsSwiper({
           )}
 
           <View style={{ alignItems: "flex-end", width: "100%" }}>
-            {viewAllBtn && <BtnPrimaryIconDef text="Ver todo" />}
+            {viewAllBtn && (
+              <BtnPrimaryIconDef
+                text="Ver todo"
+                onPress={() => {
+                  navigation.navigate("Restaurants");
+                }}
+              />
+            )}
           </View>
         </View>
       ) : swiperType === "favs" ? (
@@ -197,10 +206,11 @@ function CardsSwiper({
                       title={food.name}
                       price={food.price}
                       deliverTime={
-                        restaurants.find((rest) => rest.id === food.restaurants[0].id).time
-                          
+                        restaurants.find(
+                          (rest) => rest.id === food.restaurants[0].id
+                        ).time
                       }
-                    score="---" 
+                      score="---"
                     />
                   </View>
                 ))}
@@ -214,6 +224,61 @@ function CardsSwiper({
             }}
           >
             {viewAllBtn && <BtnPrimaryIconDef text="Ver todo" />}
+          </View>
+        </View>
+      ) : swiperType === "shopRes" ? (
+        <View>
+          <Text
+            style={{
+              width: "100%",
+              fontSize: 17,
+              fontWeight: 700,
+              paddingBottom: 16,
+              marginHorizontal: 16,
+            }}
+          >
+            {isLoading ? "Cargando restaurantes..." : title}
+          </Text>
+
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              style={{ width: "100%" }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  paddingBottom: 10,
+                }}
+              >
+                {data?.map((shop) => (
+                  <CardShop
+                    key={shop.id}
+                    title={shop.name}
+                    description={shop.adress}
+                    image={shop.img}
+                    type={typeOfCard}
+                    id={shop.id}
+                    isVoted={favorites?.includes(shop.id)}
+                    vote={vote}
+                  />
+                ))}
+              </View>
+            </ScrollView>
+          )}
+
+          <View style={{ alignItems: "flex-end", width: "100%" }}>
+            {viewAllBtn && (
+              <BtnPrimaryIconDef
+                text="Ver todo"
+                onPress={() => {
+                  navigation.navigate("Restaurants");
+                }}
+              />
+            )}
           </View>
         </View>
       ) : (

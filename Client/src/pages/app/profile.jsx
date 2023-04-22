@@ -6,7 +6,6 @@ import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Profile() {
-  const ip = "192.168.56.1";
   const [userData, setUserData] = React.useState([]);
   const navigation = useNavigation();
   const [favorites, setFavorites] = React.useState([]);
@@ -14,7 +13,7 @@ export default function Profile() {
 
 async  function removeVote(id) {
     Alert.alert("Quitaste el restaurante de tus favoritos!");
-    await axios.put(`http://${ip}:3001/users/noFavorite?idUser=3&idRest=${id}`);
+    await axios.put(`http://deliveryback-production.up.railway.app/users/noFavorite?idUser=1&idRest=${id}`);
     setVotedRemoved(!votedRemoved);
   }
 
@@ -23,8 +22,8 @@ async  function removeVote(id) {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const userProfile = await axios.get(`http://${ip}:3001/users/3`);
-        const rests = await axios.get(`http://${ip}:3001/rest`);
+        const userProfile = await axios.get(`http://deliveryback-production.up.railway.app/users/1`);
+        const rests = await axios.get(`http://deliveryback-production.up.railway.app/rest`);
         setUserData(userProfile.data);
         setFavorites(rests.data.filter((rest) => {
           

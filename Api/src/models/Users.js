@@ -45,5 +45,10 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
+    // cart: {
+    //   type: DataTypes.ARRAY(DataTypes.JSON),
+    //   defaultValue: [],
+    //   allowNull:true
+    // }
   });
 };

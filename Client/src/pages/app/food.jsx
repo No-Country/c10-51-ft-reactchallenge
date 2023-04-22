@@ -1,11 +1,11 @@
 import React from "react";
-import { View, StyleSheet, Text, ScrollView } from "react-native";
+import { View, StyleSheet, Text, ScrollView, Button, Alert } from "react-native";
 import AddComboButton from "../../components/buttons/AddComboButton";
 import {
   BtnPrimaryColLargee,
 } from "../../components/buttons/Buttons";
 import { AddButtonSvg } from "../../components/svgs/Svgs";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import axios from "axios";
 import NavBarRestaurant from "../../components/navigation/NavBarRestaurant";
 import { ImageBackground } from "react-native";
@@ -13,7 +13,6 @@ import { ImageBackground } from "react-native";
 
 
 const Food = () => {
-  const id = "192.168.56.1";
   const route = useRoute();
   const { foodId } = route.params;
   const [food, setFood] = React.useState([]);
@@ -23,7 +22,7 @@ const Food = () => {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-      const food = await axios.get(`http://${id}:3001/food/${foodId}`);
+      const food = await axios.get(`http://deliveryback-production.up.railway.app/food/${foodId}`);
       setFood(food.data)
       } catch (error) {
         console.error(error);
@@ -32,8 +31,20 @@ const Food = () => {
     fetchData();
   }, []);
 
+
+    const [count, setCount] = React.useState(1);
+  
+    const incrementCount = () => {
+      setCount(count + 1);
+    };
+  
+    const decrementCount = () => {
+      setCount(count - 1);
+    };
+  const navigation = useNavigation();
+
   return (
-    <ScrollView style={{ color: "#1A1A1A" }}>
+    <ScrollView >
        <ImageBackground source={{ uri: food.img}} style={{width:'100%',height:225}}>
         
         <NavBarRestaurant/>
@@ -75,16 +86,16 @@ const Food = () => {
 
         <View
           style={{
-            height: 290,
+           /*  height: 290, */
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <View>
+          {/* <View>
             <AddComboButton/>
             <AddComboButton/>
             <AddComboButton/>
-          </View>
+          </View> */}
         </View>
         <View
           style={{
@@ -96,14 +107,21 @@ const Food = () => {
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <AddButtonSvg type={"rest"} />
-            <Text style={{ width: 54, textAlign: "center" }}>0</Text>
-            <AddButtonSvg />
+          <View>
+      <Text>Unidades: {count}</Text>
+      <Button style={{backgroundColor: "#006477"}} title="+" onPress={incrementCount} />
+      <Button title="-" onPress={decrementCount} />
+    </View>
           </View>
 
-          <BtnPrimaryColLargee text="Anadir $2400" />
+          <BtnPrimaryColLargee text={count} onPress={() =>
+          {Alert.alert("Comida agregada al carrito!")
+          navigation.navigate("Cart")
+          }
+        }/>
         </View>
       </View>
+     
     </ScrollView>
   );
 };
@@ -118,7 +136,7 @@ const styles = StyleSheet.create({
   },
   container: {
     minWidth: "100%",
-    backgroundColor: "#f5f5f5",
+
     height: "100%",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 22,
