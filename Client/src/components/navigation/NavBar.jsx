@@ -23,7 +23,6 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
 export default function NavBar() {
-  const ip = "localhost";
   const [isOpen, setIsOpen] = React.useState(false);
   const [typeOfMenu, setTypeOfMenu] = React.useState("");
   const height = React.useRef(new Animated.Value(0)).current;
@@ -41,7 +40,7 @@ export default function NavBar() {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const userProfile = await axios.get(`http://${ip}:3001/users/3`);
+        const userProfile = await axios.get(`http://deliveryback-production.up.railway.app/users/1`);
         setUserData(userProfile.data);
       } catch (error) {
         console.error(error);

@@ -3,7 +3,7 @@ import { View, StyleSheet, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import {VisaSvg,ChipSvg} from "../svgs/Svgs";
 
-export default function CreditCard({ perspective }) {
+export default function CreditCard({ perspective , name, lastname, cardHolderName, expiryDate, cvv}) {
 	return (
 		<View style={frontStyles.container}>
 			<LinearGradient
@@ -47,8 +47,8 @@ export default function CreditCard({ perspective }) {
 								**** **** **** **** ****
 							</Text>
 							<View style={toCompleteStyles.dataCard}>
-								<Text>Nombre y apellido</Text>
-								<Text>MM/YY</Text>
+								<Text>{name} {lastname}</Text>
+								<Text>{expiryDate}</Text>
 							</View>
 						</View>
 					</View>
@@ -60,6 +60,7 @@ export default function CreditCard({ perspective }) {
 
 const frontStyles = StyleSheet.create({
 	container: {
+		marginLeft: 16,
 		width: 242,
 		height: 131,
 		backgroundColor: "white",
@@ -110,6 +111,7 @@ const toCompleteStyles = StyleSheet.create({
 		justifyContent: "space-between",
 	},
 	content: {
+		
 		height: "100%",
 		justifyContent: "space-between",
 		paddingVertical: 16,

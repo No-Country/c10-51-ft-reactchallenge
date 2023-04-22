@@ -18,7 +18,7 @@ const CardDeliveryDetail = ({ domicilio }) => {
             justifyContent: "space-between",
           }}
         >
-          <Text>Enviar a {domicilio}</Text>
+          <Text>Enviar a Av. Oroño 3432</Text>
           <EditSvg width={15} height={15} fill="#006477" />
         </View>
         <TouchableOpacity style={{flexDirection:"row", justifyContent:"space-between", width:"100%"}}>
@@ -38,6 +38,7 @@ export default CardDeliveryDetail;
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "white",
     alignSelf: "center",
     height: 200,
     width: 300,
@@ -45,11 +46,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: "transparent",
     borderWidth: 0.2,
-    elevation: 1,
+    elevation: 3,
   },
   image: {
-    shadowTopRightRadius: 10,
-    shadowTopLeftRadius: 10,
     width: "100%",
     height: "55%",
   },

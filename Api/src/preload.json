@@ -72,6 +72,16 @@
 			"user": ["1"]
 		},
 		{
+			"name": "KFC",
+			"img": "https://play-lh.googleusercontent.com/aGG843-gCSJgSa26NKwzgbjLiSKPNnpL4A3Y39fYKNIdDUPaxBkvkBrABVnr3Qzmxw",
+			"email": "sushimaniacos@gmail.com",
+			"adress": "San Juan 3432",
+			"rating": 4.5,
+			"phone": "320199933",
+			"shipping": 140,
+			"user": ["1"]
+		},
+		{
 			"name": "BurgerKing",
 			"img": "https://assets.entrepreneur.com/content/3x2/2000/1645822504-GettyImages-1370781946.jpg",
 			"email": "burgerking@gmail.com",
@@ -105,8 +115,8 @@
 			"img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Eq_it-na_pizza-margherita_sep2005_sml.jpg/800px-Eq_it-na_pizza-margherita_sep2005_sml.jpg",
 			"price": 1200,
 			"description": "Pizza a la piedra con salsa de tomate, queso mozzarella y jamón cocido",
-			"rest": ["2"],
-			"categories":["Pizza", "Comida Italiana"]
+			"rest": ["5"],
+			"categories":["Comida Italiana"]
 		},
 		{
 			"name": "Burrito mexicano",
@@ -114,15 +124,15 @@
 			"price": 800,
 			"description": "Burrito mexicano con salsa de tomate, queso mozzarella y jamón cocido",
 			"rest": ["2"],
-			"categories":["Comida Mexicana"]
+			"categories":["Comida Rapida"]
 		},
 		{
 			"name": "Mc'Combo",
 			"img": "https://images.rappi.com.ar/restaurants_background/mcdonaldscol-1660251198623.jpg",
 			"price": 1500,
 			"description": "Infaltable Mc'Combo Big Mac con papas y bebida",
-			"rest": ["3"],
-			"categories":["Hamburguesa", "Combo", "Comida Rápida"],
+			"rest": ["4"],
+			"categories":["Comida Rapida"],
 			"promo": true
 		},
 		{
@@ -130,8 +140,8 @@
 			"img": "https://cdn.pedix.app/rEGrDroIkaQVrMD1XNUZ/categories/1592945456416.png?size=1500x1500",
 			"price": 950,
 			"description": "Super pancho con salsa de tomate, queso mozzarella y jamón cocido",
-			"rest": ["1"],
-			"categories":["Comida Rápida"]
+			"rest": ["5"],
+			"categories":["Comida Rapida"]
 		},
 		{
 			"name": "Super pancho con papas y gaseosa",
@@ -139,8 +149,69 @@
 			"price": 1200,
 			"description": "Super pancho con salsa de tomate, queso mozzarella y jamón cocido. Incluye gaseosa de 400ml",
 			"rest": ["1"],
-			"categories":["Comida Rápida"],
+			"categories":["Comida Rapida"],
 			"promo": true
+		},
+		{
+			"name": "Shawarma",
+			"img": "https://www.comedera.com/wp-content/uploads/2022/03/shawarma-de-pollo.jpg",
+			"price": 2000,
+			"description": "Shawarma de pollo con salsa de tomate, queso mozzarella y jamón cocido. Incluye gaseosa de 400ml",
+			"rest": ["2"],
+			"categories":["Comida Rapida"],
+			"promo": true
+		},
+		{
+			"name": "Ñoquis con salsa",
+			"img": "https://www.clarin.com/img/2018/06/19/HJS8-kvW7_1256x620__2.jpg#1588085373911",
+			"price": 1400,
+			"description": "Riquisimos ñoquis con salsa de tomate, queso mozzarella y jamón cocido. Incluye gaseosa de 400ml",
+			"rest": ["5"],
+			"categories":["Pastas"],
+			"promo": true
+		},
+		{
+			"name": "Lengua a la vinagreta",
+			"img": "https://vinomanos.com/wp-content/uploads/2020/12/Lengua.jpg",
+			"price": 1200,
+			"description": "Lengua para cinco personas",
+			"rest": ["5"],
+			"categories":["Comida Argentina"]
+		
+		},
+		{
+			"name": "Pollo al Disco",
+			"img": "https://imag.bonviveur.com/pollo-al-disco.jpg",
+			"price": 2300,
+			"description": "Pollo al disco riquisimo",
+			"rest": ["5"],
+			"categories":["Comida Argentina"]
+		
+		},
+		{
+			"name": "Nachos con queso",
+			"img": "https://cdn7.recetasdeescandalo.com/wp-content/uploads/2020/03/Nachos-con-queso-guacamole-y-chili-con-carne-al-horno.jpg",
+			"price": 1200,
+			"description": "Nachos para 3 personas",
+			"rest": ["4"],
+			"categories":["Comida Rapida"]
+		},
+		{
+			"name": "Sushi",
+			"img": "https://s1.eestatic.com/2015/05/11/cocinillas/cocinillas_32506750_116175093_1706x960.jpg",
+			"price": 1700,
+			"description": "Super pancho con salsa de tomate, queso mozzarella y jamón cocido. Incluye gaseosa de 400ml",
+			"rest": ["1"],
+			"categories":["Comida Asiática"]
+		},
+		{
+			"name": "Patitas de pollo crujientes",
+			"img": "https://www.cronista.com/files/image/476/476276/63110043ded9b.png",
+			"price": 1200,
+			"description": "Super pancho con salsa de tomate, queso mozzarella y jamón cocido. Incluye gaseosa de 400ml",
+			"rest": ["2"],
+			"categories":["Comida Rapida"]
+			
 		}
 
 	],

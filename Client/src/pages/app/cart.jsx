@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  Alert,
 } from "react-native";
 import axios from "axios";
 import {
@@ -18,20 +19,34 @@ import AddComboButton from "../../components/buttons/AddComboButton";
 import { BtnPrimaryCol } from "../../components/buttons/Buttons";
 import CreditCard from "../../components/cards/CreditCard";
 import CardDeliveryDetail from "../../components/cards/CardDeliveryDetail";
+import json from "../../../data.json";
+import { useNavigation } from "@react-navigation/native";
 
 const Cart = () => {
-  const ip = "localhost";
   const [userData, setUserData] = React.useState([]);
   const [order, setOrder] = React.useState([]); //Aca guardo las ordenes del usuario
   const [foodList, setFoodList] = React.useState([]);
   const [subtotal, setSubtotal] = React.useState(0);
   const total = subtotal + 150;
+  const [cards, setCards] = useState([]);
 
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const userProfile = await axios.get(`http://${ip}:3001/users/3`);
-        const order = await axios.get(`http://${ip}:3001/order/?idUser=3`); //Aca traigo las ordenes del usuario
+        const cards = await axios.get(`http://deliveryback-production.up.railway.app/users/1`);
+        setCards(cards.data.targets);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userProfile = await axios.get(`http://deliveryback-production.up.railway.app/users/1`);
+        const order = await axios.get(`http://deliveryback-production.up.railway.app/order/?idUser=1`); //Aca traigo las ordenes del usuario
         setUserData(userProfile.data);
         setOrder(order.data);
 
@@ -40,7 +55,7 @@ const Cart = () => {
 
         for (let i = 0; i < foods.length; i++) {
           const foodId = foods[i].id; // Obtiene el ID de la comida actual
-          const food = await axios.get(`http://${ip}:3001/food/${foodId}`); // Hace una solicitud a la URL de la comida para obtener su información
+          const food = await axios.get(`http://deliveryback-production.up.railway.app/food/${foodId}`); // Hace una solicitud a la URL de la comida para obtener su información
           const price = food.data.price; // Obtiene el precio de la comida
           const foodObj = { name: foods[i].name, price: price };
           foodList.push(foodObj);
@@ -79,6 +94,8 @@ const Cart = () => {
 
   //Steps
   const [step, setStep] = useState(1);
+
+  const navigation = useNavigation();
 
   //Elegir metodo de pago (1Tarjeta, 2Efectivo)
   const [metodoPago, setMetodoPago] = useState(1);
@@ -142,8 +159,13 @@ const Cart = () => {
             </View>
             <Text style={{ marginTop: 16 }}>Productos</Text>
             <View style={styles.buttonsContainer}>
-              {foodList.map((food) => (
-                <AddComboButton title={food.name} price={food.price} />
+              {json.prueba.map((food) => (
+                <AddComboButton
+                  key={food.id}
+                  title={food.nombre}
+                  price={food.precio}
+                  img={food.imagen}
+                />
               ))}
             </View>
 
@@ -172,16 +194,16 @@ const Cart = () => {
             </View>
             <View style={styles.resumeContainer}>
               <View style={styles.resumeLine}>
-                <Text>Total</Text>
-                <Text>${total}</Text>
+                <Text>Subtotal</Text>
+                <Text>$2400</Text>
               </View>
               <View style={styles.resumeLine}>
                 <Text>Envio</Text>
                 <Text>$150</Text>
               </View>
               <View style={styles.resumeLine}>
-                <Text>Subtotal</Text>
-                <Text>${subtotal}</Text>
+                <Text>Total</Text>
+                <Text>$2550</Text>
               </View>
             </View>
             <View style={styles.separator} />
@@ -217,9 +239,18 @@ const Cart = () => {
               // Si el metodo de pago es 1, se muestra la tarjeta
               metodoPago === 1 && (
                 <View style={{ flexDirection: "row" }}>
-                  <ScrollView horizontal={true}>
-                    <CreditCard />
-                    <TouchableOpacity style={styles.addButton}>
+                  <ScrollView
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                  >
+                    {cards?.map((card) => (
+                      <CreditCard
+                        key={card.number}
+                        name={card.name}
+                        expiryDate={card.exp}
+                      />
+                    ))}
+                    <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate("Pay")}>
                       <View style={{ flexDirection: "column", gap: 10 }}>
                         <Text style={styles.addButtonText}>
                           Añadir nueva tarjeta
@@ -240,7 +271,7 @@ const Cart = () => {
             <View style={styles.resumeContainer}>
               <View style={styles.resumeLine}>
                 <Text>Productos</Text>
-                <Text>${subtotal}</Text>
+                <Text>$2400</Text>
               </View>
               <View style={styles.resumeLine}>
                 <Text>Envio</Text>
@@ -249,7 +280,7 @@ const Cart = () => {
               <View style={styles.separator} />
               <View style={styles.resumeLine}>
                 <Text>Total</Text>
-                <Text style={{ fontWeight: 500 }}>${total}</Text>
+                <Text style={{ fontWeight: 500 }}>$2550</Text>
               </View>
             </View>
           </View>
@@ -262,7 +293,12 @@ const Cart = () => {
             }}
           >
             <Text
-              style={{ fontWeight: "bold", fontSize: 30, color: "#34A853", marginBottom: 16 }}
+              style={{
+                fontWeight: "bold",
+                fontSize: 30,
+                color: "#34A853",
+                marginBottom: 16,
+              }}
             >
               Pedido realizado
             </Text>
@@ -276,6 +312,7 @@ const Cart = () => {
               text={step === 2 ? "Pagar" : "Siguiente"}
               onPress={() => {
                 setStep(step + 1);
+               
               }}
               style={step === 2 ? { width: "100%" } : null}
             />

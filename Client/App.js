@@ -28,6 +28,8 @@ import Restaurants from './src/pages/app/restaurants';
 const StackIni = createStackNavigator();
 //context
 import { LoginContext } from './context/loginContext';
+
+
 function StackNavIni() {
   return (
     <StackIni.Navigator initialRouteName="Splash">
@@ -130,6 +132,7 @@ function StackNavApp() {
             header: () => <NavBar />
           }}
         />
+       
       </Stack.Navigator>
       <NavBarBottom type='client'/>
     </>
@@ -149,7 +152,7 @@ export default function App() {
     'Poppins-ExtraLight': require('./assets/fonts/Poppins-ExtraLight.ttf'),
   });
   
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(true);
   function logFunction() {
     setLogin(true);
   }
@@ -165,7 +168,7 @@ export default function App() {
       } catch (e) {
         console.log(e);
       } finally {
-        login();// <====== false muestra inicio de sesion, true muestra la app
+        login();
       }
     }
     inicia();

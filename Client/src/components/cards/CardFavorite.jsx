@@ -6,7 +6,6 @@ import { EstrellaSvg, HeartSvg } from "../svgs/Svgs";
 const CardFavorite = ({ id,title, rating , removeVote }) => {
 
 
-
   return (
     <View
       style={{

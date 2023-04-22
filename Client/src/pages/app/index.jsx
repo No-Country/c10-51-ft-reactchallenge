@@ -6,7 +6,6 @@ import InputSearchFood from "../../components/cards/InputSearchFood";
 import axios from "axios";
 
 function Home() {
-  const ip = "localhost";
   const [isLoading, setIsLoading] = React.useState(true);
   const [dataRestaurants, setDataRestaurants] = React.useState([]);
   const [dataFood, setDataFood] = React.useState([]);
@@ -42,20 +41,20 @@ function Home() {
     const fetchData = async () => {
       try {
         const restaurants = await axios.get(
-          `http://${ip}:3001/rest${
+          `http://deliveryback-production.up.railway.app/rest${
             categoryName === "" ? "" : `/?category=${categoryName}`
           }`
         );
         const food = await axios.get(
-          `http://${ip}:3001/food${
+          `http://deliveryback-production.up.railway.app/food${
             categoryName === "" ? "" : `/?category=${categoryName}`
           }`
         );
-        const categories = await axios.get(`http://${ip}:3001/food/categories`);
-        const promos = await axios.get(`http://${ip}:3001/food`);
+        const categories = await axios.get(`http://deliveryback-production.up.railway.app/food/categories`);
+        const promos = await axios.get(`http://deliveryback-production.up.railway.app/food`);
         if (inputValue != "") {
           const search = await axios.get(
-            `http://${ip}:3001/search/${inputValue}`
+            `http://deliveryback-production.up.railway.app/search/${inputValue}`
           );
           // aqui se guardan los restaurantes filtrados por la busqueda , ya que search es solo un arreglo de comidas filtradas
           const filteredRestaurants = search.data.reduce((acc, cur) => {
@@ -69,7 +68,7 @@ function Home() {
           setDataRestaurants(filteredRestaurants);
           /* setDataRestaurants(restaurants.data.filter((rest) => )); */
         }
-        const favorites = await axios.get(`http://${ip}:3001/users/3`);
+        const favorites = await axios.get(`http://deliveryback-production.up.railway.app/users/1`);
         setDataRestaurants(restaurants.data);
         setDataFood(food.data);
         setDataCategories(categories.data);
@@ -90,22 +89,22 @@ function Home() {
       if(isVoted){
         Alert.alert("Este restaurante ya no esta en tus favoritos!");
         await axios.put(
-          `http://${ip}:3001/users/noFavorite?idUser=3&idRest=${id}`
+          `http://deliveryback-production.up.railway.app/users/noFavorite?idUser=1&idRest=${id}`
         );
         const [restaurants, favorites] = await Promise.all([
-          axios.get(`http://${ip}:3001/rest`),
-          axios.get(`http://${ip}:3001/users/3`),
+          axios.get(`http://deliveryback-production.up.railway.app/rest`),
+          axios.get(`http://deliveryback-production.up.railway.app/users/1`),
         ]);
         setDataRestaurants(restaurants.data);
         setFavorites(favorites.data.favorites);
       }else{
         Alert.alert("Agregaste este restaurante a tus favoritos!");
         await axios.put(
-          `http://${ip}:3001/users/updateFavorites?idUser=3&idRest=${id}`
+          `http://deliveryback-production.up.railway.app/users/updateFavorites?idUser=1&idRest=${id}`
         );
         const [restaurants, favorites] = await Promise.all([
-          axios.get(`http://${ip}:3001/rest`),
-          axios.get(`http://${ip}:3001/users/3`),
+          axios.get(`http://deliveryback-production.up.railway.app/rest`),
+          axios.get(`http://deliveryback-production.up.railway.app/users/1`),
         ]);
         setDataRestaurants(restaurants.data);
         setFavorites(favorites.data.favorites);
