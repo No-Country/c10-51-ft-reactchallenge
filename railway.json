@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "services": {
+    "my-app": {
+      "build": {
+        "context": "./Api",
+        "command": "npm install && npm start"
+      },
+      "env": {
+        "NODE_ENV": "production"
+      },
+      "http": {
+        "port": 3001
+      }
+    }
+  }
+}
