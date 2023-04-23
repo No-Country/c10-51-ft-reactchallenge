@@ -40,7 +40,7 @@ export default function NavBar() {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const userProfile = await axios.get(`http://deliveryback-production.up.railway.app/users/1`);
+        const userProfile = await axios.get(`https://c10-51-ft.up.railway.app/users/4`);
         setUserData(userProfile.data);
       } catch (error) {
         console.error(error);

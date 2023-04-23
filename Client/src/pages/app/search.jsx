@@ -37,15 +37,15 @@ export default function Search() {
 
   React.useEffect(() => {
     try {
-      axios.get(`http://deliveryback-production.up.railway.app/food/categories/`).then((res) => {
+      axios.get(`https://c10-51-ft.up.railway.app/food/categories/`).then((res) => {
         setDataCategories(res.data);
       });
       if (inputValue != "") {
-        axios.get(`http://deliveryback-production.up.railway.app/search/${inputValue}`).then((res) => {
+        axios.get(`https://c10-51-ft.up.railway.app/search/${inputValue}`).then((res) => {
           setDataSearch(res.data);
         });
       }
-      axios.get(`http://deliveryback-production.up.railway.app/rest`).then((res) => {
+      axios.get(`https://c10-51-ft.up.railway.app/rest`).then((res) => {
         setDataRestaurants(res.data);
       });
       setIsLoading(false);

@@ -22,7 +22,7 @@ const Food = () => {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-      const food = await axios.get(`http://deliveryback-production.up.railway.app/food/${foodId}`);
+      const food = await axios.get(`https://c10-51-ft.up.railway.app/food/${foodId}`);
       setFood(food.data)
       } catch (error) {
         console.error(error);

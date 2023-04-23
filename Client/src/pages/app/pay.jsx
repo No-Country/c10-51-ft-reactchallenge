@@ -24,7 +24,7 @@ const Pay = () => {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const cards = await axios.get(`http://deliveryback-production.up.railway.app/users/1`);
+        const cards = await axios.get(`https://c10-51-ft.up.railway.app/users/4`);
         setCards(cards.data.targets);
       } catch (error) {
         console.error(error);
@@ -50,7 +50,7 @@ const Pay = () => {
       console.log(creditCardData);
 
       const response = await axios.put(
-        `http://deliveryback-production.up.railway.app/users/updateTargets?idUser=1`,
+        `https://c10-51-ft.up.railway.app/users/updateTargets?idUser=4`,
         creditCardData
       );
       console.log(response.data);

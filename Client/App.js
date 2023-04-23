@@ -2,8 +2,6 @@
 import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
-
 //access
 import Login from './src/pages/access/Login';
 import Register from './src/pages/access/Register';
