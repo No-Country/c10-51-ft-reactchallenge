@@ -8,6 +8,7 @@ export default function NavBarBottom({ type }) {
   const navigation = useNavigation();
   const [pressed, setPressed] = useState(1);
   const { keyboardShown } = useKeyboard();
+  
 
   return (
     <View

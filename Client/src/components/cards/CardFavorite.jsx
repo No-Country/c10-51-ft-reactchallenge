@@ -1,13 +1,14 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { EstrellaSvg, HeartSvg } from "../svgs/Svgs";
+import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 
-
-const CardFavorite = ({ id,title, rating , removeVote }) => {
-
+const CardFavorite = ({ id, title, rating, removeVote }) => {
+  const navigation = useNavigation();
 
   return (
-    <View
+    <TouchableOpacity
       style={{
         height: 62,
         width: "100%",
@@ -26,6 +27,12 @@ const CardFavorite = ({ id,title, rating , removeVote }) => {
         elevation: 5,
         backgroundColor: "white",
       }}
+      onPress={() => {
+        axios.post(`https://c10-51-ft.up.railway.app/cart/creator?idUser=4`);
+        navigation.navigate("Restaurant", {
+          restaurantId: id,
+        });
+      }}
     >
       <View style={{}}>
         <Text>{title}</Text>
@@ -34,10 +41,13 @@ const CardFavorite = ({ id,title, rating , removeVote }) => {
           <Text>{rating}</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.buttonCart} onPress={() => removeVote(id)}>
+      <TouchableOpacity
+        style={styles.buttonCart}
+        onPress={() => removeVote(id)}
+      >
         <HeartSvg width={16} height={16} fill="#00869F" isPressed />
       </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 };
 

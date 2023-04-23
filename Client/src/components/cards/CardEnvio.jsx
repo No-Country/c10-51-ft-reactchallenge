@@ -4,6 +4,7 @@ import { RelojSvg, EstrellaSvg } from "../svgs/Svgs";
 
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 
 const CardEnvio = ({ title, address, image, deliverTime, score ,id}) => {
   const navigation = useNavigation();
@@ -12,6 +13,7 @@ const CardEnvio = ({ title, address, image, deliverTime, score ,id}) => {
     <TouchableOpacity
       style={styles.container}
       onPress={() => {
+        axios.post(`https://c10-51-ft.up.railway.app/cart/creator?idUser=4`)
         navigation.navigate("Restaurant", {
           restaurantId: id,
         });

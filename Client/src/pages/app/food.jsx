@@ -34,14 +34,9 @@ const Food = () => {
 
     const [count, setCount] = React.useState(1);
   
-    const incrementCount = () => {
-      setCount(count + 1);
-    };
-  
-    const decrementCount = () => {
-      setCount(count - 1);
-    };
-  const navigation = useNavigation();
+  function addToCart(foodId) {
+    axios.put(`https://c10-51-ft.up.railway.app/cart/add?idUser=4&idFood=${foodId}`).then(() => Alert.alert("Comida agregada al carrito!"))
+  }
 
   return (
     <ScrollView >
@@ -76,12 +71,12 @@ const Food = () => {
           style={{
             fontFamily: "Poppins-SemiBold",
             paddingHorizontal: 16,
-            fontSize: 16,
+            fontSize: 24,
             marginTop: 29,
             marginBottom: 24,
           }}
         >
-          Agregale a tu combo
+          ${food.price}
         </Text>
 
         <View
@@ -101,22 +96,21 @@ const Food = () => {
           style={{
             flexDirection: "row",
             alignItems: "center",
-            justifyContent: "space-between",
+            justifyContent: "center",
             marginHorizontal: 16,
             marginTop: 20,
           }}
         >
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <View>
+          {/*<View style={{ flexDirection: "row", alignItems: "center" }}>
+           <View>
       <Text>Unidades: {count}</Text>
       <Button style={{backgroundColor: "#006477"}} title="+" onPress={incrementCount} />
       <Button title="-" onPress={decrementCount} />
-    </View>
-          </View>
+    </View> 
+          </View>*/}
 
-          <BtnPrimaryColLargee text={count} onPress={() =>
-          {Alert.alert("Comida agregada al carrito!")
-          navigation.navigate("Cart")
+          <BtnPrimaryColLargee text="Agregar al carrito" onPress={() =>{
+            addToCart(foodId)
           }
         }/>
         </View>

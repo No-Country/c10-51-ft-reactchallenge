@@ -22,7 +22,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.botapetite.nocountrydeliveryfood"
+      "package": "com.botapetite.nocountrydeliveryfood",
+      "buildType": "apk"
     },
     "web": {
       "favicon": "./assets/favicon.png"
