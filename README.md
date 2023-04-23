@@ -1,2 +1,2 @@
 # c10-51-ft-reactchallenge
-delivery fast food with react native
+Esta app está basada en compras de comida por delivery , nos facilitaría la compra de productos gastronómicos con la mayor rapidez posible , sin moverte de tu casa y con múltiples opciones de pedido , cuenta con registro e inicio de sesión para crear tu usuario , llevar un registro de tus compras y elegir múltiples métodos de pago para realizar la compra , con su filtro de categorías obtendrás resultados al instante de la comida que desees esa noche con amigos.
