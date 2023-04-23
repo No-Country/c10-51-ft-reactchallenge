@@ -33,7 +33,7 @@ const Cart = () => {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const cards = await axios.get(`http://deliveryback-production.up.railway.app/users/1`);
+        const cards = await axios.get(`https://c10-51-ft.up.railway.app/users/4`);
         setCards(cards.data.targets);
       } catch (error) {
         console.error(error);
@@ -45,8 +45,8 @@ const Cart = () => {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const userProfile = await axios.get(`http://deliveryback-production.up.railway.app/users/1`);
-        const order = await axios.get(`http://deliveryback-production.up.railway.app/order/?idUser=1`); //Aca traigo las ordenes del usuario
+        const userProfile = await axios.get(`https://c10-51-ft.up.railway.app/users/4`);
+        const order = await axios.get(`https://c10-51-ft.up.railway.app/order/?idUser=4`); //Aca traigo las ordenes del usuario
         setUserData(userProfile.data);
         setOrder(order.data);
 
@@ -55,7 +55,7 @@ const Cart = () => {
 
         for (let i = 0; i < foods.length; i++) {
           const foodId = foods[i].id; // Obtiene el ID de la comida actual
-          const food = await axios.get(`http://deliveryback-production.up.railway.app/food/${foodId}`); // Hace una solicitud a la URL de la comida para obtener su información
+          const food = await axios.get(`https://c10-51-ft.up.railway.app/food/${foodId}`); // Hace una solicitud a la URL de la comida para obtener su información
           const price = food.data.price; // Obtiene el precio de la comida
           const foodObj = { name: foods[i].name, price: price };
           foodList.push(foodObj);

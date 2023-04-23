@@ -13,7 +13,7 @@ export default function Profile() {
 
 async  function removeVote(id) {
     Alert.alert("Quitaste el restaurante de tus favoritos!");
-    await axios.put(`http://deliveryback-production.up.railway.app/users/noFavorite?idUser=1&idRest=${id}`);
+    await axios.put(`https://c10-51-ft.up.railway.app/users/noFavorite?idUser=4&idRest=${id}`);
     setVotedRemoved(!votedRemoved);
   }
 
@@ -22,8 +22,8 @@ async  function removeVote(id) {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const userProfile = await axios.get(`http://deliveryback-production.up.railway.app/users/1`);
-        const rests = await axios.get(`http://deliveryback-production.up.railway.app/rest`);
+        const userProfile = await axios.get(`https://c10-51-ft.up.railway.app/users/4`);
+        const rests = await axios.get(`https://c10-51-ft.up.railway.app/rest`);
         setUserData(userProfile.data);
         setFavorites(rests.data.filter((rest) => {
           

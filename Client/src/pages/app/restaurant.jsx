@@ -15,7 +15,7 @@ const Restaurant = () => {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-      const restaurant = await axios.get(`http://deliveryback-production.up.railway.app/rest/${restaurantId}`);
+      const restaurant = await axios.get(`https://c10-51-ft.up.railway.app/rest/${restaurantId}`);
       setRestaurants(restaurant.data)
       
       } catch (error) {

@@ -41,20 +41,20 @@ function Home() {
     const fetchData = async () => {
       try {
         const restaurants = await axios.get(
-          `http://deliveryback-production.up.railway.app/rest${
+          `https://c10-51-ft.up.railway.app/rest${
             categoryName === "" ? "" : `/?category=${categoryName}`
           }`
         );
         const food = await axios.get(
-          `http://deliveryback-production.up.railway.app/food${
+          `https://c10-51-ft.up.railway.app/food${
             categoryName === "" ? "" : `/?category=${categoryName}`
           }`
         );
-        const categories = await axios.get(`http://deliveryback-production.up.railway.app/food/categories`);
-        const promos = await axios.get(`http://deliveryback-production.up.railway.app/food`);
+        const categories = await axios.get(`https://c10-51-ft.up.railway.app/food/categories`);
+        const promos = await axios.get(`https://c10-51-ft.up.railway.app/food`);
         if (inputValue != "") {
           const search = await axios.get(
-            `http://deliveryback-production.up.railway.app/search/${inputValue}`
+            `https://c10-51-ft.up.railway.app/search/${inputValue}`
           );
           // aqui se guardan los restaurantes filtrados por la busqueda , ya que search es solo un arreglo de comidas filtradas
           const filteredRestaurants = search.data.reduce((acc, cur) => {
@@ -68,7 +68,7 @@ function Home() {
           setDataRestaurants(filteredRestaurants);
           /* setDataRestaurants(restaurants.data.filter((rest) => )); */
         }
-        const favorites = await axios.get(`http://deliveryback-production.up.railway.app/users/1`);
+        const favorites = await axios.get(`https://c10-51-ft.up.railway.app/users/4`);
         setDataRestaurants(restaurants.data);
         setDataFood(food.data);
         setDataCategories(categories.data);
@@ -89,22 +89,22 @@ function Home() {
       if(isVoted){
         Alert.alert("Este restaurante ya no esta en tus favoritos!");
         await axios.put(
-          `http://deliveryback-production.up.railway.app/users/noFavorite?idUser=1&idRest=${id}`
+          `https://c10-51-ft.up.railway.app/users/noFavorite?idUser=4&idRest=${id}`
         );
         const [restaurants, favorites] = await Promise.all([
-          axios.get(`http://deliveryback-production.up.railway.app/rest`),
-          axios.get(`http://deliveryback-production.up.railway.app/users/1`),
+          axios.get(`https://c10-51-ft.up.railway.app/rest`),
+          axios.get(`https://c10-51-ft.up.railway.app/users/4`),
         ]);
         setDataRestaurants(restaurants.data);
         setFavorites(favorites.data.favorites);
       }else{
         Alert.alert("Agregaste este restaurante a tus favoritos!");
         await axios.put(
-          `http://deliveryback-production.up.railway.app/users/updateFavorites?idUser=1&idRest=${id}`
+          `https://c10-51-ft.up.railway.app/users/updateFavorites?idUser=4&idRest=${id}`
         );
         const [restaurants, favorites] = await Promise.all([
-          axios.get(`http://deliveryback-production.up.railway.app/rest`),
-          axios.get(`http://deliveryback-production.up.railway.app/users/1`),
+          axios.get(`https://c10-51-ft.up.railway.app/rest`),
+          axios.get(`https://c10-51-ft.up.railway.app/users/4`),
         ]);
         setDataRestaurants(restaurants.data);
         setFavorites(favorites.data.favorites);
