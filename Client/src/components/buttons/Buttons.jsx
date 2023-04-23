@@ -88,7 +88,7 @@ export function BtnPrimaryColLargee(props) {
 			}}
 		>
 			<Text style={{ ...styles.textBtn, color: "#f1f1f1" }}>
-				{text === 1 ? "$1200" : "$2400"}
+				{text}
 			</Text>
 		</TouchableOpacity>
 	);

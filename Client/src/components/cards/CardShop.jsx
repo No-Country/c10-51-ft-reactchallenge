@@ -10,6 +10,7 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { CartSvg, HeartSvg } from "../svgs/Svgs";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 
 export default function CardShop({
   title,
@@ -23,6 +24,10 @@ export default function CardShop({
 
   const navigation = useNavigation();
 
+  function addToCart(foodId) {
+    axios.put(`https://c10-51-ft.up.railway.app/cart/add?idUser=4&idFood=${foodId}`).then(() => Alert.alert("Comida agregada al carrito!"))
+  }
+
   return (
     <TouchableOpacity
       style={styles.container}
@@ -32,6 +37,7 @@ export default function CardShop({
             foodId: id,
           });
         } else {
+          axios.post(`https://c10-51-ft.up.railway.app/cart/creator?idUser=4`)
           navigation.navigate("Restaurant", {
             restaurantId: id,
           });
@@ -50,7 +56,7 @@ export default function CardShop({
 
         {type === "food" ? (
           <TouchableOpacity style={styles.buttonCart} onPress={() => {
-            Alert.alert("Producto agregado al carrito✅");
+            addToCart(id)
           }}>
             <CartSvg width={12} height={12} />
           </TouchableOpacity>

@@ -2,6 +2,7 @@ import React from 'react';
 import {Text, View, StyleSheet, ImageBackground,TouchableOpacity} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 
 const CardPromocion = ({id,title,description,image}) => {
@@ -10,7 +11,10 @@ const CardPromocion = ({id,title,description,image}) => {
 
     return (
       <TouchableOpacity style={styles.container}
-        onPress={() => navigation.navigate('Food',{foodId:id})}
+        onPress={() => {
+            axios.post(`https://c10-51-ft.up.railway.app/cart/creator?idUser=4`)
+            navigation.navigate('Food',{foodId:id})}
+        }
       >
       <ImageBackground source={{uri:image}} style={styles.backgroundImg}>
 

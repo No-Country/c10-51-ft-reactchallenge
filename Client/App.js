@@ -13,11 +13,9 @@ import HomeScreen from './src/pages/app/index';
 import Pay from './src/pages/app/pay';
 import Profile from './src/pages/app/profile';
 import React, { useEffect, useState } from 'react';
-import SplashScreen from 'expo-splash-screen';
 import Search from './src/pages/app/search';
 import Cart from './src/pages/app/cart';
 import { StatusBar } from 'expo-status-bar';
-import RestaurantContainer from './src/pages/app/restaurantContainer';
 import Restaurant from './src/pages/app/restaurant';
 import Food from './src/pages/app/food';
 import Splash from './src/pages/SplashScreen';
@@ -26,6 +24,8 @@ import Restaurants from './src/pages/app/restaurants';
 const StackIni = createStackNavigator();
 //context
 import { LoginContext } from './context/loginContext';
+
+
 
 
 function StackNavIni() {
@@ -53,7 +53,12 @@ function StackNavIni() {
 
 // navigation app
 const Stack = createStackNavigator();
+
+
+
 function StackNavApp() {
+
+
   return (
     <>
       <StatusBar/>
@@ -149,7 +154,9 @@ export default function App() {
     'Poppins-ExtraBold': require('./assets/fonts/Poppins-ExtraBold.ttf'),
     'Poppins-ExtraLight': require('./assets/fonts/Poppins-ExtraLight.ttf'),
   });
-  
+
+
+
   const [login, setLogin] = useState(true);
   function logFunction() {
     setLogin(true);

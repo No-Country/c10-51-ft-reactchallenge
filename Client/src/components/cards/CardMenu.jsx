@@ -3,6 +3,7 @@ import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
 import { RelojSvg, EstrellaSvg, PesosSvg } from "../svgs/Svgs";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 
 const CardMenu = ({ title, price, score, deliverTime, image ,id}) => {
   const navigation = useNavigation();
@@ -11,6 +12,7 @@ const CardMenu = ({ title, price, score, deliverTime, image ,id}) => {
     <TouchableOpacity
       style={styles.container}
       onPress={() => {
+        axios.post(`https://c10-51-ft.up.railway.app/cart/creator?idUser=4`)
         navigation.navigate("Food", {
           foodId: id,
         });
