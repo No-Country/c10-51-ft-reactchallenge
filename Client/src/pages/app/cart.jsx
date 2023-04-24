@@ -5,8 +5,6 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  TextInput,
-  Alert,
 } from "react-native";
 import axios from "axios";
 import {
@@ -19,55 +17,42 @@ import AddComboButton from "../../components/buttons/AddComboButton";
 import { BtnPrimaryCol } from "../../components/buttons/Buttons";
 import CreditCard from "../../components/cards/CreditCard";
 import CardDeliveryDetail from "../../components/cards/CardDeliveryDetail";
-import json from "../../../data.json";
 import { useNavigation } from "@react-navigation/native";
+import { useIsFocused } from '@react-navigation/native';
 
 const Cart = () => {
   const [userData, setUserData] = React.useState([]);
-  const [order, setOrder] = React.useState([]); //Aca guardo las ordenes del usuario
-  const [foodList, setFoodList] = React.useState([]);
+  const [cart, setCart] = React.useState([]);
   const [subtotal, setSubtotal] = React.useState(0);
-  const total = subtotal + 150;
+  const [envio, setEnvio] = React.useState(0);
+  const total = subtotal + envio;
   const [cards, setCards] = useState([]);
+  const isFocused = useIsFocused();
 
-  React.useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const cards = await axios.get(`https://c10-51-ft.up.railway.app/users/4`);
-        setCards(cards.data.targets);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchData();
-  }, []);
 
   React.useEffect(() => {
     const fetchData = async () => {
       try {
         const userProfile = await axios.get(`https://c10-51-ft.up.railway.app/users/4`);
-        const order = await axios.get(`https://c10-51-ft.up.railway.app/order/?idUser=4`); //Aca traigo las ordenes del usuario
         setUserData(userProfile.data);
-        setOrder(order.data);
+        setCards(userProfile.data.targets);
 
-        const foods = order.data[0].food; // Accede al array de comida de la primera orden
-        const foodList = [];
+        const cart = await axios.get(`https://c10-51-ft.up.railway.app/cart/4`);
+        setCart(cart.data);
+        //Obtengo el precio de cada comida y lo sumo
+        let subtotal = 0;
 
-        for (let i = 0; i < foods.length; i++) {
-          const foodId = foods[i].id; // Obtiene el ID de la comida actual
-          const food = await axios.get(`https://c10-51-ft.up.railway.app/food/${foodId}`); // Hace una solicitud a la URL de la comida para obtener su información
-          const price = food.data.price; // Obtiene el precio de la comida
-          const foodObj = { name: foods[i].name, price: price };
-          foodList.push(foodObj);
+        for (let i = 0; i < cart.data[0].cartIn.length; i++) {
+          subtotal += cart.data[0].cartIn[i].price;
         }
+        setSubtotal(subtotal);
 
-        setFoodList(foodList);
-
-        const subtotalPrice = foodList.reduce(
-          (acc, curr) => acc + curr.price,
-          0
-        );
-        setSubtotal(subtotalPrice);
+        //Obtengo costo envio
+        let idRestaurant = cart.data[0].cartIn[0].restaurants[0].id;
+        if (idRestaurant) {
+          const response = await axios.get(`https://c10-51-ft.up.railway.app/rest/${idRestaurant}`);
+          setEnvio(response.data.shipping)
+        }
       } catch (error) {
         console.error(error);
       }
@@ -75,22 +60,20 @@ const Cart = () => {
     fetchData();
   }, []);
 
+  React.useEffect(() => {
+    return () => {
+      if (!isFocused) {
+        axios.delete(`https://c10-51-ft.up.railway.app/cart/restart/4`).catch((error) => {
+          console.error(error);
+        });
+      }
+    };
+  }, [isFocused]);
+
   const [selectDomicilio, setSelectDomicilio] = React.useState(
     "Seleccionar domicilio"
   );
   const [isClicked, setIsClicked] = React.useState(false);
-
-  //Cupon
-  const [cupon, setCupon] = useState("");
-
-  const handleCuponChange = (cupon) => {
-    setCupon(cupon);
-  };
-
-  const handleCuponSubmit = () => {
-    // Aca se valida si esta el cupon en la base de datos
-    Alert.alert("Cupón aplicado con éxito");
-  };
 
   //Steps
   const [step, setStep] = useState(1);
@@ -100,7 +83,9 @@ const Cart = () => {
   //Elegir metodo de pago (1Tarjeta, 2Efectivo)
   const [metodoPago, setMetodoPago] = useState(1);
   return (
+
     <View style={{ marginTop: 32, flex: 1, backgroundColor: "white" }}>
+
       {step !== 3 && (
         <View style={styles.header}>
           <Text
@@ -115,209 +100,208 @@ const Cart = () => {
           <CartSvg width={"24"} height={"24"} />
         </View>
       )}
-      <ScrollView style={styles.container}>
-        {step === 1 ? (
-          <View style={{ padding: 16 }}>
-            <View style={styles.dropdown}>
-              <TouchableOpacity
-                style={styles.dropdownSelector}
-                onPress={() => {
-                  setIsClicked(!isClicked);
-                }}
-              >
-                <Text>{selectDomicilio}</Text>
-                {isClicked ? (
-                  <ArrowSvg
-                    width={21}
-                    height={21}
-                    rotating={0}
-                    fill="#514E4E"
-                  />
-                ) : (
-                  <ArrowSvg
-                    width={21}
-                    height={21}
-                    rotating={180}
-                    fill="#514E4E"
-                  />
-                )}
-              </TouchableOpacity>
-              {isClicked ? (
-                <View style={styles.dropdownArea}>
-                  <TouchableOpacity
-                    style={styles.domicilios}
-                    onPress={() => {
-                      setSelectDomicilio(userData.address);
 
-                      setIsClicked(false);
+      <ScrollView style={styles.container}>
+        {cart.length === 0 ? (
+          <Text style={styles.emptyCart}>El carrito está vacío</Text>
+        ) : (
+          <>
+            {step === 1 ? (
+              <View style={{ padding: 16 }}>
+                <View style={styles.dropdown}>
+                  <TouchableOpacity
+                    style={styles.dropdownSelector}
+                    onPress={() => {
+                      setIsClicked(!isClicked);
                     }}
                   >
-                    <Text>{userData.address}</Text>
+                    <Text>{selectDomicilio}</Text>
+                    {isClicked ? (
+                      <ArrowSvg
+                        width={21}
+                        height={21}
+                        rotating={0}
+                        fill="#514E4E"
+                      />
+                    ) : (
+                      <ArrowSvg
+                        width={21}
+                        height={21}
+                        rotating={180}
+                        fill="#514E4E"
+                      />
+                    )}
+                  </TouchableOpacity>
+                  {isClicked ? (
+                    <View style={styles.dropdownArea}>
+                      <TouchableOpacity
+                        style={styles.domicilios}
+                        onPress={() => {
+                          setSelectDomicilio(userData.address);
+
+                          setIsClicked(false);
+                        }}
+                      >
+                        <Text>{userData.address}</Text>
+                      </TouchableOpacity>
+                    </View>
+                  ) : null}
+                </View>
+                <Text style={{ marginTop: 16 }}>Productos</Text>
+                <View style={styles.buttonsContainer}>
+                  {Object.values(
+                    cart.reduce((uniqueFoods, cartItem) => {
+                      cartItem.cartIn.forEach((food) => {
+                        if (!uniqueFoods[food.id]) {
+                          food.cant = 1;
+                          uniqueFoods[food.id] = food;
+                        } else {
+                          uniqueFoods[food.id].cant++;
+                        }
+                      });
+                      return uniqueFoods;
+                    }, {})
+                  ).map((food) => (
+                    <AddComboButton
+                      id={food.id}
+                      title={food.name}
+                      img={food.img}
+                      price={food.price}
+                      cant={food.cant}
+                    />
+                  ))}
+                </View>
+
+
+                <View style={styles.resumeContainer}>
+                  <View style={styles.resumeLine}>
+                    <Text>Subtotal</Text>
+                    <Text>${subtotal}</Text>
+                  </View>
+                  <View style={styles.resumeLine}>
+                    <Text>Envio</Text>
+                    <Text>${envio}</Text>
+                  </View>
+                  <View style={styles.resumeLine}>
+                    <Text>Total</Text>
+                    <Text>${total}</Text>
+                  </View>
+                </View>
+                <View style={styles.separator} />
+              </View>
+            ) : step === 2 ? (
+              <View style={{ padding: 16 }}>
+                <Text style={{ marginTop: 16, marginBottom: 16, fontWeight: 500 }}>
+                  Elegir metodo de pago
+                </Text>
+                <View
+                  style={{ flexDirection: "row", justifyContent: "space-evenly" }}
+                >
+                  <TouchableOpacity
+                    style={[
+                      styles.paymentButton,
+                      metodoPago === 1 && styles.selectedPaymentButton,
+                    ]}
+                    onPress={() => setMetodoPago(1)}
+                  >
+                    <Text>Tarjeta</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[
+                      styles.paymentButton,
+                      metodoPago === 2 && styles.selectedPaymentButton,
+                    ]}
+                    onPress={() => setMetodoPago(2)}
+                  >
+                    <Text>Efectivo</Text>
                   </TouchableOpacity>
                 </View>
-              ) : null}
-            </View>
-            <Text style={{ marginTop: 16 }}>Productos</Text>
-            <View style={styles.buttonsContainer}>
-              {json.prueba.map((food) => (
-                <AddComboButton
-                  key={food.id}
-                  title={food.nombre}
-                  price={food.precio}
-                  img={food.imagen}
-                />
-              ))}
-            </View>
-
-            <TouchableOpacity
-              style={{
-                borderColor: "#009F86",
-                borderWidth: 1,
-                borderRadius: 30,
-                padding: 10,
-                marginTop: 10,
-                marginBottom: 10,
-                alignItems: "center",
-                width: "50%",
-                alignSelf: "center",
-              }}
-            >
-              <Text style={{ color: "#009F86" }}>Agregar Productos</Text>
-            </TouchableOpacity>
-            <View>
-              <TextInput
-                placeholder="Ingresa el cupón de descuento"
-                value={cupon}
-                onChangeText={handleCuponChange}
-                style={styles.input}
-              />
-            </View>
-            <View style={styles.resumeContainer}>
-              <View style={styles.resumeLine}>
-                <Text>Subtotal</Text>
-                <Text>$2400</Text>
-              </View>
-              <View style={styles.resumeLine}>
-                <Text>Envio</Text>
-                <Text>$150</Text>
-              </View>
-              <View style={styles.resumeLine}>
-                <Text>Total</Text>
-                <Text>$2550</Text>
-              </View>
-            </View>
-            <View style={styles.separator} />
-          </View>
-        ) : step === 2 ? (
-          <View style={{ padding: 16 }}>
-            <Text style={{ marginTop: 16, marginBottom: 16, fontWeight: 500 }}>
-              Elegir metodo de pago
-            </Text>
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-evenly" }}
-            >
-              <TouchableOpacity
-                style={[
-                  styles.paymentButton,
-                  metodoPago === 1 && styles.selectedPaymentButton,
-                ]}
-                onPress={() => setMetodoPago(1)}
-              >
-                <Text>Tarjeta</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.paymentButton,
-                  metodoPago === 2 && styles.selectedPaymentButton,
-                ]}
-                onPress={() => setMetodoPago(2)}
-              >
-                <Text>Efectivo</Text>
-              </TouchableOpacity>
-            </View>
-            {
-              // Si el metodo de pago es 1, se muestra la tarjeta
-              metodoPago === 1 && (
-                <View style={{ flexDirection: "row" }}>
-                  <ScrollView
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                  >
-                    {cards?.map((card) => (
-                      <CreditCard
-                        key={card.number}
-                        name={card.name}
-                        expiryDate={card.exp}
-                      />
-                    ))}
-                    <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate("Pay")}>
-                      <View style={{ flexDirection: "column", gap: 10 }}>
-                        <Text style={styles.addButtonText}>
-                          Añadir nueva tarjeta
-                        </Text>
-                        <View style={styles.circle}>
-                          <Text style={{ color: "white" }}>+</Text>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-                  </ScrollView>
+                {
+                  // Si el metodo de pago es 1, se muestra la tarjeta
+                  metodoPago === 1 && (
+                    <View style={{ flexDirection: "row" }}>
+                      <ScrollView
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                      >
+                        {cards?.map((card) => (
+                          <CreditCard
+                            key={card.number}
+                            name={card.name}
+                            expiryDate={card.exp}
+                          />
+                        ))}
+                        <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate("Pay")}>
+                          <View style={{ flexDirection: "column", gap: 10 }}>
+                            <Text style={styles.addButtonText}>
+                              Añadir nueva tarjeta
+                            </Text>
+                            <View style={styles.circle}>
+                              <Text style={{ color: "white" }}>+</Text>
+                            </View>
+                          </View>
+                        </TouchableOpacity>
+                      </ScrollView>
+                    </View>
+                  )
+                }
+                <Text style={{ marginTop: 16, marginBottom: 16 }}>
+                  Detalle de la entrega
+                </Text>
+                <CardDeliveryDetail domicilio="Calle 123, Ciudad" />
+                <View style={styles.resumeContainer}>
+                  <View style={styles.resumeLine}>
+                    <Text>Productos</Text>
+                    <Text>${subtotal}</Text>
+                  </View>
+                  <View style={styles.resumeLine}>
+                    <Text>Envio</Text>
+                    <Text>${envio}</Text>
+                  </View>
+                  <View style={styles.separator} />
+                  <View style={styles.resumeLine}>
+                    <Text>Total</Text>
+                    <Text style={{ fontWeight: 500 }}>${total}</Text>
+                  </View>
                 </View>
-              )
-            }
-            <Text style={{ marginTop: 16, marginBottom: 16 }}>
-              Detalle de la entrega
-            </Text>
-            <CardDeliveryDetail domicilio="Calle 123, Ciudad" />
-            <View style={styles.resumeContainer}>
-              <View style={styles.resumeLine}>
-                <Text>Productos</Text>
-                <Text>$2400</Text>
               </View>
-              <View style={styles.resumeLine}>
-                <Text>Envio</Text>
-                <Text>$150</Text>
+            ) : (
+              <View
+                style={{
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                  height: "120%",
+                }}
+              >
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: 30,
+                    color: "#34A853",
+                    marginBottom: 16,
+                  }}
+                >
+                  Pedido realizado
+                </Text>
+                <VectorCheck width={150} height={150} />
+                <DesingCart />
               </View>
-              <View style={styles.separator} />
-              <View style={styles.resumeLine}>
-                <Text>Total</Text>
-                <Text style={{ fontWeight: 500 }}>$2550</Text>
+            )}
+            {step !== 3 && (
+              <View style={{ width: "50%", alignSelf: "center", marginBottom: 16 }}>
+                <BtnPrimaryCol
+                  text={step === 2 ? "Pagar" : "Siguiente"}
+                  onPress={() => {
+                    setStep(step + 1);
+
+                  }}
+                  style={step === 2 ? { width: "100%" } : null}
+                />
               </View>
-            </View>
-          </View>
-        ) : (
-          <View
-            style={{
-              justifyContent: "flex-end",
-              alignItems: "center",
-              height: "120%",
-            }}
-          >
-            <Text
-              style={{
-                fontWeight: "bold",
-                fontSize: 30,
-                color: "#34A853",
-                marginBottom: 16,
-              }}
-            >
-              Pedido realizado
-            </Text>
-            <VectorCheck width={150} height={150} />
-            <DesingCart />
-          </View>
+            )}
+          </>
         )}
-        {step !== 3 && (
-          <View style={{ width: "50%", alignSelf: "center", marginBottom: 16 }}>
-            <BtnPrimaryCol
-              text={step === 2 ? "Pagar" : "Siguiente"}
-              onPress={() => {
-                setStep(step + 1);
-               
-              }}
-              style={step === 2 ? { width: "100%" } : null}
-            />
-          </View>
-        )}
+
       </ScrollView>
     </View>
   );
@@ -436,6 +420,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginLeft: 10,
     alignSelf: "center",
+  },
+  emptyCart: {
+    marginTop: 100,
+    alignSelf: "center",
+    justifySelf: "center",
   },
 });
 
